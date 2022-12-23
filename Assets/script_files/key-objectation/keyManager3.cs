@@ -122,8 +122,8 @@ public class keyManager3 : MonoBehaviour
 
                 if (pr == "center")
                 {
-                    ux = (xx / maxx - (float)0.5) * (float)5;
-                    uy = (yy / maxy - (float)0.5) * (float)6 - (float)0.5;
+                    ux = (xx / maxx - (float)0.5) * (float)0.01;
+                    uy = (yy / maxy - (float)0.5) * (float)0.01;
                 }else if(pr == "right")
                 {
                     ux = (xx / maxx - (float)0.65) * (float)5.8;
@@ -140,6 +140,9 @@ public class keyManager3 : MonoBehaviour
             }
 
         }
+
+
+
 
         if (Time.time <= 3)
         {

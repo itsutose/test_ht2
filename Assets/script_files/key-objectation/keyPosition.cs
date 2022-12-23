@@ -28,7 +28,7 @@ public class keyPosition : MonoBehaviour
                 }
 
                 GameObject key = keylist[i, j];
-                Vector3 keyPos = key.transform.position;
+                Vector3 keyPos = key.transform.localPosition;
                 Vector3 keyScale = key.transform.localScale;
 
                 keyScale.x = keySizeX;
@@ -86,7 +86,7 @@ public class keyPosition : MonoBehaviour
                 //    keyPos.x = -((keyGap + keySizeX) * (float)1.5);
                 //}
 
-                key.transform.position = keyPos;
+                key.transform.localPosition = keyPos;
             }
         }
     }

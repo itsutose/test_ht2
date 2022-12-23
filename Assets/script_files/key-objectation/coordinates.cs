@@ -7,32 +7,34 @@ using System;
 
 using UnityEngine.UI;  // 追加しましょう
 
-public class coordinates
+public static class coordinates
 {
-    public ServerManager server;
-    public string pr = "center";
-    public float feed_back_time = 0;
-    public int out_range_times = 50;
-
-    // キーボード入力時のフィードバックとか文字入力関係
-    private float ux, uy;
-    private float maxx = 1900, maxy = 1072; // 横（x）は良さそう
+    public static ServerManager server;
+    public static string pr = "center";
+    public static int out_range_times = 50;
 
     // serverから座標とかをうけとる
-    private string andpos;
-    private string now_time = "00:00:00.000", last_time = "00:00:00.000";
-    private int same_times_count = 0;
+    // 主にandroidからのデータの処理に用いる
+    static string andpos;
+    static string now_time = "00:00:00.000", last_time = "00:00:00.000";
+    static int same_times_count = 0;
 
-    private Boolean preonoff = false;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    static float maxx = 1900, maxy = 1072; // 横（x）は良さそう
+
+    // 他のスクリプトからのアクセスに対しての返す変数
+    static float ux, uy;
+    static Boolean onoff = false;
+    static Boolean onrunning = false;
+
+    //// Start is called before the first frame update
+    //void Start()
+    //{
+
+    //}
 
     // Update is called once per frame
-    void Update()
+    static void Update()
     {
         if (server != null)
         {
@@ -60,26 +62,29 @@ public class coordinates
                     //    up_touch(true);
                     //}
 
+                    onrunning = false;
+
                     return;
 
                 }
                 else
                 {
                     //sphere.SetActive(true);
+                    onrunning = true;
                 }
 
                 //Material mat1 = sphere.GetComponent<Renderer>().material;
 
-                //if (result[0] == "0")
-                //{
-                //    mat1.color = Color.blue;
-                //    onoff = false;
-                //}
-                //else if (result[0] == "1")
-                //{
-                //    mat1.color = Color.red;
-                //    onoff = true;
-                //}
+                if (result[0] == "0")
+                {
+                    //mat1.color = Color.blue;
+                    onoff = false;
+                }
+                else if (result[0] == "1")
+                {
+                    //mat1.color = Color.red;
+                    onoff = true;
+                }
 
 
                 float xx = Convert.ToSingle(result[1]);
@@ -112,10 +117,9 @@ public class coordinates
         }
     }
 
-    bool count_times(string nt, string lt)
+    static bool count_times(string nt, string lt)
     {
 
-        Debug.Log(same_times_count);
         if (nt == lt)
         {
             same_times_count += 1;
@@ -132,4 +136,24 @@ public class coordinates
 
         return false;
     }
+
+    //public bool getOnoff()
+    //{
+    //    return onoff;
+    //}
+
+    //public bool getOnrunning()
+    //{
+    //    return onrunning;
+    //}
+
+    //public float getUX()
+    //{
+    //    return ux;
+    //}
+
+    //public float getUY()
+    //{
+    //    return uy;
+    //}
 }
