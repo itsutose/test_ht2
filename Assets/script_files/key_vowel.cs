@@ -11,7 +11,6 @@ public class key_vowel : MonoBehaviour
     //public GameObject thiskey;
     //public static key instance;
     public TextMeshProUGUI textobject;
-    //public GameObject a0, a1, a2, a3, a4;
 
     private float cx, cy; // keyÇÃíÜêSÇÃà íu
     private float lx, ly; // keyÇÃxâ°ÅCyèc
@@ -29,17 +28,7 @@ public class key_vowel : MonoBehaviour
         lx = obj.localScale.x;
         ly = obj.localScale.y;
 
-        Debug.Log("key name  " + textobject.text + " cx :" + cx + " cy :" + cy + " lx :" + ly + " ly :" + ly);
-        //Debug.Log("cx :" + cx + " cy :" + cy + " lx :" + ly + " ly :" + ly);
     }
-
-    //// Update is called once per frame
-    //void Update()
-    //{
-
-    //}
-
-    //public bool isin(float ux, float uy, bool onoff)
 
     public bool isin(float ux, float uy)
     {

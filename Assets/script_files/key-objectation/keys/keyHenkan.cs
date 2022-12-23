@@ -8,7 +8,7 @@ using UnityEngine.UI;  // 追加しましょう
 public class keyHenkan : key2
 {
     //public TextMeshProUGUI textobject;
-    public GameObject a0, a1, a3;
+    public GameObject a0;
 
     //private float cx, cy; // keyの中心の位置
     //private float lx, ly; // keyのx横，y縦
@@ -33,34 +33,36 @@ public class keyHenkan : key2
     {
         //Debug.Log("到達している");
         a0.SetActive(true);
-        a1.SetActive(true);
-        a3.SetActive(true);
+        //a1.SetActive(true);
+        //a3.SetActive(true);
     }
 
     // 母音キーを消す（解放時）
     public override void in_visible_key()
     {
         a0.SetActive(false);
-        a1.SetActive(false);
-        a3.SetActive(false);
+        //a1.SetActive(false);
+        //a3.SetActive(false);
     }
 
     public override void takecolor(Color color, int aa)
     {
         Material mat;
 
-        if (aa == 0)
-        {
-            mat = a0.GetComponent<Renderer>().material;
-        }
-        else if (aa == 1)
-        {
-            mat = a1.GetComponent<Renderer>().material;
-        }
-        else
-        {
-            mat = a3.GetComponent<Renderer>().material;
-        }
+        mat = a0.GetComponent<Renderer>().material;
+
+        //if (aa == 0)
+        //{
+        //    mat = a0.GetComponent<Renderer>().material;
+        //}
+        //else if (aa == 1)
+        //{
+        //    mat = a1.GetComponent<Renderer>().material;
+        //}
+        //else
+        //{
+        //    mat = a3.GetComponent<Renderer>().material;
+        //}
         mat.color = color;
     }
 
@@ -68,18 +70,20 @@ public class keyHenkan : key2
     {
         Material mat;
 
-        if (aa == 0)
-        {
-            mat = a0.GetComponent<Renderer>().material;
-        }
-        else if (aa == 1)
-        {
-            mat = a1.GetComponent<Renderer>().material;
-        }
-        else
-        {
-            mat = a3.GetComponent<Renderer>().material;
-        }
+        mat = a0.GetComponent<Renderer>().material;
+
+        //if (aa == 0)
+        //{
+        //    mat = a0.GetComponent<Renderer>().material;
+        //}
+        //else if (aa == 1)
+        //{
+        //    mat = a1.GetComponent<Renderer>().material;
+        //}
+        //else
+        //{
+        //    mat = a3.GetComponent<Renderer>().material;
+        //}
 
         mat.color = Color.white;
     }
@@ -105,15 +109,15 @@ public class keyHenkan : key2
 
 
         }
-        else if (aa == 1)
-        {
-            last_word = '壱';
-            //a1.GetComponent<key_vowel>().thistext();
-        }
-        else
-        {
-            last_word = '弐';
-        }
+        //else if (aa == 1)
+        //{
+        //    last_word = '壱';
+        //    //a1.GetComponent<key_vowel>().thistext();
+        //}
+        //else
+        //{
+        //    last_word = '弐';
+        //}
 
         return s + last_word;
     }
@@ -125,9 +129,10 @@ public class keyHenkan : key2
         char[,] g1 = { { 'か', 'が' }, { 'き', 'ぎ' }, { 'く', 'ぐ' }, { 'け', 'げ' }, { 'こ', 'ご' },
                         { 'さ', 'ざ' }, { 'し', 'じ' }, { 'す', 'ず' }, { 'せ', 'ぜ' }, { 'そ', 'ぞ' },
                         { 'た', 'だ' }, { 'ち', 'ぢ' }, { 'て', 'で' }, { 'と', 'ど' },
-                        { 'や', 'ゃ' }, { 'ゆ', 'ゅ' }, { 'よ', 'ょ' }, { 'う', 'ゔ' } };
+                        { 'や', 'ゃ' }, { 'ゆ', 'ゅ' }, { 'よ', 'ょ' }, 
+                        { 'あ', 'ぁ' }, { 'い', 'ぃ' }, { 'え', 'ぇ' }, { 'お', 'ぉ' } };
 
-        char[,] g2 = { { 'は', 'ば', 'ぱ' }, { 'ひ', 'び', 'ぴ' }, { 'ふ', 'ぶ', 'ぷ' }, { 'へ', 'べ', 'ぺ' }, { 'ほ', 'ぼ', 'ぽ' }, { 'つ', 'っ', 'づ' } };
+        char[,] g2 = { { 'は', 'ば', 'ぱ' }, { 'ひ', 'び', 'ぴ' }, { 'ふ', 'ぶ', 'ぷ' }, { 'へ', 'べ', 'ぺ' }, { 'ほ', 'ぼ', 'ぽ' }, { 'つ', 'っ', 'づ' }, { 'う', 'ぅ', 'ヴ' } };
 
         if (x == 0)
         {
@@ -138,7 +143,7 @@ public class keyHenkan : key2
             //{
             //    output_word = elem{0};
 
-            for(int i = 0; i < 18; i++) 
+            for(int i = 0; i < 21; i++) 
             {
                 if (g1[i, 0] == c)
                 {
@@ -149,7 +154,7 @@ public class keyHenkan : key2
                     output_word = g1[i, 0];
                 }
             }
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < 7; i++)
             {
                 if (g2[i, 0] == c)
                 {

@@ -36,6 +36,6 @@ public class keyEnter : key2
 
     public override string takeword(int aa, string ss)
     {
-        return ss + " ";
+        return "";
     }
 }

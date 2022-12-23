@@ -8,9 +8,7 @@ using UnityEngine.UI;  // 追加しましょう
 
 public class key2 : MonoBehaviour
 {
-
     public TextMeshProUGUI textobject;
-
     protected float cx, cy; // keyの中心の位置
     protected float lx, ly; // keyのx横，y縦
 
@@ -28,6 +26,7 @@ public class key2 : MonoBehaviour
         }
         return false;
     }
+
     // range関数
     protected bool range(float a, float b, float c)
     {
@@ -47,7 +46,6 @@ public class key2 : MonoBehaviour
         string ss = "null";
 
         return ss;
-        //return textobject.text;
     }
 
     // 母音キーを表示（押下時）

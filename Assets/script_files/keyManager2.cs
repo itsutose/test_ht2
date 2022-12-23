@@ -121,10 +121,6 @@ public class keyManager2 : MonoBehaviour
                 nowkey.GetComponent<key>().rmcolor(son);
                 nowkey.GetComponent<key>().in_visible_key();
 
-                //// êFÇÇ‡Ç∆Ç…ñﬂÇ∑
-                //priorkey.GetComponent<key>().rmcolor();
-                //nowkey.GetComponent<key>().rmcolor();
-
                 nowkey = null;
 
             }
@@ -248,29 +244,22 @@ public class keyManager2 : MonoBehaviour
             {
 
                 nowkey = key;
-                //nowkey.GetComponent<key>().takecolor();
 
                 if (feed_back_time == 0)
                 {
                     nowkey.GetComponent<key>().visible_key();
-                }else
+                }
+                else
                 {
                     Invoke("invoke", feed_back_time);
                 }
 
-                //if (priorkey != key && priorkey != null)
-                //{
-                //    priorkey.GetComponent<key>().rmcolor();
-                //}
                 if (priorkey != null)
                 {
                     priorkey.GetComponent<key>().rmcolor();
                 }
-                
-                
                 continue;
             }
-
         }
     }
 
