@@ -13,7 +13,8 @@ public class keyManager3 : MonoBehaviour
     // sphereのunityにおける座標を取得する．
     // これは MovePointer でも行われているが，
     // 別のスクリプトに頼るのは少し心もとない，
-    public ServerManager server;
+    public coordinates coords;
+
     public Boolean color_feedback = true;
     public Boolean sphere_feedback = true;
   
@@ -21,7 +22,6 @@ public class keyManager3 : MonoBehaviour
 
     public TextMeshProUGUI textobject;
     public float feed_back_time = 0;
-    public int out_range_times = 50;
 
     public GameObject a, k, s, t, n, h, m, y, r, w, hen, backspace, space, point, enter;
     key keyscript;
@@ -33,25 +33,15 @@ public class keyManager3 : MonoBehaviour
     private GameObject
         nowkey = null, // 押下されている子音キー
         priorkey = null; // 一つ前のキー（色の変化時に用いる）
-    private bool onoff = false;
+    private bool onoff = false,onrunning = false;
     private int son = 0;
     private string keep_word = null;
-    private float maxx = 1900, maxy = 1072; // 横（x）は良さそう
-
-    // serverから座標とかをうけとる
-    private string andpos;
-    private string now_time = "00:00:00.000", last_time = "00:00:00.000";
-    private int same_times_count = 0;
 
     private Boolean preonoff = false;
-    
-    public GameObject sphere;
 
     // Start is called before the first frame update
     void Start()
     {
-        ux = sphere.transform.position.x;
-        uy = sphere.transform.position.y;
 
         keylist = new GameObject[] { a, k, s, t, n, h, m, y, r, w, hen, backspace, space, point, enter};
 
@@ -61,88 +51,21 @@ public class keyManager3 : MonoBehaviour
     void Update()
     {
 
-        if (server != null)
+        ux = coords.getUX();
+        uy = coords.getUY();
+        onoff = coords.getOnoff();
+        onrunning = coords.getOnrunning();
+
+        if (nowkey != null && onrunning == false)
         {
-            andpos = server.get_coordinates();
-            if (andpos != null)
-            {
-
-                string[] result = Regex.Split(andpos, " ");
-
-                Debug.Log(andpos);
-
-                if (result.Length != 5)
-                {
-                    return;
-                }
-
-                last_time = now_time;
-                now_time = result[4];
-
-                // 信号が一定時間送られなかったとき
-                if (count_times(now_time, last_time) == true)
-                {
-                    sphere.SetActive(false);
-
-                    //Debug.Log("");
-
-                    if (nowkey != null)
-                    {
-                        up_touch(true);
-                    }
-
-                    return;
-
-                }
-                else
-                {
-                    sphere.SetActive(true);
-                }
-
-                Material mat1 = sphere.GetComponent<Renderer>().material;
-
-                if (result[0] == "0")
-                {
-                    mat1.color = Color.blue;
-                    onoff = false;
-                }
-                else if (result[0] == "1")
-                {
-                    mat1.color = Color.red;
-                    onoff = true;
-                }
-
-
-                float xx = Convert.ToSingle(result[1]);
-                float yy = Convert.ToSingle(result[2]);
-
-                // x : 倍率3.5でちょうど画面いっぱいでキーボードを網羅する ((x / maxx) - (float)0.5) * (float)3.5;
-                // y : 右式でちょうど画面いっぱいでキーボードを網羅する  (y / maxy - (float)0.5) * (float)5 - (float)0.5; 
-                //ux = (xx / maxx - (float)0.3) * (float)6;
-
-                if (pr == "center")
-                {
-                    ux = (xx / maxx - (float)0.5) * (float)0.01;
-                    uy = (yy / maxy - (float)0.5) * (float)0.01;
-                }else if(pr == "right")
-                {
-                    ux = (xx / maxx - (float)0.65) * (float)5.8;
-                    uy = (yy / maxy - (float)0.5) * (float)6 - (float)0.5;
-                }
-                // ローカル座標を基準に、座標を取得
-                Vector3 localPos = sphere.transform.localPosition;
-
-                localPos.x = ux;
-                localPos.y = uy;
-
-                sphere.transform.localPosition = localPos;
-
-            }
-
+            up_touch(true);
+            return;
         }
 
-
-
+        if(onrunning == false)
+        {
+            return;
+        }
 
         if (Time.time <= 3)
         {
@@ -152,14 +75,6 @@ public class keyManager3 : MonoBehaviour
 
         if (sphere_feedback == true)
         {
-            
-            last_time = now_time;
-
-            if (Time.time <= 3)
-            {
-                Debug.Log("<=3");
-                return;
-            }
 
             if (onoff == true)
             {
@@ -406,26 +321,5 @@ public class keyManager3 : MonoBehaviour
         {
             return false;
         }
-    }
-
-    bool count_times(string nt, string lt)
-    {
-
-        Debug.Log(same_times_count);
-        if (nt == lt)
-        {
-            same_times_count += 1;
-            if (same_times_count >= out_range_times)
-            {
-                return true;
-            }
-        }
-        else
-        {
-
-            same_times_count = 0;
-        }
-
-        return false;
     }
 }

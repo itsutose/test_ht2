@@ -1,6 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using System.Text.RegularExpressions;
+using System;
+using UnityEngine.UI; 
 
 public class keyPosition : MonoBehaviour
 {
@@ -10,13 +14,22 @@ public class keyPosition : MonoBehaviour
     public float keySizeX = (float)0.02, keySizeY = (float)0.015;
     public float keyGap = (float)0.005;
 
+    public TextMeshProUGUI textx,texty,textratio;
+
     private GameObject dummy = null;
+    private float ratio = 1;
 
     // Start is called before the first frame update
     void Start()
     {
         
         GameObject[,] keylist = { { a, k, s, backspace}, { t, n, h, space}, { m, y, r, enter}, { hen, w, point, dummy}};
+
+        textx.text += (keySizeX * 4 + keyGap * 3).ToString();
+        texty.text += (keySizeY * 4 + keyGap * 3).ToString();
+
+        ratio = (keySizeX * 4 + keyGap * 3) / (keySizeY * 4 + keyGap * 3);
+        textratio.text += ratio.ToString();
 
         for (int i = 0; i< 4; i++)
         {
@@ -95,5 +108,10 @@ public class keyPosition : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public float getRatio()
+    {
+        return ratio;
     }
 }
