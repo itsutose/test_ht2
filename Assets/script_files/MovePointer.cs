@@ -43,6 +43,7 @@ public class MovePointer : MonoBehaviour
         if (coords.getOnrunning() == true)
         {
             Debug.Log("MovePointer gets coords :" + coords.getUX());
+           
         }
     }
 

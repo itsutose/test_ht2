@@ -9,12 +9,19 @@ using UnityEngine.UI;  // 追加しましょう
 public class key2 : MonoBehaviour
 {
     public TextMeshProUGUI textobject;
+    public textSet textset;
+
     protected float cx, cy; // keyの中心の位置
     protected float lx, ly; // keyのx横，y縦
+
+    protected float ux, uy;
 
     // ux, uy がキーの範囲内にあるか
     public bool isin(float ux, float uy)
     {
+        this.ux = ux;
+        this.uy = uy;
+
         float minx = cx - lx / 2;
         float maxx = cx + lx / 2;
         float miny = cy - ly / 2;
@@ -97,6 +104,17 @@ public class key2 : MonoBehaviour
     {
 
     }
+
+    public virtual void InputWordtoCSV(char word)
+    {
+
+    }
+
+    //protected void InputWordtoCSV(string word)
+    //{
+    //    //textset.NextText();
+    //    textset.InputWord(word, this.ux, this.uy);
+    //}
 
     public float get_cx()
     {

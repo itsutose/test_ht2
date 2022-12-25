@@ -14,6 +14,7 @@ public class coordinates : MonoBehaviour
     public GameObject sphere;
     public string pr = "center";
     public int out_range_times = 50;
+    public float magnification = 1;
 
     // serverから座標とかをうけとる
     // 主にandroidからのデータの処理に用いる
@@ -22,13 +23,15 @@ public class coordinates : MonoBehaviour
     int same_times_count = 0;
 
 
-    float maxx = 1900, maxy = 1072; // 横（x）は良さそう
+    float sizex = 1900, sizey = 1072; // 横（x）は良さそう
 
     // 他のスクリプトからのアクセスに対しての返す変数
     float ux = 0, uy = 0;
     Boolean onoff = false;
     Boolean onrunning = false;
     private float ratio = 1;
+
+    private float maxx = -100, maxy = -100, minx = 100, miny = 100;
 
     //// Start is called before the first frame update
     //void Start()
@@ -70,11 +73,6 @@ public class coordinates : MonoBehaviour
                 {
                     sphere.SetActive(false);
 
-                    //if (nowkey != null)
-                    //{
-                    //    up_touch(true);
-                    //}
-
                     onrunning = false;
 
                     return;
@@ -99,11 +97,38 @@ public class coordinates : MonoBehaviour
                     onoff = true;
                 }
 
-                Debug.Log("coordinates has onoff : "+onoff);
+                //Debug.Log("coordinates has onoff : "+onoff);
 
 
                 float xx = Convert.ToSingle(result[1]);
                 float yy = Convert.ToSingle(result[2]);
+
+
+                /////// 大きさを測るよう
+
+                //if (xx > maxx)
+                //{
+                //    maxx = xx;
+                //}
+
+                //if (xx < minx)
+                //{
+                //    minx = xx;
+                //}
+
+                //if (yy > maxy)
+                //{
+                //    maxy = yy;
+                //}
+
+                //if (yy < miny)
+                //{
+                //    miny = yy;
+                //}
+
+                //Debug.Log("minx : " + minx + ", maxx :" + maxx);
+
+                ///////
 
                 // x : 倍率3.5でちょうど画面いっぱいでキーボードを網羅する ((x / maxx) - (float)0.5) * (float)3.5;
                 // y : 右式でちょうど画面いっぱいでキーボードを網羅する  (y / maxy - (float)0.5) * (float)5 - (float)0.5; 
@@ -111,8 +136,8 @@ public class coordinates : MonoBehaviour
 
                 if (pr == "center")
                 {
-                    ux = (xx / maxx - (float)0.5) * 2 * (float)0.0375 * (maxx/maxy);
-                    uy = (yy / maxy - (float)0.5) * 2 * (float)0.0375;
+                    ux = (xx / sizex - (float)0.5) * 2 * (float)0.0375 * (sizex/sizey)*magnification;
+                    uy = (yy / sizey - (float)0.5) * 2 * (float)0.0375 * magnification;
                 }
                 else if (pr == "right")
                 {
@@ -173,3 +198,8 @@ public class coordinates : MonoBehaviour
         return uy;
     }
 }
+
+//Vector3(0.133418843, 0.00100000005, 0.00100000005)
+//Vector3(0.00100000005, 0.0745102614, 0.00100000005)
+//Vector3(0.00100000005, 0.0745102614, 0.00100000005)
+//Vector3(0.133418843, 0.00100000005, 0.00100000005)

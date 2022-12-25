@@ -42,4 +42,9 @@ public class keySpace : key2
     {        
         return ss + " ";
     }
+
+    public override void InputWordtoCSV(char word)
+    {
+        textset.InputWord('S', this.ux, this.uy);
+    }
 }

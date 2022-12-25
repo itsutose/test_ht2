@@ -61,4 +61,9 @@ public class keyBackSpace : key2
 
         return word;
     }
+
+    public override void InputWordtoCSV(char word)
+    {
+        textset.InputWord('D', this.ux, this.uy);
+    }
 }

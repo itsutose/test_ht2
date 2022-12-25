@@ -119,4 +119,8 @@ public class keyUnder : key2
         return ss + word;
     }
 
+    public override void InputWordtoCSV(char word)
+    {
+        textset.InputWord(word, this.ux, this.uy);
+    }
 }

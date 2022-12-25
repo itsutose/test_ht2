@@ -13,6 +13,7 @@ public class keyHenkan : key2
     //private float cx, cy; // keyの中心の位置
     //private float lx, ly; // keyのx横，y縦
 
+    private char output_word;
 
     // Start is called before the first frame update
     void Start()
@@ -105,9 +106,6 @@ public class keyHenkan : key2
         {
             //word = a0.GetComponent<key_vowel>().thistext();
             last_word = henkan(last_word, 0);
-            //last_word = '零';
-
-
         }
         //else if (aa == 1)
         //{
@@ -124,7 +122,7 @@ public class keyHenkan : key2
 
     private char henkan(char c, int x)
     {
-        char output_word = c;
+        output_word = c;
 
         char[,] g1 = { { 'か', 'が' }, { 'き', 'ぎ' }, { 'く', 'ぐ' }, { 'け', 'げ' }, { 'こ', 'ご' },
                         { 'さ', 'ざ' }, { 'し', 'じ' }, { 'す', 'ず' }, { 'せ', 'ぜ' }, { 'そ', 'ぞ' },
@@ -137,7 +135,7 @@ public class keyHenkan : key2
         if (x == 0)
         {
 
-            Debug.Log(g1[0, 0]);
+            //Debug.Log(g1[0, 0]);
             //output_word = g1[1, 1];
             //foreach (char[] elem in g1)
             //{
@@ -187,5 +185,10 @@ public class keyHenkan : key2
             output_word = '×';
         }
         return output_word;
+    }
+
+    public override void InputWordtoCSV(char word)
+    {
+        textset.InputWord(output_word, this.ux, this.uy);
     }
 }

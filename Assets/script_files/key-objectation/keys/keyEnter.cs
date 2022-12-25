@@ -36,6 +36,11 @@ public class keyEnter : key2
 
     public override string takeword(int aa, string ss)
     {
-        return "";
+        return ss;
+    }
+
+    public override void InputWordtoCSV(char word)
+    {
+        textset.NextText('E', this.ux, this.uy);
     }
 }

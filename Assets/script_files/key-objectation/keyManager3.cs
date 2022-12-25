@@ -4,8 +4,7 @@ using UnityEngine;
 using TMPro;
 using System.Text.RegularExpressions;
 using System;
-
-using UnityEngine.UI;  // 追加しましょう
+using UnityEngine.UI;
 
 public class keyManager3 : MonoBehaviour
 {
@@ -14,6 +13,7 @@ public class keyManager3 : MonoBehaviour
     // これは MovePointer でも行われているが，
     // 別のスクリプトに頼るのは少し心もとない，
     public coordinates coords;
+    //public textSet textset;
 
     public Boolean color_feedback = true;
     public Boolean sphere_feedback = true;
@@ -36,6 +36,7 @@ public class keyManager3 : MonoBehaviour
     private bool onoff = false,onrunning = false;
     private int son = 0;
     private string keep_word = null;
+    //private string word = null;
 
     private Boolean preonoff = false;
 
@@ -84,6 +85,7 @@ public class keyManager3 : MonoBehaviour
                 if (nowkey == null)
                 {
                     set_touch();
+
                 }
                 else
                 {
@@ -135,6 +137,8 @@ public class keyManager3 : MonoBehaviour
                     {
                         up_touch(true);
                     }
+
+                    //textset.NextText();
 
                     preonoff = false;
 
@@ -259,7 +263,6 @@ public class keyManager3 : MonoBehaviour
             {
 
                 nowkey = key;
-                //nowkey.GetComponent<key>().takecolor();
 
                 if (feed_back_time == 0)
                 {
@@ -299,14 +302,21 @@ public class keyManager3 : MonoBehaviour
             // 指を離すとき，場所領域に応じて文字入力を完了
             textobject.text = keep_word;
 
+            int s_leng = keep_word.Length;
+            if (s_leng >= 1)
+            {
+                char last_word = keep_word[s_leng - 1];
+                nowkey.GetComponent<key2>().InputWordtoCSV(last_word);
+            }
+
+
             // 母音キーの非表示化
             nowkey.GetComponent<key2>().rmcolor(son);
             nowkey.GetComponent<key2>().in_visible_key();
-
-            //// 色をもとに戻す
-            //priorkey.GetComponent<key>().rmcolor();
-            //nowkey.GetComponent<key>().rmcolor();
         }
+
+
+
         nowkey = null;
 
     }

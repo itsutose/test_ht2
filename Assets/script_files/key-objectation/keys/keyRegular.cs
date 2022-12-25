@@ -10,9 +10,6 @@ public class keyRegular : key2
     //public TextMeshProUGUI textobject;
     public GameObject a0, a1, a2, a3, a4;
 
-    //private float cx, cy; // keyÇÃíÜêSÇÃà íu
-    //private float lx, ly; // keyÇÃxâ°ÅCyèc
-
     // Start is called before the first frame update
     void Start()
     {
@@ -130,7 +127,14 @@ public class keyRegular : key2
             word = a4.GetComponent<key_vowel>().thistext();
         }
 
+        //InputWordtoCSV(word);
+
         return ss + word;
+    }
+
+    public override void InputWordtoCSV(char word)
+    {
+        textset.InputWord(word, this.ux, this.uy);
     }
 
 }
