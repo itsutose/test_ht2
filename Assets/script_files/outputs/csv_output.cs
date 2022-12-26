@@ -82,6 +82,18 @@ public class csv_output : MonoBehaviour
 
     }
 
+    void Update()
+    {
+
+        //エンターキーが入力された場合「true」
+        if (Input.GetKey(KeyCode.Space))
+        {
+            //オブジェクトを削除
+            sw.WriteLine("interrupt");
+            UnityEditor.EditorApplication.isPlaying = false;
+        }
+    }
+
     //public void KeyInputSave(string id, string InputType, string distance, string phrase, string word, string detectedKey, string ux, string uy)
     public void KeyInputSave(string phrase, char word, float ux, float uy)
     {

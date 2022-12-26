@@ -13,6 +13,7 @@ public class textSet : MonoBehaviour
     public TextMeshProUGUI ExampleText;
     public TextMeshProUGUI textobject;
     public csv_output csvOP;
+    public int until = 26;
 
     private int i = 0;
     private Boolean isFirst = true;
@@ -149,7 +150,7 @@ public class textSet : MonoBehaviour
             ExampleText.text = i.ToString() + ". " + practice[i, 0] + "\n" + practice[i, 1];
             textobject.text = "";
 
-            if (i == 3)
+            if (until == i)
             {
                 csvOP.csvClose();
             }
@@ -158,7 +159,7 @@ public class textSet : MonoBehaviour
             if (i >= practice.Length / 2)
             {
                 ExampleText.text = "END";
-                textobject.text = "";
+                //textobject.text = "";
 
                 csvOP.csvClose();
                 return;

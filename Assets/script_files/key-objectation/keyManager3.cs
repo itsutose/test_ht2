@@ -24,8 +24,6 @@ public class keyManager3 : MonoBehaviour
     public float feed_back_time = 0;
 
     public GameObject a, k, s, t, n, h, m, y, r, w, hen, backspace, space, point, enter;
-    key keyscript;
-
     
     // キーボード入力時のフィードバックとか文字入力関係
     private float ux, uy;
@@ -40,11 +38,26 @@ public class keyManager3 : MonoBehaviour
 
     private Boolean preonoff = false;
 
+    private float xKeySize, yKeySize;
+
     // Start is called before the first frame update
     void Start()
     {
 
-        keylist = new GameObject[] { a, k, s, t, n, h, m, y, r, w, hen, backspace, space, point, enter};
+        keylist = new GameObject[] { a, k, s, t, n, h, m, y, r, w, hen, enter, backspace, space, point};
+
+        float ncx = n.GetComponent<key2>().get_cx();
+        float ncy = n.GetComponent<key2>().get_cy();
+
+        float hcx = h.GetComponent<key2>().get_cx();
+        float hcy = h.GetComponent<key2>().get_cy();
+
+        float ycx = y.GetComponent<key2>().get_cx();
+        float ycy = y.GetComponent<key2>().get_cy();
+
+        xKeySize = hcx - ncx;
+        yKeySize = ncy - ycy;
+
 
     }
 
