@@ -128,8 +128,10 @@ public class textSet : MonoBehaviour
         //ExampleText.text = i.ToString() +  ". "+ practice[i,0] + "\n" + practice[i,1];
 
         //i += 1;
+        Debug.Log(string.Format("textSet.NextText : {0}",Time.time));
+        
         string phrase = practice[i, 1];
-
+        
         if (isFirst == true)
         {
             //phrase = practice[i, 1];

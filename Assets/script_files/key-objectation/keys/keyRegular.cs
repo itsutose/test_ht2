@@ -28,7 +28,6 @@ public class keyRegular : key2
     public override void visible_key()
     {
         // ‚±‚ê‚ªŒÄ‚Ño‚³‚ê‚é‚Æ‚«Conoff == true && prior == null
-        //Debug.Log("“’B‚µ‚Ä‚¢‚é");
         a0.SetActive(true);
         a1.SetActive(true);
         a2.SetActive(true);
@@ -127,8 +126,6 @@ public class keyRegular : key2
             word = a4.GetComponent<key_vowel>().thistext();
         }
 
-        //InputWordtoCSV(word);
-
         return ss + word;
     }
 
@@ -137,4 +134,23 @@ public class keyRegular : key2
         textset.InputWord(word, this.ux, this.uy);
     }
 
+    //public override float get_cx()
+    //{
+    //    return cx;
+    //}
+
+    //public override float get_cy()
+    //{
+    //    return cy;
+    //}
+
+    //public override float get_lx()
+    //{
+    //    return lx;
+    //}
+
+    //public override float get_ly()
+    //{
+    //    return ly;
+    //}
 }

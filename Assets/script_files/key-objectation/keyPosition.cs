@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class keyPosition : MonoBehaviour
 {
-    public GameObject a, k, s, t, n, h, m, y, r, w, hen, backspace, space, point, enter;
+    public GameObject a, k, s, t, n, h, m, y, r, w, hen, backspace, space, point, enter, dummy;
     public float centerX = 0, centerY = 0;
     //public float OffsetX = 0, OffsetY = 0;
     public float keySizeX = (float)0.02, keySizeY = (float)0.015;
@@ -16,11 +16,11 @@ public class keyPosition : MonoBehaviour
 
     public TextMeshProUGUI textx,texty,textratio;
 
-    private GameObject dummy = null;
+    //private GameObject dummy = null;
     private float ratio = 1;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         
         GameObject[,] keylist = { { a, k, s, backspace}, { t, n, h, space}, { m, y, r, enter}, { hen, w, point, dummy}};
@@ -35,7 +35,8 @@ public class keyPosition : MonoBehaviour
         {
             for(int j = 0; j < 4; j++)
             {
-                if (i == 3 && j == 3)
+
+                if (i == 3 && j == 3 && dummy == null)
                 {
                     continue;
                 }

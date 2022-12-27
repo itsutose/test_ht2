@@ -23,14 +23,17 @@ public class keyManager3 : MonoBehaviour
     public TextMeshProUGUI textobject;
     public float feed_back_time = 0;
 
-    public GameObject a, k, s, t, n, h, m, y, r, w, hen, backspace, space, point, enter;
+    public GameObject a, k, s, t, n, h, m, y, r, w, hen, backspace, space, point, enter, dummy;
     
     // キーボード入力時のフィードバックとか文字入力関係
     private float ux, uy;
     private GameObject[] keylist;
+    private GameObject[,] keylist2;
+
     private GameObject
         nowkey = null, // 押下されている子音キー
         priorkey = null; // 一つ前のキー（色の変化時に用いる）
+ 
     private bool onoff = false,onrunning = false;
     private int son = 0;
     private string keep_word = null;
@@ -44,7 +47,8 @@ public class keyManager3 : MonoBehaviour
     void Start()
     {
 
-        keylist = new GameObject[] { a, k, s, t, n, h, m, y, r, w, hen, enter, backspace, space, point};
+        keylist = new GameObject[] { a, k, s, t, n, h, m, y, r, w, hen, backspace, space,  enter,point, dummy};
+        keylist2 = new GameObject[,] { { a, t, m, hen }, { k, n, y, w }, {s, h, r, point},{backspace, space, enter, dummy} };
 
         float ncx = n.GetComponent<key2>().get_cx();
         float ncy = n.GetComponent<key2>().get_cy();
@@ -58,17 +62,36 @@ public class keyManager3 : MonoBehaviour
         xKeySize = hcx - ncx;
         yKeySize = ncy - ycy;
 
-
+        //Debug.Log(string.Format("ncx : {0}, hcx : {1}", ncx, hcx));
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (Time.time <= 0.2 && Time.time > 0)
+        {
+            float ncx = n.GetComponent<key2>().get_cx();
+            float ncy = n.GetComponent<key2>().get_cy();
+
+            float hcx = h.GetComponent<key2>().get_cx();
+            float hcy = h.GetComponent<key2>().get_cy();
+
+            float ycx = y.GetComponent<key2>().get_cx();
+            float ycy = y.GetComponent<key2>().get_cy();
+
+            xKeySize = hcx - ncx;
+            yKeySize = ncy - ycy;
+
+            //Debug.Log(string.Format("ncx : {0}, hcx : {1}", ncx, hcx));
+        }
 
         ux = coords.getUX();
         uy = coords.getUY();
         onoff = coords.getOnoff();
         onrunning = coords.getOnrunning();
+
+        //Debug.Log(string.Format("xKeySize : {0}, yKeySize : {1}", xKeySize, yKeySize));
+        //Debug.Log(string.Format("ux / xKeySize : {0}, uy / yKeySize : {1}", ux / xKeySize, uy / yKeySize));
 
         if (nowkey != null && onrunning == false)
         {
@@ -81,9 +104,9 @@ public class keyManager3 : MonoBehaviour
             return;
         }
 
-        if (Time.time <= 3)
+        if (Time.time <= 1)
         {
-            Debug.Log("<=3");
+            //Debug.Log("<=3");
             return;
         }
 
@@ -93,6 +116,7 @@ public class keyManager3 : MonoBehaviour
             if (onoff == true)
             {
                 // タッチ中
+                // 1フレーム前まで離れていた指をonとする
                 preonoff = true;
 
                 if (nowkey == null)
@@ -133,12 +157,11 @@ public class keyManager3 : MonoBehaviour
                                 priorkey.GetComponent<key2>().takecolor();
                             }
 
-
-                            continue;
+                            //Debug.Log("keyManager3 foreach keyを取得" + key.name);
+                            break;
                         }
-
                     }
-                }    // 指を離したとき
+                }    // 指を離したとき, 1フレーム前まではonなのでpreonoff == true
                 else
                 {
                     //nowkey = null;
@@ -165,6 +188,8 @@ public class keyManager3 : MonoBehaviour
     {
         float cx = nowkey.GetComponent<key2>().get_cx();
         float cy = nowkey.GetComponent<key2>().get_cy();
+
+        //Debug.Log(string.Format("touch_action : cx = {0}, cy = {1}", cx, cy));
 
         if (nowkey.GetComponent<key2>().isin(ux, uy) == true)
         {
@@ -327,8 +352,6 @@ public class keyManager3 : MonoBehaviour
             nowkey.GetComponent<key2>().rmcolor(son);
             nowkey.GetComponent<key2>().in_visible_key();
         }
-
-
 
         nowkey = null;
 

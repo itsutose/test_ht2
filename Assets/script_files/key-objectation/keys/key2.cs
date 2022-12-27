@@ -5,10 +5,9 @@ using TMPro;
 
 using UnityEngine.UI;  // í«â¡ÇµÇ‹ÇµÇÂÇ§
 
-
 public class key2 : MonoBehaviour
 {
-    public TextMeshProUGUI textobject;
+    //public TextMeshProUGUI textobject;
     public textSet textset;
 
     protected float cx, cy; // keyÇÃíÜêSÇÃà íu
@@ -29,6 +28,8 @@ public class key2 : MonoBehaviour
 
         if (range(ux, minx, maxx) && range(uy, miny, maxy))
         {
+
+            Debug.Log(string.Format("keyName: {0}, cx : {1}, cy : {2} ",name, cx,cy));
             return true;
         }
         return false;
