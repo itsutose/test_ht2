@@ -123,4 +123,24 @@ public class keyUnder : key2
     {
         textset.InputWord(word, this.ux, this.uy);
     }
+
+    //public override float get_cx()
+    //{
+    //    return cx;
+    //}
+
+    //public override float get_cy()
+    //{
+    //    return cy;
+    //}
+
+    //public override float get_lx()
+    //{
+    //    return lx;
+    //}
+
+    //public override float get_ly()
+    //{
+    //    return ly;
+    //}
 }

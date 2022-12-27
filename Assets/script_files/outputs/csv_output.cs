@@ -128,6 +128,7 @@ public class csv_output : MonoBehaviour
     //public void EnterSave(string id, string InputType, string distance, string phrase, string word, string detectedKey, string ux, string uy)
     public void EnterSave(string phrase, char word, float ux, float uy)
     {
+        Debug.Log(string.Format("Enter.Save : {0}", Time.time));
         float DeltaTime = Time.time - preTime;
 
         SumTime += DeltaTime;
