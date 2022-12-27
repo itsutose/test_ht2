@@ -1,16 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.IO;
-using System.Text;
-using System.Text.RegularExpressions;
-using System;
 using TMPro;
 
 using UnityEngine.UI;  // ’Ç‰Á‚µ‚Ü‚µ‚å‚¤
 
-public class keyEnter : key2
+
+public class keyDummy : key2
 {
+
     public GameObject a0;
 
     // Start is called before the first frame update
@@ -66,14 +64,12 @@ public class keyEnter : key2
 
     public override string takeword(int aa, string ss)
     {
-        return ss;
+        return ss + "D";
     }
 
     public override void InputWordtoCSV(char word)
     {
-        //Debug.Log(string.Format("keyEnter.InputWordtoCSV : {0}", Time.time));
-        Debug.Log("keyEnter.InputWordtoCSV : " + Time.time);
-        textset.NextText('E', this.ux, this.uy);
+        textset.InputWord('D', this.ux, this.uy);
     }
 
     //public override float get_cx()

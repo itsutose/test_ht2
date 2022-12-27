@@ -23,7 +23,7 @@ public class keyManager3 : MonoBehaviour
     public TextMeshProUGUI textobject;
     public float feed_back_time = 0;
 
-    public GameObject a, k, s, t, n, h, m, y, r, w, hen, backspace, space, point, enter;
+    public GameObject a, k, s, t, n, h, m, y, r, w, hen, backspace, space, point, enter, dummy;
     
     // キーボード入力時のフィードバックとか文字入力関係
     private float ux, uy;
@@ -32,8 +32,8 @@ public class keyManager3 : MonoBehaviour
 
     private GameObject
         nowkey = null, // 押下されている子音キー
-        priorkey = null, // 一つ前のキー（色の変化時に用いる）
-        dummy = null;
+        priorkey = null; // 一つ前のキー（色の変化時に用いる）
+ 
     private bool onoff = false,onrunning = false;
     private int son = 0;
     private string keep_word = null;
@@ -47,7 +47,7 @@ public class keyManager3 : MonoBehaviour
     void Start()
     {
 
-        keylist = new GameObject[] { a, k, s, t, n, h, m, y, r, w, hen, backspace, space, point, enter };
+        keylist = new GameObject[] { a, k, s, t, n, h, m, y, r, w, hen, backspace, space,  enter,point, dummy};
         keylist2 = new GameObject[,] { { a, t, m, hen }, { k, n, y, w }, {s, h, r, point},{backspace, space, enter, dummy} };
 
         float ncx = n.GetComponent<key2>().get_cx();
@@ -85,7 +85,6 @@ public class keyManager3 : MonoBehaviour
             //Debug.Log(string.Format("ncx : {0}, hcx : {1}", ncx, hcx));
         }
 
-
         ux = coords.getUX();
         uy = coords.getUY();
         onoff = coords.getOnoff();
@@ -117,6 +116,7 @@ public class keyManager3 : MonoBehaviour
             if (onoff == true)
             {
                 // タッチ中
+                // 1フレーム前まで離れていた指をonとする
                 preonoff = true;
 
                 if (nowkey == null)
@@ -157,12 +157,11 @@ public class keyManager3 : MonoBehaviour
                                 priorkey.GetComponent<key2>().takecolor();
                             }
 
-                            Debug.Log("keyManager3 foreach keyを取得" + key.name);
-                            continue;
+                            //Debug.Log("keyManager3 foreach keyを取得" + key.name);
+                            break;
                         }
-
                     }
-                }    // 指を離したとき
+                }    // 指を離したとき, 1フレーム前まではonなのでpreonoff == true
                 else
                 {
                     //nowkey = null;
@@ -353,8 +352,6 @@ public class keyManager3 : MonoBehaviour
             nowkey.GetComponent<key2>().rmcolor(son);
             nowkey.GetComponent<key2>().in_visible_key();
         }
-
-
 
         nowkey = null;
 

@@ -5,10 +5,9 @@ using TMPro;
 
 using UnityEngine.UI;  // ’Ç‰Á‚µ‚Ü‚µ‚å‚¤
 
-
 public class key2 : MonoBehaviour
 {
-    public TextMeshProUGUI textobject;
+    //public TextMeshProUGUI textobject;
     public textSet textset;
 
     protected float cx, cy; // key‚Ì’†S‚ÌˆÊ’u

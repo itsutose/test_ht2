@@ -49,20 +49,22 @@ public class keySpace : key2
 
     public override void takecolor(Color color, int aa)
     {
-        Material mat = this.GetComponent<Renderer>().material;
-        mat.color = Color.gray;
-        mat.color = new Color(0.75f, 0.75f, 0.6f, 1.0f);
+        Material mat;
+        mat = a0.GetComponent<Renderer>().material;
+        mat.color = color;
     }
 
     public override void rmcolor(int aa)
     {
-        Material mat = this.GetComponent<Renderer>().material;
+        Material mat;
+
+        mat = a0.GetComponent<Renderer>().material;
         mat.color = Color.white;
     }
 
     public override string takeword(int aa, string ss)
     {        
-        return ss + " ";
+        return ss + "S";
     }
 
     public override void InputWordtoCSV(char word)
