@@ -225,6 +225,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3053337137989686213, guid: b35333cad32b99d4388c5a99ee7f9346, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 64b2074034261d148b652ec17fd8ca97, type: 2}
     - target: {fileID: 3053337139108439757, guid: b35333cad32b99d4388c5a99ee7f9346, type: 3}
       propertyPath: m_text
       value: "\u3042"
@@ -2586,7 +2590,7 @@ MonoBehaviour:
   ExampleText: {fileID: 1414326898}
   textobject: {fileID: 1547484323}
   csvOP: {fileID: 1508191599}
-  until: 26
+  until: 27
 --- !u!4 &638275901
 Transform:
   m_ObjectHideFlags: 0
@@ -2833,6 +2837,10 @@ PrefabInstance:
     - target: {fileID: 3053337137989686210, guid: b35333cad32b99d4388c5a99ee7f9346, type: 3}
       propertyPath: m_Name
       value: dummy
+      objectReference: {fileID: 0}
+    - target: {fileID: 3053337137989686210, guid: b35333cad32b99d4388c5a99ee7f9346, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3053337137989686211, guid: b35333cad32b99d4388c5a99ee7f9346, type: 3}
       propertyPath: m_RootOrder
@@ -4247,7 +4255,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 64b5ad13992d2864b9d3a67aff462a6a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6386,7 +6394,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   folder_path: .\Assets\CSV_output
-  file_name: test7.csv
+  file_name: test9.csv
   _ID: 0
   _InputType: normal
   _Distance: 
@@ -7909,6 +7917,18 @@ MonoBehaviour:
   point: {fileID: 707410702}
   enter: {fileID: 1886455586}
   dummy: {fileID: 391929583}
+  ux: 0
+  uy: 0
+  keylist: []
+  nowkey: {fileID: 0}
+  priorkey: {fileID: 0}
+  onoff: 0
+  onrunning: 0
+  son: 0
+  keep_word: 
+  preonoff: 0
+  xKeySize: 0
+  yKeySize: 0
 --- !u!1 &1908965227
 GameObject:
   m_ObjectHideFlags: 0
@@ -8214,6 +8234,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textset: {fileID: 638275900}
+  all_delete: 0
   a0: {fileID: 65834591}
 --- !u!1001 &1947919838
 PrefabInstance:

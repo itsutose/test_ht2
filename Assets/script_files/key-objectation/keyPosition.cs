@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class keyPosition : MonoBehaviour
 {
-    public GameObject a, k, s, t, n, h, m, y, r, w, hen, backspace, space, point, enter, dummy;
+    public GameObject a, k, s, t, n, h, m, y, r, w, hen, backspace, space, point, enter, dummy = null;
     public float centerX = 0, centerY = 0;
     //public float OffsetX = 0, OffsetY = 0;
     public float keySizeX = (float)0.02, keySizeY = (float)0.015;

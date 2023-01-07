@@ -103,7 +103,7 @@ public class keyRegular : key2
 
     public override string takeword(int aa, string ss)
     {
-        string word;
+        string word = "nanimonasi";
 
         if (aa == 0)
         {
@@ -125,6 +125,7 @@ public class keyRegular : key2
         {
             word = a4.GetComponent<key_vowel>().thistext();
         }
+
 
         return ss + word;
     }

@@ -13,6 +13,8 @@ public class keyEnter : key2
 {
     public GameObject a0;
 
+    private int check = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -66,14 +68,18 @@ public class keyEnter : key2
 
     public override string takeword(int aa, string ss)
     {
+        check = aa;
         return ss;
     }
 
     public override void InputWordtoCSV(char word)
     {
-        //Debug.Log(string.Format("keyEnter.InputWordtoCSV : {0}", Time.time));
-        Debug.Log("keyEnter.InputWordtoCSV : " + Time.time);
-        textset.NextText('E', this.ux, this.uy);
+        if (check == 0)
+        {
+            //Debug.Log(string.Format("keyEnter.InputWordtoCSV : {0}", Time.time));
+            //Debug.Log("keyEnter.InputWordtoCSV : " + Time.time);
+            textset.NextText('E', this.ux, this.uy);
+        }
     }
 
     //public override float get_cx()

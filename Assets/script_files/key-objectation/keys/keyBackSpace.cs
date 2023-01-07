@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
 
 using UnityEngine.UI;  // ’Ç‰Á‚µ‚Ü‚µ‚å‚¤
 
 
 public class keyBackSpace : key2
 {
-
+    public Boolean all_delete = false;
     public GameObject a0;
 
     // Start is called before the first frame update
@@ -63,10 +64,9 @@ public class keyBackSpace : key2
 
     public override string takeword(int aa, string ss)
     {
-
         string word;
 
-        if (aa == 1)
+        if (aa == 1 && all_delete == true)
         {
             word = "";
         }

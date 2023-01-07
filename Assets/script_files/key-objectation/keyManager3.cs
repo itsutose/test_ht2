@@ -16,14 +16,14 @@ public class keyManager3 : MonoBehaviour
     //public textSet textset;
 
     public Boolean color_feedback = true;
-    public Boolean sphere_feedback = true;
+    public String KeyColor = "white";
   
     public string pr = "center";
 
     public TextMeshProUGUI textobject;
     public float feed_back_time = 0;
 
-    public GameObject a, k, s, t, n, h, m, y, r, w, hen, backspace, space, point, enter, dummy;
+    public GameObject a, k, s, t, n, h, m, y, r, w, hen, backspace, space, point, enter, dummy = null;
     
     // キーボード入力時のフィードバックとか文字入力関係
     private float ux, uy;
@@ -46,10 +46,15 @@ public class keyManager3 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
-        keylist = new GameObject[] { a, k, s, t, n, h, m, y, r, w, hen, backspace, space,  enter,point, dummy};
-        keylist2 = new GameObject[,] { { a, t, m, hen }, { k, n, y, w }, {s, h, r, point},{backspace, space, enter, dummy} };
-
+        if (dummy != null)
+        {
+            keylist = new GameObject[] { a, k, s, t, n, h, m, y, r, w, hen, backspace, space, enter, point, dummy };
+            keylist2 = new GameObject[,] { { a, t, m, hen }, { k, n, y, w }, { s, h, r, point }, { backspace, space, enter, dummy } };
+        }
+        else
+        {
+            keylist = new GameObject[] { a, k, s, t, n, h, m, y, r, w, hen, backspace, space, enter, point};
+        }
         float ncx = n.GetComponent<key2>().get_cx();
         float ncy = n.GetComponent<key2>().get_cy();
 
@@ -90,8 +95,6 @@ public class keyManager3 : MonoBehaviour
         onoff = coords.getOnoff();
         onrunning = coords.getOnrunning();
 
-        //Debug.Log(string.Format("xKeySize : {0}, yKeySize : {1}", xKeySize, yKeySize));
-        //Debug.Log(string.Format("ux / xKeySize : {0}, uy / yKeySize : {1}", ux / xKeySize, uy / yKeySize));
 
         if (nowkey != null && onrunning == false)
         {
@@ -106,79 +109,72 @@ public class keyManager3 : MonoBehaviour
 
         if (Time.time <= 1)
         {
-            //Debug.Log("<=3");
             return;
         }
 
-        if (sphere_feedback == true)
+
+        if (onoff == true)
         {
+            // タッチ中
+            // 1フレーム前まで離れていた指をonとする
+            preonoff = true;
 
-            if (onoff == true)
+            if (nowkey == null)
             {
-                // タッチ中
-                // 1フレーム前まで離れていた指をonとする
-                preonoff = true;
+                set_touch();
 
-                if (nowkey == null)
-                {
-                    set_touch();
-
-                }
-                else
-                {
-                    touch_action();
-                }
             }
             else
             {
-                // ホバー中
+                touch_action();
+            }
+        }
+        else
+        {
+            // ホバー中
 
 
-                // nowkeyは今押されている（若しくは，1 flame前まで押されていた）キー
-                if(preonoff == false)
+            // nowkeyは今押されている（若しくは，1 flame前まで押されていた）キー
+            if(preonoff == false)
+            {
+
+                foreach (GameObject key in keylist)
                 {
-
-                    foreach (GameObject key in keylist)
+                    // 指座標がキー領域内にあるかどうか，なければ次のキーを探す
+                    if (key.GetComponent<key2>().isin(ux, uy) == true)
                     {
-                        // 指座標がキー領域内にあるかどうか，なければ次のキーを探す
-                        if (key.GetComponent<key2>().isin(ux, uy) == true)
+                        // priorkeyがkey（現在のkey）ではない
+                        // && priorkeyのnull判定をしないとnull参照する
+                        if (priorkey != key && priorkey != null)
                         {
-                            // priorkeyがkey（現在のkey）ではない
-                            // && priorkeyのnull判定をしないとnull参照する
-                            if (priorkey != key && priorkey != null)
-                            {
-                                priorkey.GetComponent<key2>().rmcolor();
-                            }
-
-                            priorkey = key;
-
-                            if (color_feedback == true)
-                            {
-                                priorkey.GetComponent<key2>().takecolor();
-                            }
-
-                            //Debug.Log("keyManager3 foreach keyを取得" + key.name);
-                            break;
+                            priorkey.GetComponent<key2>().rmcolor();
                         }
+
+                        priorkey = key;
+
+                        if (color_feedback == true)
+                        {
+                            priorkey.GetComponent<key2>().takecolor();
+                        }
+
+                        break;
                     }
-                }    // 指を離したとき, 1フレーム前まではonなのでpreonoff == true
+                }
+            }    // 指を離したとき, 1フレーム前まではonなのでpreonoff == true
+            else
+            {
+                //nowkey = null;
+                if(nowkey == null)
+                {
+                    up_touch(false);
+                }
                 else
                 {
-                    //nowkey = null;
-                    if(nowkey == null)
-                    {
-                        up_touch(false);
-                    }
-                    else
-                    {
-                        up_touch(true);
-                    }
-
-                    //textset.NextText();
-
-                    preonoff = false;
-
+                    up_touch(true);
                 }
+
+                preonoff = false;
+                
             }
         }
 
@@ -188,9 +184,7 @@ public class keyManager3 : MonoBehaviour
     {
         float cx = nowkey.GetComponent<key2>().get_cx();
         float cy = nowkey.GetComponent<key2>().get_cy();
-
-        //Debug.Log(string.Format("touch_action : cx = {0}, cy = {1}", cx, cy));
-
+        
         if (nowkey.GetComponent<key2>().isin(ux, uy) == true)
         {
             if (son != 0)
@@ -295,11 +289,9 @@ public class keyManager3 : MonoBehaviour
     {
         foreach (GameObject key in keylist)
         {
-            Renderer mesh_obj = key.GetComponent<Renderer>();
-
+           
             if (key.GetComponent<key2>().isin(ux, uy) == true)
             {
-
                 nowkey = key;
 
                 if (feed_back_time == 0)
@@ -311,18 +303,60 @@ public class keyManager3 : MonoBehaviour
                     Invoke("invoke", feed_back_time);
                 }
 
+
+                //if (KeyColor == "white")
+                //{
+                //    key.GetComponent<key2>().takecolor(new Color32(150, 150, 150, 250));
+                //}
+                //// 半透明になる
+                //else if (KeyColor == "transparent1" || KeyColor == "transparent2")
+                //{
+                //    key.GetComponent<key2>().takecolor(new Color32(255, 255, 255, 80));
+
+                //}
+                //// 透明になる
+                //else if (KeyColor == "transparent3")
+                //{
+                //    key.GetComponent<key2>().takecolor(new Color32(255, 255, 255, 0));
+                //}
+
+                // priorkeyはホバーでの入力を念頭に入れている
                 if (priorkey != null)
                 {
                     priorkey.GetComponent<key2>().rmcolor();
+
                 }
 
-
-                continue;
             }
             else
             {
-                //mesh_obj.material.color = new Color32(255, 255, 255, 80);
-                key.GetComponent<MeshRenderer>().material.color = new Color32(150, 150, 150, 20);
+                // 特定のキーを押した際の他のキーの色の変化に関する
+
+
+                //Renderer mesh_obj = key.GetComponent<Renderer>();
+
+                // color.aの値を0.6fで半透明，1.0fにすると完全に透明
+
+                // 以下のコードだと視界全体を覆うrectに色がついた
+                //key.GetComponent<MeshRenderer>().material.color = new Color32(150, 150, 150, 250);
+                
+                // 透明にならない，明度が下がるだけ
+                if (KeyColor == "white")
+                {
+                    key.GetComponent<key2>().takecolor(new Color32(150, 150, 150, 250));
+                    //mesh_obj.material.color = new Color32(150, 150, 150, 255);
+                }
+                // 半透明になる
+                else if (KeyColor == "transparent1" || KeyColor == "transparent2")
+                {
+                    key.GetComponent<key2>().takecolor(new Color32(255, 255, 255, 80));
+
+                }
+                // 透明になる
+                else if(KeyColor == "transparent3")
+                {
+                    key.GetComponent<key2>().takecolor(new Color32(255, 255, 255, 0));
+                }
             }
 
         }
@@ -332,7 +366,23 @@ public class keyManager3 : MonoBehaviour
     {
         foreach (GameObject key in keylist)
         {
-            key.GetComponent<MeshRenderer>().material.color = new Color32(255, 255, 255, 0);
+            if (KeyColor == "white" || KeyColor == "transparent1")
+            {
+                key.GetComponent<key2>().takecolor(new Color32(255, 255, 255, 250));
+            }
+            // 半透明になる
+            else if (KeyColor == "transparent2")
+            {
+                key.GetComponent<key2>().takecolor(new Color32(255, 255, 255, 80));
+
+            }
+            // 透明になる
+            else if (KeyColor == "transparent3")
+            {
+                key.GetComponent<key2>().takecolor(new Color32(255, 255, 255, 80));
+            }
+
+            //key.GetComponent<MeshRenderer>().material.color = new Color32(255, 255, 255, 0);
         }
 
         if (oo == true)

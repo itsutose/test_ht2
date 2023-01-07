@@ -9,6 +9,7 @@ public class key2 : MonoBehaviour
 {
     //public TextMeshProUGUI textobject;
     public textSet textset;
+    public TextMeshProUGUI _text = null;
 
     protected float cx, cy; // keyの中心の位置
     protected float lx, ly; // keyのx横，y縦
@@ -29,7 +30,7 @@ public class key2 : MonoBehaviour
         if (range(ux, minx, maxx) && range(uy, miny, maxy))
         {
 
-            Debug.Log(string.Format("keyName: {0}, cx : {1}, cy : {2} ",name, cx,cy));
+            //Debug.Log(string.Format("keyName: {0}, cx : {1}, cy : {2} ",name, cx,cy));
             return true;
         }
         return false;
@@ -75,6 +76,24 @@ public class key2 : MonoBehaviour
         mat.color = Color.gray;
         mat.color = new Color(0.75f, 0.75f, 0.6f, 1.0f);
     }
+
+    //キー自身の色を変える（領域内に移動したときに使用）
+    public void takecolor(Color32 color32)
+    {
+
+        Material mat = this.GetComponent<Renderer>().material;
+        mat.color = color32;
+        //Debug.Log(string.Format("takecolor : _text:{0}, _text.text:{1}", _text, _text.text));
+        //Debug.Log(string.Format("takecolor :_text.color:{0}", _text.color));
+
+        //text.outlineColor = color32;
+        //text.color = color32;
+    }
+
+    //public virtual void takecolor(Color32 color32)
+    //{
+
+    //}
 
     // 親が持っている子のキーの色を変更する
     public virtual void takecolor(Color color, int aa)
