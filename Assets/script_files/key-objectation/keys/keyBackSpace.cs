@@ -10,6 +10,7 @@ using UnityEngine.UI;  // ’Ç‰Á‚µ‚Ü‚µ‚å‚¤
 public class keyBackSpace : key2
 {
     public Boolean all_delete = false;
+    public TextMeshProUGUI _text = null;
     public GameObject a0;
 
     // Start is called before the first frame update
@@ -52,6 +53,14 @@ public class keyBackSpace : key2
         Material mat;
         mat = a0.GetComponent<Renderer>().material;
         mat.color = color;
+    }
+
+    public override void takecolor(Color32 color32)
+    {
+        Material mat = this.GetComponent<Renderer>().material;
+        mat.color = color32;
+        _text.color = color32;
+
     }
 
     public override void rmcolor(int aa)

@@ -7,7 +7,7 @@ using UnityEngine.UI;  // ’Ç‰Á‚µ‚Ü‚µ‚å‚¤
 
 public class keyRegular : key2
 {
-    //public TextMeshProUGUI textobject;
+    public TextMeshProUGUI _text = null;
     public GameObject a0, a1, a2, a3, a4;
 
     // Start is called before the first frame update
@@ -128,6 +128,18 @@ public class keyRegular : key2
 
 
         return ss + word;
+    }
+
+    public override void takecolor(Color32 color32)
+    {
+        Material mat = this.GetComponent<Renderer>().material;
+        mat.color = color32;
+
+        //Debug.Log(string.Format("takecolor : _text:{0}, _text.text:{1}", _text, _text.text));
+        //Debug.Log(string.Format("takecolor :_text.color:{0}", _text.color));
+
+        //_text.outlineColor = color32;
+        _text.color = color32;
     }
 
     public override void InputWordtoCSV(char word)

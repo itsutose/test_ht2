@@ -7,7 +7,7 @@ using UnityEngine.UI;  // 追加しましょう
 
 public class keyHenkan : key2
 {
-    //public TextMeshProUGUI textobject;
+    public TextMeshProUGUI _text = null;
     public GameObject a0;
 
     //private float cx, cy; // keyの中心の位置
@@ -66,6 +66,14 @@ public class keyHenkan : key2
         //}
         mat.color = color;
     }
+
+    public override void takecolor(Color32 color32)
+    {
+        Material mat = this.GetComponent<Renderer>().material;
+        mat.color = color32;
+        _text.color = color32;
+    }
+    
 
     public override void rmcolor(int aa)
     {
@@ -191,6 +199,7 @@ public class keyHenkan : key2
     {
         textset.InputWord(output_word, this.ux, this.uy);
     }
+    
 
     //public override float get_cx()
     //{

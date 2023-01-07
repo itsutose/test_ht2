@@ -7,8 +7,9 @@ using UnityEngine.UI;  // í«â¡ÇµÇ‹ÇµÇÂÇ§
 
 public class keyUnder : key2
 {
-    //public TextMeshProUGUI textobject;
+
     public GameObject a0, a1, a2, a3;
+    public TextMeshProUGUI _text = null;
 
     //private float cx, cy; // keyÇÃíÜêSÇÃà íu
     //private float lx, ly; // keyÇÃxâ°ÅCyèc
@@ -69,6 +70,14 @@ public class keyUnder : key2
         }
 
         mat.color = color;
+    }
+
+    public override void takecolor(Color32 color32)
+    {
+        Material mat = this.GetComponent<Renderer>().material;
+        mat.color = color32;
+        _text.color = color32;
+
     }
 
     public override void rmcolor(int aa)

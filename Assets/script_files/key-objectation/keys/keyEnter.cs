@@ -11,6 +11,7 @@ using UnityEngine.UI;  // ’Ç‰Á‚µ‚Ü‚µ‚å‚¤
 
 public class keyEnter : key2
 {
+    public TextMeshProUGUI _text = null;
     public GameObject a0;
 
     private int check = 0;
@@ -50,6 +51,13 @@ public class keyEnter : key2
         //a4.SetActive(false);
     }
 
+    public override void takecolor(Color32 color32)
+    {
+        Material mat = this.GetComponent<Renderer>().material;
+        mat.color = color32;
+        _text.color = color32;
+
+    }
 
     public override void takecolor(Color color, int aa)
     {
