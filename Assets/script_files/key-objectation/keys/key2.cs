@@ -77,6 +77,8 @@ public class key2 : MonoBehaviour
         mat.color = new Color(0.75f, 0.75f, 0.6f, 1.0f);
     }
 
+    // takecolorは継承先の子クラスにそれぞれ移した
+
     ////キー自身の色を変える（領域内に移動したときに使用）
     //public void takecolor(Color32 color32)
     //{

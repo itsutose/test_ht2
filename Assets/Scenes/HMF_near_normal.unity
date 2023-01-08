@@ -5919,6 +5919,10 @@ PrefabInstance:
       propertyPath: m_fontSizeBase
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1080974447691957877, guid: b35333cad32b99d4388c5a99ee7f9346, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2865398429927957628, guid: b35333cad32b99d4388c5a99ee7f9346, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -8832,6 +8836,7 @@ MonoBehaviour:
   keypos: {fileID: 660310239}
   sphere: {fileID: 478603462}
   pr: center
+  Pointer: 1
   out_range_times: 50
   magnification: 1.2
 --- !u!4 &2138986571

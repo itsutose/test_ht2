@@ -4,8 +4,7 @@ using UnityEngine;
 using TMPro;
 using System.Text.RegularExpressions;
 using System;
-
-using UnityEngine.UI;  // 追加しましょう
+using UnityEngine.UI;
 
 public class coordinates : MonoBehaviour
 {
@@ -13,6 +12,7 @@ public class coordinates : MonoBehaviour
     public keyPosition keypos;
     public GameObject sphere;
     public string pr = "center";
+    public Boolean Pointer = true;
     public int out_range_times = 50;
     public float magnification = 1;
 
@@ -21,7 +21,6 @@ public class coordinates : MonoBehaviour
     string andpos;
     string now_time = "00:00:00.000", last_time = "00:00:00.000";
     int same_times_count = 0;
-
 
     float sizex = 1900, sizey = 1072; // 横（x）は良さそう
 
@@ -33,18 +32,13 @@ public class coordinates : MonoBehaviour
 
     private float maxx = -100, maxy = -100, minx = 100, miny = 100;
 
-    //// Start is called before the first frame update
-    //void Start()
-    //{
-
-    //}
-
-    // Update is called once per frame
+    // Start is called before the first frame update
     void Start()
     {
         ratio = keypos.getRatio();
     }
 
+    // Update is called once per frame
     void Update()
     {
 
@@ -68,34 +62,54 @@ public class coordinates : MonoBehaviour
                 last_time = now_time;
                 now_time = result[4];
 
-                // 信号が一定時間送られなかったとき
-                if (count_times(now_time, last_time) == true)
-                {
-                    sphere.SetActive(false);
-
-                    onrunning = false;
-
-                    return;
-
-                }
-                else
-                {
-                    sphere.SetActive(true);
-                    onrunning = true;
-                }
-
-                Material mat1 = sphere.GetComponent<Renderer>().material;
-
                 if (result[0] == "0")
                 {
-                    mat1.color = Color.blue;
                     onoff = false;
                 }
                 else if (result[0] == "1")
                 {
-                    mat1.color = Color.red;
                     onoff = true;
                 }
+
+
+        ////////////////////////  ここからはpointerを表示するかどうか
+
+                if (Pointer == true)
+                {
+
+                    // 信号が一定時間送られなかったとき
+                    if (count_times(now_time, last_time) == true)
+                    {
+                        sphere.SetActive(false);
+
+                        onrunning = false;
+
+                        return;
+
+                    }
+                    else
+                    {
+                        sphere.SetActive(true);
+                        onrunning = true;
+                    }
+
+                    Material mat1 = sphere.GetComponent<Renderer>().material;
+
+                    if (result[0] == "0")
+                    {
+                        mat1.color = Color.blue;
+                    }
+                    else if (result[0] == "1")
+                    {
+                        mat1.color = Color.red;
+                    }
+                }
+                else
+                {
+                    sphere.SetActive(false);
+                    onrunning = true;
+                }
+        ////////////////////////////// ここまで
 
                 //Debug.Log("coordinates has onoff : "+onoff);
 
@@ -198,8 +212,3 @@ public class coordinates : MonoBehaviour
         return uy;
     }
 }
-
-//Vector3(0.133418843, 0.00100000005, 0.00100000005)
-//Vector3(0.00100000005, 0.0745102614, 0.00100000005)
-//Vector3(0.00100000005, 0.0745102614, 0.00100000005)
-//Vector3(0.133418843, 0.00100000005, 0.00100000005)

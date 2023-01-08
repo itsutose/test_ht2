@@ -17,6 +17,7 @@ public class keyManager3 : MonoBehaviour
 
     public Boolean color_feedback = true;
     public String KeyColor = "white";
+    public int HowTransparent = 80;
   
     public string pr = "center";
 
@@ -73,22 +74,22 @@ public class keyManager3 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Time.time <= 0.2 && Time.time > 0)
-        {
-            float ncx = n.GetComponent<key2>().get_cx();
-            float ncy = n.GetComponent<key2>().get_cy();
+        //if (Time.time <= 0.2 && Time.time > 0)
+        //{
+        //    float ncx = n.GetComponent<key2>().get_cx();
+        //    float ncy = n.GetComponent<key2>().get_cy();
 
-            float hcx = h.GetComponent<key2>().get_cx();
-            float hcy = h.GetComponent<key2>().get_cy();
+        //    float hcx = h.GetComponent<key2>().get_cx();
+        //    float hcy = h.GetComponent<key2>().get_cy();
 
-            float ycx = y.GetComponent<key2>().get_cx();
-            float ycy = y.GetComponent<key2>().get_cy();
+        //    float ycx = y.GetComponent<key2>().get_cx();
+        //    float ycy = y.GetComponent<key2>().get_cy();
 
-            xKeySize = hcx - ncx;
-            yKeySize = ncy - ycy;
+        //    xKeySize = hcx - ncx;
+        //    yKeySize = ncy - ycy;
 
-            //Debug.Log(string.Format("ncx : {0}, hcx : {1}", ncx, hcx));
-        }
+        //    //Debug.Log(string.Format("ncx : {0}, hcx : {1}", ncx, hcx));
+        //}
 
         ux = coords.getUX();
         uy = coords.getUY();
@@ -147,7 +148,8 @@ public class keyManager3 : MonoBehaviour
                         // && priorkeyのnull判定をしないとnull参照する
                         if (priorkey != key && priorkey != null)
                         {
-                            priorkey.GetComponent<key2>().rmcolor();
+                            //priorkey.GetComponent<key2>().rmcolor();
+                            rmcolor(priorkey, HowTransparent);
                         }
 
                         priorkey = key;
@@ -303,62 +305,60 @@ public class keyManager3 : MonoBehaviour
                     Invoke("invoke", feed_back_time);
                 }
 
-
-                //if (KeyColor == "white")
-                //{
-                //    key.GetComponent<key2>().takecolor(new Color32(150, 150, 150, 250));
-                //}
-                //// 半透明になる
-                //else if (KeyColor == "transparent1" || KeyColor == "transparent2")
-                //{
-                //    key.GetComponent<key2>().takecolor(new Color32(255, 255, 255, 80));
-
-                //}
-                //// 透明になる
-                //else if (KeyColor == "transparent3")
-                //{
-                //    key.GetComponent<key2>().takecolor(new Color32(255, 255, 255, 0));
-                //}
-
                 // priorkeyはホバーでの入力を念頭に入れている
                 if (priorkey != null)
                 {
-                    priorkey.GetComponent<key2>().rmcolor();
-
+                    rmcolor(priorkey, HowTransparent);
                 }
 
             }
             else
             {
                 // 特定のキーを押した際の他のキーの色の変化に関する
-
-
-                //Renderer mesh_obj = key.GetComponent<Renderer>();
-
-                // color.aの値を0.6fで半透明，1.0fにすると完全に透明
-
-                // 以下のコードだと視界全体を覆うrectに色がついた
-                //key.GetComponent<MeshRenderer>().material.color = new Color32(150, 150, 150, 250);
-                
-                // 透明にならない，明度が下がるだけ
-                if (KeyColor == "white")
-                {
-                    key.GetComponent<key2>().takecolor(new Color32(150, 150, 150, 250));
-                    //mesh_obj.material.color = new Color32(150, 150, 150, 255);
-                }
-                // 半透明になる
-                else if (KeyColor == "transparent1" || KeyColor == "transparent2")
-                {
-                    key.GetComponent<key2>().takecolor(new Color32(255, 255, 255, 80));
-
-                }
-                // 透明になる
-                else if(KeyColor == "transparent3")
-                {
-                    key.GetComponent<key2>().takecolor(new Color32(255, 255, 255, 0));
-                }
+                takecolor(key, HowTransparent);
             }
 
+        }
+    }
+
+    private void rmcolor(GameObject k, int alpha)
+    {
+        Color32 white = new Color32(255, 255, 255, 250);
+        Color32 Trans = new Color32(255, 255, 255, Convert.ToByte(alpha));
+
+        // 透明にならない，明度が下がるだけ
+        if (KeyColor == "white" || KeyColor == "transparent1")
+        {
+            k.GetComponent<key2>().takecolor(white);
+        }
+        // 半透明になる
+        else if (KeyColor == "transparent2" || KeyColor == "transparent3")
+        {
+            k.GetComponent<key2>().takecolor(Trans);
+
+        }
+    }
+
+    private void takecolor(GameObject k, int alpha)
+    {
+        Color32 white = new Color32(255, 255, 255, 250);
+        Color32 Trans = new Color32(255, 255, 255, Convert.ToByte(alpha));
+        Color32 Full = new Color32(255, 255, 255, 0);
+
+        // 透明にならない，明度が下がるだけ
+        if (KeyColor == "white")
+        {
+            k.GetComponent<key2>().takecolor(white);
+        }
+        // 半透明になる
+        else if (KeyColor == "transparent1" || KeyColor == "transparent2")
+        {
+            k.GetComponent<key2>().takecolor(Trans);
+        }
+        // 透明になる
+        else if (KeyColor == "transparent3")
+        {
+            k.GetComponent<key2>().takecolor(Full);
         }
     }
 
@@ -366,23 +366,7 @@ public class keyManager3 : MonoBehaviour
     {
         foreach (GameObject key in keylist)
         {
-            if (KeyColor == "white" || KeyColor == "transparent1")
-            {
-                key.GetComponent<key2>().takecolor(new Color32(255, 255, 255, 250));
-            }
-            // 半透明になる
-            else if (KeyColor == "transparent2")
-            {
-                key.GetComponent<key2>().takecolor(new Color32(255, 255, 255, 80));
-
-            }
-            // 透明になる
-            else if (KeyColor == "transparent3")
-            {
-                key.GetComponent<key2>().takecolor(new Color32(255, 255, 255, 80));
-            }
-
-            //key.GetComponent<MeshRenderer>().material.color = new Color32(255, 255, 255, 0);
+            rmcolor(key, HowTransparent);
         }
 
         if (oo == true)
