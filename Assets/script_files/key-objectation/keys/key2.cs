@@ -98,7 +98,7 @@ public class key2 : MonoBehaviour
     }
 
     // 親が持っている子のキーの色を変更する
-    public virtual void takecolor(Color color, int aa)
+    public virtual void takecolor(Color32 color32, int aa)
     {
  
     }

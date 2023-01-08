@@ -48,7 +48,7 @@ public class keyUnder : key2
         a3.SetActive(false);
     }
 
-    public override void takecolor(Color color, int aa)
+    public override void takecolor(Color32 color32, int aa)
     {
         Material mat;
 
@@ -69,7 +69,7 @@ public class keyUnder : key2
             mat = a3.GetComponent<Renderer>().material;
         }
 
-        mat.color = color;
+        mat.color = color32;
     }
 
     public override void takecolor(Color32 color32)

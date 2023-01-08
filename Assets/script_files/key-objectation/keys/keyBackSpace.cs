@@ -48,11 +48,11 @@ public class keyBackSpace : key2
         //a4.SetActive(false);
     }
 
-    public override void takecolor(Color color, int aa)
+    public override void takecolor(Color32 color32, int aa)
     {
         Material mat;
         mat = a0.GetComponent<Renderer>().material;
-        mat.color = color;
+        mat.color = color32;
     }
 
     public override void takecolor(Color32 color32)

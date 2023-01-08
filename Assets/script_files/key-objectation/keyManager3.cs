@@ -16,8 +16,9 @@ public class keyManager3 : MonoBehaviour
     //public textSet textset;
 
     public Boolean color_feedback = true;
-    public String KeyColor = "white";
+    public String KeyColor = "transparent0";
     public int HowTransparent = 80;
+    public int CloverTransparent = 80;
   
     public string pr = "center";
 
@@ -191,7 +192,8 @@ public class keyManager3 : MonoBehaviour
         {
             if (son != 0)
             {
-                nowkey.GetComponent<key2>().rmcolor(son);
+                //nowkey.GetComponent<key2>().rmcolor(son);
+                takecolor(nowkey, CloverTransparent, son);
             }
             son = 0;
         }
@@ -203,7 +205,15 @@ public class keyManager3 : MonoBehaviour
             {
                 if (son != 4)
                 {
-                    nowkey.GetComponent<key2>().rmcolor(son);
+                    //nowkey.GetComponent<key2>().rmcolor(son);
+                    if (son == 0)
+                    {
+                        takecolor(nowkey, 80, son);
+                    }
+                    else
+                    {
+                        takecolor(nowkey, CloverTransparent, son);
+                    }
                 }
                 son = 4;
             }
@@ -211,7 +221,15 @@ public class keyManager3 : MonoBehaviour
             {
                 if (son != 1)
                 {
-                    nowkey.GetComponent<key2>().rmcolor(son);
+                    //nowkey.GetComponent<key2>().rmcolor(son);
+                    if (son == 0)
+                    {
+                        takecolor(nowkey, 80, son);
+                    }
+                    else
+                    {
+                        takecolor(nowkey, CloverTransparent, son);
+                    }
                 }
                 son = 1;
             }
@@ -222,7 +240,15 @@ public class keyManager3 : MonoBehaviour
             {
                 if (son != 4)
                 {
-                    nowkey.GetComponent<key2>().rmcolor(son);
+                    //nowkey.GetComponent<key2>().rmcolor(son);
+                    if (son == 0)
+                    {
+                        takecolor(nowkey, 80, son);
+                    }
+                    else
+                    {
+                        takecolor(nowkey, CloverTransparent, son);
+                    }
                 }
                 son = 4;
             }
@@ -230,7 +256,15 @@ public class keyManager3 : MonoBehaviour
             {
                 if (son != 3)
                 {
-                    nowkey.GetComponent<key2>().rmcolor(son);
+                    //nowkey.GetComponent<key2>().rmcolor(son);
+                    if (son == 0)
+                    {
+                        takecolor(nowkey, 80, son);
+                    }
+                    else
+                    {
+                        takecolor(nowkey, CloverTransparent, son);
+                    }
                 }
                 son = 3;
             }
@@ -241,7 +275,15 @@ public class keyManager3 : MonoBehaviour
             {
                 if (son != 2)
                 {
-                    nowkey.GetComponent<key2>().rmcolor(son);
+                    //nowkey.GetComponent<key2>().rmcolor(son);
+                    if (son == 0)
+                    {
+                        takecolor(nowkey, 80, son);
+                    }
+                    else
+                    {
+                        takecolor(nowkey, CloverTransparent, son);
+                    }
                 }
                 son = 2;
             }
@@ -249,7 +291,15 @@ public class keyManager3 : MonoBehaviour
             {
                 if (son != 3)
                 {
-                    nowkey.GetComponent<key2>().rmcolor(son);
+                    //nowkey.GetComponent<key2>().rmcolor(son);
+                    if (son == 0)
+                    {
+                        takecolor(nowkey, 80, son);
+                    }
+                    else
+                    {
+                        takecolor(nowkey, CloverTransparent, son);
+                    }
                 }
                 son = 3;
             }
@@ -260,7 +310,15 @@ public class keyManager3 : MonoBehaviour
             {
                 if (son != 2)
                 {
-                    nowkey.GetComponent<key2>().rmcolor(son);
+                    //nowkey.GetComponent<key2>().rmcolor(son);
+                    if (son == 0)
+                    {
+                        takecolor(nowkey, 80, son);
+                    }
+                    else
+                    {
+                        takecolor(nowkey, CloverTransparent, son);
+                    }
                 }
                 son = 2;
             }
@@ -268,7 +326,15 @@ public class keyManager3 : MonoBehaviour
             {
                 if (son != 1)
                 {
-                    nowkey.GetComponent<key2>().rmcolor(son);
+                    //nowkey.GetComponent<key2>().rmcolor(son);
+                    if (son == 0)
+                    {
+                        takecolor(nowkey, 80, son);
+                    }
+                    else
+                    {
+                        takecolor(nowkey, CloverTransparent, son);
+                    }
                 }
                 son = 1;
             }
@@ -278,7 +344,8 @@ public class keyManager3 : MonoBehaviour
 
         if(color_feedback == true)
         {
-            nowkey.GetComponent<key2>().takecolor(Color.yellow, son);
+            // Color32(255,255,0,255) は黄色
+            nowkey.GetComponent<key2>().takecolor(new Color32(255, 255, 0, 255), son);
         }
     }
 
@@ -299,12 +366,15 @@ public class keyManager3 : MonoBehaviour
                 if (feed_back_time == 0)
                 {
                     nowkey.GetComponent<key2>().visible_key();
+                    takecolor(nowkey, CloverTransparent, -1);
                 }
                 else
                 {
                     Invoke("invoke", feed_back_time);
                 }
 
+                
+               
                 // priorkeyはホバーでの入力を念頭に入れている
                 if (priorkey != null)
                 {
@@ -312,12 +382,13 @@ public class keyManager3 : MonoBehaviour
                 }
 
             }
-            else
-            {
-                // 特定のキーを押した際の他のキーの色の変化に関する
-                takecolor(key, HowTransparent);
-            }
+            //else
+            //{
+            //    // 特定のキーを押した際の他のキーの色の変化に関する
+            //    takecolor(key, HowTransparent);
+            //}
 
+            takecolor(key, HowTransparent);
         }
     }
 
@@ -327,7 +398,7 @@ public class keyManager3 : MonoBehaviour
         Color32 Trans = new Color32(255, 255, 255, Convert.ToByte(alpha));
 
         // 透明にならない，明度が下がるだけ
-        if (KeyColor == "white" || KeyColor == "transparent1")
+        if (KeyColor == "transparent0" || KeyColor == "transparent1")
         {
             k.GetComponent<key2>().takecolor(white);
         }
@@ -339,26 +410,48 @@ public class keyManager3 : MonoBehaviour
         }
     }
 
-    private void takecolor(GameObject k, int alpha)
+    private void takecolor(GameObject k, int alpha, int a = -2)
     {
         Color32 white = new Color32(255, 255, 255, 250);
+        Color32 gray = new Color32(191, 191, 191, 250);
         Color32 Trans = new Color32(255, 255, 255, Convert.ToByte(alpha));
         Color32 Full = new Color32(255, 255, 255, 0);
 
-        // 透明にならない，明度が下がるだけ
-        if (KeyColor == "white")
+        if (a != -2)
         {
-            k.GetComponent<key2>().takecolor(white);
+            //if(KeyColor == "transparent3")
+            //{
+            //    k.GetComponent<key2>().takecolor(Trans, all);
+            //}
+            // 透明にならない，明度が下がるだけ
+            if (KeyColor == "transparent0" || KeyColor == "transparent1" || KeyColor == "transparent2")
+            {
+                k.GetComponent<key2>().takecolor(white, a);
+            }
+            // 半透明になる
+            else if (KeyColor == "transparent3")
+            {
+                //k.GetComponent<key2>().takecolor(Full);
+                k.GetComponent<key2>().takecolor(Trans, a);
+            }
         }
-        // 半透明になる
-        else if (KeyColor == "transparent1" || KeyColor == "transparent2")
+        else
         {
-            k.GetComponent<key2>().takecolor(Trans);
-        }
-        // 透明になる
-        else if (KeyColor == "transparent3")
-        {
-            k.GetComponent<key2>().takecolor(Full);
+            // 透明にならない，明度が下がるだけ
+            if (KeyColor == "transparent0")
+            {
+                k.GetComponent<key2>().takecolor(gray);
+            }
+            // 半透明になる
+            else if (KeyColor == "transparent1" || KeyColor == "transparent2")
+            {
+                k.GetComponent<key2>().takecolor(Trans);
+            }
+            // 透明になる
+            else if (KeyColor == "transparent3")
+            {
+                k.GetComponent<key2>().takecolor(Full);
+            }
         }
     }
 
