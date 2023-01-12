@@ -6,29 +6,29 @@ using System.Text.RegularExpressions;
 using System;
 using UnityEngine.UI;
 
-public class keyManager3 : MonoBehaviour
+public class keyManager4 : MonoBehaviour
 {
 
     // sphereのunityにおける座標を取得する．
     // これは MovePointer でも行われているが，
     // 別のスクリプトに頼るのは少し心もとない，
     public coordinates coords;
-    //public PreTest_output pretest;
+    public PreTest_output pretest;
     //public textSet textset;
-    //public Boolean PreTest = false;
-    public Boolean HoverColorFeedback = true;
-    public Boolean KeyBoardFeedback = true;
-    public String KeyColor = "TP0";
-    public int HowTransparent = 80;
-    public int CloverTransparent = 80;
-  
-    public string pr = "center";
+    private Boolean PreTest; //
+    private Boolean HoverColorFeedback; //
+    private Boolean KeyBoardFeedback; //
+    private String KeyColor; //
+    private int HowTransparent; //
+    private int CloverTransparent; //
+
+    public string pr = "center"; 
 
     public TextMeshProUGUI textobject;
     public float feed_back_time = 0;
 
     public GameObject a, k, s, t, n, h, m, y, r, w, hen, backspace, space, point, enter, dummy = null;
-    
+
     // キーボード入力時のフィードバックとか文字入力関係
     private float ux, uy;
     private GameObject[] keylist;
@@ -37,8 +37,8 @@ public class keyManager3 : MonoBehaviour
     private GameObject
         nowkey = null, // 押下されている子音キー
         priorkey = null; // 一つ前のキー（色の変化時に用いる）
- 
-    private bool onoff = false,onrunning = false;
+
+    private bool onoff = false, onrunning = false;
     private int son = 0;
     private string keep_word = null;
 
@@ -46,11 +46,14 @@ public class keyManager3 : MonoBehaviour
 
     private float xKeySize, yKeySize;
 
-    //private Boolean pretestonoff = false;
-    //private Boolean pretestonrunning = false;
+    private Boolean pretestonoff = false;
+    private Boolean pretestonrunning = false;
+
+    private Boolean sstart = false;
+    private String state;
 
     // Start is called before the first frame update
-    void Start()
+    public void SStart()
     {
         if (dummy != null)
         {
@@ -59,95 +62,145 @@ public class keyManager3 : MonoBehaviour
         }
         else
         {
-            keylist = new GameObject[] { a, k, s, t, n, h, m, y, r, w, hen, backspace, space, enter, point};
+            keylist = new GameObject[] { a, k, s, t, n, h, m, y, r, w, hen, backspace, space, enter, point };
         }
-        float ncx = n.GetComponent<key2>().get_cx();
-        float ncy = n.GetComponent<key2>().get_cy();
 
-        float hcx = h.GetComponent<key2>().get_cx();
-        float hcy = h.GetComponent<key2>().get_cy();
 
-        float ycx = y.GetComponent<key2>().get_cx();
-        float ycy = y.GetComponent<key2>().get_cy();
+        refresh();
 
-        xKeySize = hcx - ncx;
-        yKeySize = ncy - ycy;
+        sstart = true;
 
-        //refresh();
-        //Debug.Log(string.Format("ncx : {0}, hcx : {1}", ncx, hcx));
+        Debug.Log(string.Format("SStart   keyManager4   Pretest {0}, HCF {1}, KBF {2}, KC {3}, HT {4}, CT {5}",
+            PreTest, HoverColorFeedback, KeyBoardFeedback, KeyColor, HowTransparent, CloverTransparent));
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(sstart == false)
+        {
+
+            return;
+        }
+
+    //    Debug.Log(string.Format("Update     keyManager4   Pretest {0}, HCF {1}, KBF {2}, KC {3}, HT {4}, CT {5}",
+    //PreTest, HoverColorFeedback, KeyBoardFeedback, KeyColor, HowTransparent, CloverTransparent));
+
         ux = coords.getUX();
         uy = coords.getUY();
         onoff = coords.getOnoff();
         onrunning = coords.getOnrunning();
 
-        if(onrunning == false)
+        if (onrunning == false)
         {
             onoff = false;
         }
 
-        //if (PreTest == true)
-        //{
-        //    Debug.Log(string.Format("PTonoff : {0}, onrunning : {1}, onoff : {2}", pretestonoff, onrunning, onoff));
+        if (PreTest == true)
+        {
+            //Debug.Log(string.Format("PTonoff : {0}, onrunning : {1}, onoff : {2}", pretestonoff, onrunning, onoff));
 
+            // touch
+            if (onrunning == true && onoff == true)
+            {
+                if(state == "hover")
+                {
+                    pretest.Begin(ux,uy);
+                }else if(state == "out")
+                {
+                    pretest.Begin(ux,uy);
+                }
 
-
-        //    //if(onrunning == true)
-        //    //{
-        //    //    if(preonoff == true)
-        //    //    {
-        //    //        pretest.Begin(ux,uy);
-        //    //        preonoff = false;
-        //    //    }
-        //    //}
-        //    //else
-        //    //{
-        //    //    if(pretestonrunnning == true)
-        //    //    {
-        //    //        if (preonoff == true)
-        //    //        {
-        //    //            pretest.End(ux, uy);
-
-        //    //            pretestonoff = false;
-        //    //        }
-                    
-        //    //        pretestonrunning = false;
-        //    //    }
-        //    //}
-
-        //    //// 状態遷移用
-        //    //if (onoff == true && pretestonoff == false)
-        //    //{
+                state = "touch";
+            }
+            // out
+            else if (onrunning == false && onoff == false)
+            {
+                // touch -> out
+                if(state == "touch")
+                {
+                    pretest.End(ux,uy);
+                }
                 
-        //    //    Debug.Log(string.Format("  AA PTonoff : {0}, onrunning : {1}, onoff : {2}", pretestonoff, onrunning, onoff));
-                
-        //    //    pretest.Begin(ux, uy);
-        //    //    pretestonoff = true;
+                // touch -> hover
+                else if(state == "hover")
+                {
+                    // 何もなし
+                }
 
-        //    //    return;
-        //    //}
-        //    //else if((onoff == false && pretestonoff == true))
-        //    //{
-        //    //    Debug.Log(string.Format("      BB PTonoff : {0}, onrunning : {1}, onoff : {2}", pretestonoff, onrunning, onoff));
+                state = "out";
+            }
+            // hover
+            else if (onrunning == true && onoff == false)
+            {
+                // touch -> hover
+                if(state == "touch")
+                {
+                    pretest.End(ux,uy);
 
-        //    //    pretest.End(ux, uy);
-        //    //    pretestonoff = false;
+                }
+                // out -> hover
+                else if(state == "out"){
+                    // 何もしない
+                }
+                state = "hover";
+            }
 
-        //    //    return;
-        //    //}else if(pretestonoff == true && onrunning == false && onoff == false){
 
-        //    //    Debug.Log(string.Format("         CC PTonoff : {0}, onrunning : {1}, onoff : {2}", pretestonoff, onrunning, onoff));
+       
+            //{
+            //    if (preonoff == true)
+            //    {
+            //        pretest.Begin(ux, uy);
+            //        preonoff = false;
+            //    }
+            //}
+            //else
+            //{
+            //    if (pretestonrunnning == true)
+            //    {
+            //        if (preonoff == true)
+            //        {
+            //            pretest.End(ux, uy);
 
-        //    //    pretest.End(ux, uy);
-        //    //    pretestonoff = false;
-        //    //}
-        //}
+            //            pretestonoff = false;
+            //        }
 
-        if(HoverColorFeedback == true && KeyBoardFeedback == true)
+            //        pretestonrunning = false;
+            //    }
+            //}
+
+            //// 状態遷移用
+            //if (onoff == true && pretestonoff == false)
+            //{
+
+            //    Debug.Log(string.Format("  AA PTonoff : {0}, onrunning : {1}, onoff : {2}", pretestonoff, onrunning, onoff));
+
+            //    pretest.Begin(ux, uy);
+            //    pretestonoff = true;
+
+            //    return;
+            //}
+            //else if ((onoff == false && pretestonoff == true))
+            //{
+            //    Debug.Log(string.Format("      BB PTonoff : {0}, onrunning : {1}, onoff : {2}", pretestonoff, onrunning, onoff));
+
+            //    pretest.End(ux, uy);
+            //    pretestonoff = false;
+
+            //    return;
+            //}
+            //else if (pretestonoff == true && onrunning == false && onoff == false)
+            //{
+
+            //    Debug.Log(string.Format("         CC PTonoff : {0}, onrunning : {1}, onoff : {2}", pretestonoff, onrunning, onoff));
+
+            //    pretest.End(ux, uy);
+            //    pretestonoff = false;
+            //}
+        }
+
+        if (HoverColorFeedback == true && KeyBoardFeedback == true)
         {
             if (nowkey != null && onrunning == false)
             {
@@ -205,7 +258,7 @@ public class keyManager3 : MonoBehaviour
                         }
                     }
 
-                    rmcolor(priorkey, HowTransparent);
+                    //rmcolor(priorkey, HowTransparent);
                 }
                 // 指を離したとき, 1フレーム前まではonなのでpreonoff == true
                 else
@@ -229,7 +282,7 @@ public class keyManager3 : MonoBehaviour
     {
         float cx = nowkey.GetComponent<key2>().get_cx();
         float cy = nowkey.GetComponent<key2>().get_cy();
-        
+
         if (nowkey.GetComponent<key2>().isin(ux, uy) == true)
         {
             if (son != 0)
@@ -384,7 +437,7 @@ public class keyManager3 : MonoBehaviour
 
         keep_word = nowkey.GetComponent<key2>().takeword(son, textobject.text);
 
-        if(HoverColorFeedback == true)
+        if (HoverColorFeedback == true)
         {
             // Color32(255,255,0,255) は黄色
             nowkey.GetComponent<key2>().takecolor(new Color32(255, 255, 0, 255), son);
@@ -403,7 +456,7 @@ public class keyManager3 : MonoBehaviour
             if (key.GetComponent<key2>().isin(ux, uy) == true)
             {
                 nowkey = key;
-                
+
                 if (feed_back_time == 0)
                 {
                     nowkey.GetComponent<key2>().visible_key();
@@ -413,7 +466,7 @@ public class keyManager3 : MonoBehaviour
                 {
                     Invoke("invoke", feed_back_time);
                 }
-               
+
                 // priorkeyはホバーでの入力を念頭に入れている
                 if (priorkey != null)
                 {
@@ -513,7 +566,7 @@ public class keyManager3 : MonoBehaviour
             textobject.text = keep_word;
 
             int s_leng = keep_word.Length;
-            if (s_leng >= 1)
+            if (s_leng >= 1 && PreTest == false)
             {
                 char last_word = keep_word[s_leng - 1];
                 nowkey.GetComponent<key2>().InputWordtoCSV(last_word);
@@ -540,15 +593,15 @@ public class keyManager3 : MonoBehaviour
         }
     }
 
-    //public Boolean getPreTest()
-    //{
-    //    return PreTest;
-    //}
+    public Boolean getPreTest()
+    {
+        return PreTest;
+    }
 
-    //public void setPreTest(Boolean tf)
-    //{
-    //    PreTest = tf;
-    //}
+    public void setPreTest(Boolean tf)
+    {
+        PreTest = tf;
+    }
 
     public Boolean getHoverColorFeedback()
     {

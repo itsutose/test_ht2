@@ -102,39 +102,13 @@ public class textSet : MonoBehaviour
 
     public void NextText(char word, float ux, float uy)
     {
-        //if (i >= practice.Length / 2)
-        //{
-        //    ExampleText.text = "END";
-        //    textobject.text = "";
-
-        //    csvOP.csvClose();
-        //    return;
-        //}
-
-        //string phrase = practice[i - 1, 1];
-        //csvOP.EnterSave(phrase, word, ux, uy);
-
-        //if(i == 3)
-        //{
-        //    csvOP.csvClose();
-        //}
-
-
-        //phrase = practice[i, 1];
-        //Debug.Log("NextText,  phrase " + phrase + ", word :" + word + ", ux :" + ux + ", uy :" + uy);
-
-        //textobject.text = "";
-
-        //ExampleText.text = i.ToString() +  ". "+ practice[i,0] + "\n" + practice[i,1];
-
-        //i += 1;
+      
         Debug.Log(string.Format("textSet.NextText : {0}",Time.time));
         
         string phrase = practice[i, 1];
         
         if (isFirst == true)
         {
-            //phrase = practice[i, 1];
             Debug.Log("NextText,  phrase " + phrase + ", word :" + word + ", ux :" + ux + ", uy :" + uy);
 
             ExampleText.text = i.ToString() + ". " + practice[i, 0] + "\n" + practice[i, 1];
@@ -144,7 +118,6 @@ public class textSet : MonoBehaviour
         }
         else
         {
-            //string phrase = practice[i, 1];
             csvOP.EnterSave(phrase, word, ux, uy);
             // ======================= ‚±‚±‚Ü‚Å‚Åi‰ñ–Ú‚Ìì‹Æ ========================
 
@@ -161,7 +134,6 @@ public class textSet : MonoBehaviour
             if (i >= practice.Length / 2)
             {
                 ExampleText.text = "END";
-                //textobject.text = "";
 
                 csvOP.csvClose();
                 return;

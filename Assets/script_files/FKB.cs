@@ -10,27 +10,30 @@ public class FKB : MonoBehaviour
 
     // publicとすることでinspectorからobjectを取得することができる
     public GameObject center;
-    public float distance = 3;
+    public float Distance = (float)0.15;
     public Boolean debug = true;
 
     private Vector3 obj;
+    private Vector3 objrot;
 
     private Vector3 rot;
     private Vector3 pos;
+    private Vector3 zrot;
 
 
     private float phi;
     private float theta;
+    private float zeta;
 
     // Start is called before the first frame update
     void Start()
     {
- 
-        obj = transform.position;
 
-        pos = center.transform.position;
+        //obj = transform.position;
 
-        rot = center.transform.eulerAngles;
+        //pos = center.transform.position;
+
+        //rot = center.transform.eulerAngles;
 
     }
 
@@ -43,6 +46,9 @@ public class FKB : MonoBehaviour
         {
             rot = center.transform.eulerAngles;
             pos = center.transform.position;
+            //zrot = center.transform.rotation;
+            //objrot = transform.rotation;
+            objrot = transform.eulerAngles;
 
 
             // 垂直向きの角度：phi
@@ -58,16 +64,19 @@ public class FKB : MonoBehaviour
             // 水平方向の角度：theta
             theta = (float)(Math.PI / 180) * rot.y;
 
+            //rot.z = 
 
-            obj.x = distance * (float)Math.Cos(phi) * (float)Math.Sin(theta) + pos.x;
-            obj.y = distance * (float)Math.Sin(phi) + pos.y;
-            obj.z = distance * (float)Math.Cos(phi) * (float)Math.Cos(theta) + pos.z;
-
+            obj.x = Distance * (float)Math.Cos(phi) * (float)Math.Sin(theta) + pos.x;
+            obj.y = Distance * (float)Math.Sin(phi) + pos.y;
+            obj.z = Distance * (float)Math.Cos(phi) * (float)Math.Cos(theta) + pos.z;
+            objrot.z = rot.z;
             //objrot.x = objrot.x;
             //objrot.y = objrot.y + 90;
             //objrot.z = objrot.z;
 
             transform.position = obj;
+            transform.eulerAngles = objrot;
+            //transform.rotation = 
 
 
             float nowtime = Time.time;
@@ -88,6 +97,16 @@ public class FKB : MonoBehaviour
                 //transform.position = pos;
             }
         }
+    }
+
+    public float getDistance()
+    {
+        return Distance;
+    }
+
+    public void setDistance(float f)
+    {
+        Distance = f;
     }
 
 

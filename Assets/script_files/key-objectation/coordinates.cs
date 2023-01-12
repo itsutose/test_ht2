@@ -27,7 +27,7 @@ public class coordinates : MonoBehaviour
     // 他のスクリプトからのアクセスに対しての返す変数
     float ux = 0, uy = 0;
     Boolean onoff = false;
-    Boolean onrunning = false;
+    private Boolean onrunning = false;
     private float ratio = 1;
 
     private float maxx = -100, maxy = -100, minx = 100, miny = 100;
@@ -74,41 +74,42 @@ public class coordinates : MonoBehaviour
 
         ////////////////////////  ここからはpointerを表示するかどうか
 
-                if (Pointer == true)
+         
+                // 信号が一定時間送られなかったとき
+                if (count_times(now_time, last_time) == true)
                 {
+                    sphere.SetActive(false);
 
-                    // 信号が一定時間送られなかったとき
-                    if (count_times(now_time, last_time) == true)
-                    {
-                        sphere.SetActive(false);
+                    onrunning = false;
 
-                        onrunning = false;
+                    return;
 
-                        return;
-
-                    }
-                    else
+                }
+                else
+                {
+                    if (Pointer == true)
                     {
                         sphere.SetActive(true);
                         onrunning = true;
                     }
-
-                    Material mat1 = sphere.GetComponent<Renderer>().material;
-
-                    if (result[0] == "0")
+                    else
                     {
-                        mat1.color = Color.blue;
-                    }
-                    else if (result[0] == "1")
-                    {
-                        mat1.color = Color.red;
+                        sphere.SetActive(false);
+                        onrunning = true;
                     }
                 }
-                else
+
+                Material mat1 = sphere.GetComponent<Renderer>().material;
+
+                if (result[0] == "0")
                 {
-                    sphere.SetActive(false);
-                    onrunning = true;
+                    mat1.color = Color.blue;
                 }
+                else if (result[0] == "1")
+                {
+                    mat1.color = Color.red;
+                }
+            
         ////////////////////////////// ここまで
 
                 //Debug.Log("coordinates has onoff : "+onoff);
@@ -150,8 +151,8 @@ public class coordinates : MonoBehaviour
 
                 if (pr == "center")
                 {
-                    ux = (xx / sizex - (float)0.5) * 2 * (float)0.0375 * (sizex/sizey)*magnification;
-                    uy = (yy / sizey - (float)0.5) * 2 * (float)0.0375 * magnification;
+                    ux = -1*(xx / sizex - (float)0.5) * 2 * (float)0.0375 * (sizex/sizey)*magnification;
+                    uy = -1*(yy / sizey - (float)0.5) * 2 * (float)0.0375 * magnification;
                 }
                 else if (pr == "right")
                 {
