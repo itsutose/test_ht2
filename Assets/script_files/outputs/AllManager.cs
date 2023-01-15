@@ -14,6 +14,7 @@ public class AllManager : MonoBehaviour
     public FKB fkb;
     public PreTest_output pretest;
     public coordinates coords;
+    public keyPosition kp;
 
 
     public Boolean PreTest = false;
@@ -41,7 +42,6 @@ public class AllManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //inputType = string.Format("KeyColor:{0}, Pointer:{1}, KBF:{2}, HCF:{3}",KeyColor, Pointer, KeyBoardFeedback, HoverColorFeedback);
 
         file_name = file_name;
 
@@ -54,21 +54,24 @@ public class AllManager : MonoBehaviour
 
         fkb.GetComponent<FKB>().setDistance(_Distance);
 
-        pretest.folder_path = folder_path;
-        pretest.file_name = file_name;
-        pretest._ID = _ID;
-        pretest.KC = KeyColor;
-        pretest.P = Pointer;
-        pretest.KBF = KeyBoardFeedback;
-        pretest.HCF = HoverColorFeedback;
-        pretest._Distance = _Distance;
-        pretest.TestTimes = TestTimes;
+        pretest.GetComponent<PreTest_output>().setfolder_path(folder_path);
+        pretest.GetComponent<PreTest_output>().setfile_name(file_name);
+        pretest.GetComponent<PreTest_output>().setID(_ID);
+        pretest.GetComponent<PreTest_output>().setKC(KeyColor);
+        pretest.GetComponent<PreTest_output>().setP(Pointer);
+        pretest.GetComponent<PreTest_output>().setKBF(KeyBoardFeedback);
+        pretest.GetComponent<PreTest_output>().setHCF(HoverColorFeedback);
+        pretest.GetComponent<PreTest_output>().setDistance(_Distance);
+        pretest.GetComponent<PreTest_output>().setTestTimes(TestTimes);
+
 
 
         coords.Pointer = Pointer;
         coords.out_range_times = out_range_times;
         coords.magnification = magnification;
 
+
+        kp.GetComponent<keyPosition>().Refresh();
         fkb.GetComponent<keyManager4>().SStart();
         pretest.SStart();
 
@@ -88,20 +91,21 @@ public class AllManager : MonoBehaviour
 
             fkb.GetComponent<FKB>().setDistance(_Distance);
 
-            pretest.folder_path = folder_path;
-            pretest.file_name = file_name;
-            pretest._ID = _ID;
-            pretest.KC = KeyColor;
-            pretest.P = Pointer;
-            pretest.KBF = KeyBoardFeedback;
-            pretest.HCF = HoverColorFeedback;
-            pretest._Distance = _Distance;
-            pretest.TestTimes = TestTimes;
+            //pretest.GetComponent<PreTest_output>().setfolder_path(folder_path);
+            //pretest.GetComponent<PreTest_output>().setfile_name(file_name);
+            //pretest.GetComponent<PreTest_output>().setID(_ID);
+            pretest.GetComponent<PreTest_output>().setKC(KeyColor);
+            pretest.GetComponent<PreTest_output>().setP(Pointer);
+            pretest.GetComponent<PreTest_output>().setKBF(KeyBoardFeedback);
+            pretest.GetComponent<PreTest_output>().setHCF(HoverColorFeedback);
+            pretest.GetComponent<PreTest_output>().setDistance(_Distance);
+            pretest.GetComponent<PreTest_output>().setTestTimes(TestTimes);
 
             coords.Pointer = Pointer;
             coords.out_range_times = out_range_times;
             coords.magnification = magnification;
 
+            //kp.GetComponent<keyPosition>().Refresh();
             fkb.GetComponent<keyManager4>().refresh();
             return;
         }
@@ -117,20 +121,22 @@ public class AllManager : MonoBehaviour
 
             fkb.GetComponent<FKB>().setDistance(_Distance);
 
-            pretest.folder_path = folder_path;
-            pretest.file_name = file_name;
-            pretest._ID = _ID;
-            pretest.KC = KeyColor;
-            pretest.P = Pointer;
-            pretest.KBF = KeyBoardFeedback;
-            pretest.HCF = HoverColorFeedback;
-            pretest._Distance = _Distance;
-            pretest.TestTimes = TestTimes;
+            pretest.GetComponent<PreTest_output>().setfolder_path(folder_path);
+            pretest.GetComponent<PreTest_output>().setfile_name(file_name);
+            pretest.GetComponent<PreTest_output>().setID(_ID);
+            pretest.GetComponent<PreTest_output>().setKC(KeyColor);
+            pretest.GetComponent<PreTest_output>().setP(Pointer);
+            pretest.GetComponent<PreTest_output>().setKBF(KeyBoardFeedback);
+            pretest.GetComponent<PreTest_output>().setHCF(HoverColorFeedback);
+            pretest.GetComponent<PreTest_output>().setDistance(_Distance);
+            pretest.GetComponent<PreTest_output>().setTestTimes(TestTimes);
+
 
             coords.Pointer = Pointer;
             coords.out_range_times = out_range_times;
             coords.magnification = magnification;
 
+            kp.GetComponent<keyPosition>().Refresh();
             fkb.GetComponent<keyManager4>().refresh();
         }
 

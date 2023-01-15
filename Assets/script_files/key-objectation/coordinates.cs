@@ -9,8 +9,9 @@ using UnityEngine.UI;
 public class coordinates : MonoBehaviour
 {
     public ServerManager server;
-    public keyPosition keypos;
+    //public keyPosition keypos;
     public GameObject sphere;
+    public GameObject PreCoordsSphere;
     public string pr = "center";
     public Boolean Pointer = true;
     public int out_range_times = 50;
@@ -28,24 +29,24 @@ public class coordinates : MonoBehaviour
     float ux = 0, uy = 0;
     Boolean onoff = false;
     private Boolean onrunning = false;
-    private float ratio = 1;
+    //private float ratio = 1;
 
     private float maxx = -100, maxy = -100, minx = 100, miny = 100;
 
     // Start is called before the first frame update
     void Start()
     {
-        ratio = keypos.getRatio();
+        //ratio = keypos.getRatio();
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        if (ratio == 1)
-        {
-            ratio = keypos.getRatio();
-        }
+        //if (ratio == 1)
+        //{
+        //    ratio = keypos.getRatio();
+        //}
 
         if (server != null)
         {
@@ -211,5 +212,25 @@ public class coordinates : MonoBehaviour
     public float getUY()
     {
         return uy;
+    }
+
+    public void setPreCoordsSphere(float ux, float uy)
+    {
+
+        PreCoordsSphere.SetActive(true);
+        //ローカル座標を基準に、座標を取得
+        Vector3 localPos = PreCoordsSphere.transform.localPosition;
+
+        localPos.x = ux;
+        localPos.y = uy;
+
+        PreCoordsSphere.transform.localPosition = localPos;
+    }
+
+    public void setPreCoordsSphereColor(Color32 color32)
+    {
+        Material mat = PreCoordsSphere.GetComponent<Renderer>().material;
+        mat.color = color32;
+
     }
 }

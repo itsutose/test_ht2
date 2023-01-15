@@ -2847,10 +2847,12 @@ MonoBehaviour:
   enter: {fileID: 1886455586}
   dummy: {fileID: 391929583}
   centerX: 0
-  centerY: -0.01
+  centerY: -0.007
   keySizeX: 0.015
   keySizeY: 0.01125
-  keyGap: 0.00375
+  keyGap: 0.01
+  keyGapX: 0
+  KeyGupY: 0
   textx: {fileID: 1859380430}
   texty: {fileID: 419102732}
   textratio: {fileID: 576788539}
@@ -3394,15 +3396,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textobject: {fileID: 1414326898}
   textsub: {fileID: 1547484323}
-  folder_path: .\Assets\CSV_output\PreTestHCF
-  file_name: pretestHCF
-  _ID: 
-  KC: 
-  P: 0
-  KBF: 0
-  HCF: 0
-  _Distance: 0.15
-  TestTimes: 50
 --- !u!4 &759438504
 Transform:
   m_ObjectHideFlags: 0
@@ -3454,7 +3447,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &795695424
 Transform:
   m_ObjectHideFlags: 0
@@ -3919,7 +3912,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7654189457585447442, guid: b35333cad32b99d4388c5a99ee7f9346, type: 3}
       propertyPath: outlineColor.r
-      value: 0.4811321
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7915340425017269767, guid: b35333cad32b99d4388c5a99ee7f9346, type: 3}
       propertyPath: m_text
@@ -6657,14 +6650,15 @@ MonoBehaviour:
   fkb: {fileID: 1903498264}
   pretest: {fileID: 759438503}
   coords: {fileID: 2138986570}
+  kp: {fileID: 660310239}
   PreTest: 1
   HoverColorFeedback: 0
   KeyBoardFeedback: 0
-  Pointer: 1
+  Pointer: 0
   KeyColor: TP3
   HowTransparent: 80
   CloverTransparent: 80
-  folder_path: .\Assets\CSV_output\Pre
+  folder_path: .\Assets\CSV_output\ToCoordinates
   file_name: test
   _ID: 
   _Distance: 0.15

@@ -146,58 +146,6 @@ public class keyManager4 : MonoBehaviour
                 state = "hover";
             }
 
-
-       
-            //{
-            //    if (preonoff == true)
-            //    {
-            //        pretest.Begin(ux, uy);
-            //        preonoff = false;
-            //    }
-            //}
-            //else
-            //{
-            //    if (pretestonrunnning == true)
-            //    {
-            //        if (preonoff == true)
-            //        {
-            //            pretest.End(ux, uy);
-
-            //            pretestonoff = false;
-            //        }
-
-            //        pretestonrunning = false;
-            //    }
-            //}
-
-            //// èÛë‘ëJà⁄óp
-            //if (onoff == true && pretestonoff == false)
-            //{
-
-            //    Debug.Log(string.Format("  AA PTonoff : {0}, onrunning : {1}, onoff : {2}", pretestonoff, onrunning, onoff));
-
-            //    pretest.Begin(ux, uy);
-            //    pretestonoff = true;
-
-            //    return;
-            //}
-            //else if ((onoff == false && pretestonoff == true))
-            //{
-            //    Debug.Log(string.Format("      BB PTonoff : {0}, onrunning : {1}, onoff : {2}", pretestonoff, onrunning, onoff));
-
-            //    pretest.End(ux, uy);
-            //    pretestonoff = false;
-
-            //    return;
-            //}
-            //else if (pretestonoff == true && onrunning == false && onoff == false)
-            //{
-
-            //    Debug.Log(string.Format("         CC PTonoff : {0}, onrunning : {1}, onoff : {2}", pretestonoff, onrunning, onoff));
-
-            //    pretest.End(ux, uy);
-            //    pretestonoff = false;
-            //}
         }
 
         if (HoverColorFeedback == true && KeyBoardFeedback == true)

@@ -9,20 +9,15 @@ using System.Linq;
 using System.Security.Cryptography;
 using TMPro;
 
-public class PreTest_output : MonoBehaviour
+public class PreCoords : MonoBehaviour
 {
-    public TextMeshProUGUI textobject;
-    public TextMeshProUGUI textsub;
+    //public TextMeshProUGUI textobject;
+    //public TextMeshProUGUI textsub;
 
     // file name path, others : file container
     private string folder_path;
     private string file_name;
     private string _ID;
-    private string KC;
-    private Boolean P;
-    private Boolean KBF;
-    private Boolean HCF;
-    private float _Distance;
     private int TestTimes = 10;
 
 
@@ -41,50 +36,67 @@ public class PreTest_output : MonoBehaviour
     private char word;
     private int i = 0;
 
-    private char[] words = { 'あ','い','う','え','お',
-                            'か','き','く','け','こ',
-                            'さ','し','す','せ','そ',
-                            'た','ち','つ','て','と',
-                            'な','に','ぬ','ね','の',
-                            'は','ひ','ふ','へ','ほ',
-                            'ま','み','む','め','も',
-                            'や','ゆ','よ',
-                            'ら','り','る','れ','ろ',
-                            'わ','を','ん',
-                            '変','ー','、','。','！','？',
-                            'E', 'S', 'B'}; // 55
-
-    private char[] words2;
+    //private float[] rx;
+    //private float[] ry;
 
 
-    // Start is called before the first frame update
-    //void Start()
-    public void SStart()
+// Start is called before the first frame update
+//void Start()
+public void SStart()
     {
         Debug.Log(string.Format("PreTest_output.SStart(): folder_path {0}, file_name {1}", folder_path, file_name));
 
-        words2 = words.Concat(words).ToArray();
 
-        System.Random random = new System.Random();
-        words2 = words2.OrderBy(x => random.Next()).ToArray();
-        
+
+        //////////////////////////// ランダムな float rx, float ry の行列を作成
+
+        //rx = new float[TestTimes];
+        //ry = new float[TestTimes];
+
+        //System.Random randx = new System.Random();
+        //System.Random randy = new System.Random();
+
+
+        //for (int i = 0; i < rx.Length; i++)
+        //{
+        //    rx[i] = (float)(randx.NextDouble() * 0.16) - (float)0.08;
+        //}
+
+        //foreach (float num in rx)
+        //{
+        //    Console.WriteLine(num);
+        //}
+
+        //for (int i = 0; i < ry.Length; i++)
+        //{
+        //    ry[i] = (float)(rand.NextDouble() * 0.089) - 0.0445f;
+        //}
+
+        //foreach (float num in ry)
+        //{
+        //    Console.WriteLine(num);
+        //}
+
+        ////////////////////////////
+
+
         file_name = FileNameCheck(folder_path, file_name);
         file_name = file_name + ".csv";
         file_path = folder_path + "\\" + file_name;
 
-        Debug.Log(string.Format("PreTest_output.SStart(): file_path {0}, ",file_path));
-        
+        Debug.Log(string.Format("PreTest_output.SStart(): file_path {0}, ", file_path));
+
         // 第二引数をtrueにすると追加で書き込む
         // falseにすると全ての文章が書き換えられる
         sw = new StreamWriter(@file_path, true, Encoding.GetEncoding("Shift_JIS"));
 
-        string[] s1 = { "ID", "KC", "P", "KBF", "HCF", "Distance","BorE", "word", "ux", "uy", "delta time"};
+        string[] s1 = { "ID", "rx", "ry", "ux", "uy" };
         string s2 = string.Join(",", s1);
         Debug.Log(s2);
         sw.WriteLine(s2);
 
-        Debug.Log(string.Format("KC {0}, P {1}, KBF {2}, HCF {3}, Distance {4}, TTs {5}, FP {6}, FN {7}",
-            KC, P, KBF, HCF, _Distance, TestTimes, file_path, file_name));
+        //Debug.Log(string.Format("ID {0}, rx {1}, ry {2}, ux {3}, uy {4}",
+        //    ID, rx, ry, ux, uy));
 
     }
 
@@ -125,63 +137,49 @@ public class PreTest_output : MonoBehaviour
         }
     }
 
-    public void Begin(float ux, float uy)
+    public void Begin(float rx, float ry, float ux, float uy)
     {
-        float DeltaTime;
 
         if (isFirst == true)
         {
             // この時点では i == 0
-            word = words2[i];
-            textobject.text = word.ToString();
-            DeltaTime = 0;
-            preTime = Time.time;
+            //word = words2[i];
+            //textobject.text = word.ToString();
             isFirst = false;
 
         }
         else
         {
-            DeltaTime = Time.time - preTime;
-            preTime = Time.time;
-            string[] s1 = { _ID, KC, P.ToString(), KBF.ToString(), HCF.ToString(), _Distance.ToString(), "begin", word.ToString(), ux.ToString(), uy.ToString(), DeltaTime.ToString() };
-            SumTime += DeltaTime;
+            string[] s1 = { _ID, rx.ToString(), ry.ToString(),ux.ToString(), uy.ToString() };
             string s2 = string.Join(",", s1);
 
             sw.WriteLine(s2);
 
-        }   
+        }
     }
-
-    //private void TouchFeedback()
-    //{
-    //    invoke("Next",)
-    //}
 
     private void Next()
     {
-        word = words2[i];
+        //word = words2[i];
         // 次の文字を表示
-        textobject.text = word.ToString();
-        textsub.text = "Not touched yet.";
+        //textobject.text = word.ToString();
+        //textsub.text = "Not touched yet.";
     }
 
-    public void End(float ux, float uy)
+    public void End()
     {
-        float DeltaTime;
 
         if (isFirst == true)
         {
-         
+
         }
         else
         {
-            //DeltaTime = Time.time - preTime;
-            //preTime = Time.time;   
-            string[] s1 = { _ID, KC, P.ToString(), KBF.ToString(), HCF.ToString(), _Distance.ToString(), "end", word.ToString(), ux.ToString(), uy.ToString(), "" };
-            //SumTime += DeltaTime;
-            string s2 = string.Join(",", s1);
-            sw.WriteLine(s2);
-            
+            //string[] s1 = { _ID, KC, P.ToString(), KBF.ToString(), HCF.ToString(), _Distance.ToString(), "end", word.ToString(), ux.ToString(), uy.ToString(), "" };
+            ////SumTime += DeltaTime;
+            //string s2 = string.Join(",", s1);
+            //sw.WriteLine(s2);
+
             i += 1;
             if (i <= TestTimes)
             {
@@ -189,9 +187,7 @@ public class PreTest_output : MonoBehaviour
                 //// 次の文字を表示
                 //textobject.text = word.ToString();
 
-                textsub.text = "Good!";
-
-                //Invoke("TouchFeedback", 1);
+                //textsub.text = "Good!";
 
                 Invoke("Next", 1);
 
@@ -200,12 +196,12 @@ public class PreTest_output : MonoBehaviour
             {
                 // 普通のプレイ終了時の処理
                 sw.WriteLine("End");
-                textobject.text = "End";
+                //textobject.text = "End";
                 sw.Close();
                 UnityEditor.EditorApplication.isPlaying = false;
 
             }
-        }       
+        }
     }
 
     private string FileNameCheck(string folder_path, string file_name)
@@ -221,9 +217,11 @@ public class PreTest_output : MonoBehaviour
 
         foreach (string file in files)
         {
-            
 
-            Match match = Regex.Match(Path.GetFileName(file), @"test(\d+)\.csv");
+
+            //Match match = Regex.Match(Path.GetFileName(file), @"test(\d+)\.csv");
+            //Match match = Regex.Match(Path.GetFileName(file), @"{file_name}(\d+)\.csv");
+            Match match = Regex.Match(Path.GetFileName(file), file_name + "(\\d+)\\.csv");
             if (match.Success)
             {
                 int num = int.Parse(match.Groups[1].Value);
@@ -234,7 +232,7 @@ public class PreTest_output : MonoBehaviour
                 }
             }
 
-            Debug.Log(string.Format("filecheck {0} , max_num {1}", file, max_num));
+            Debug.Log(string.Format("filecheck {0} , max_num {1}, max_file {2}", file, max_num, max_file));
         }
 
         if (max_num != -1)
@@ -245,51 +243,24 @@ public class PreTest_output : MonoBehaviour
 
             return result;
 
-            //int num;
-
-            //try
-            //{
-            //    string match = Regex.Match(max_file, @"[0-9]+").Value;
-
-            //    num = int.Parse(match) + 1;
-            //}
-            //catch (Exception e)
-            //{
-            //    //UnityEditor.EditorApplication.isPlaying = false;
-            //    //return e.ToString();
-            //    num = 0;
-            //}
-
-            //Debug.Log("exist");
-            //Debug.Log(num);
-            //Debug.Log("num : " + num + " , num.Tostring() :" + num.ToString());
-            //Debug.Log(file_name + num.ToString());
-            //return file_name + num.ToString();
-
         }
         else
         {
             Debug.Log("file_name is not exist");
             return file_name + "0";
         }
-        
-        //catch (Exception e)
-        //{
-        //    UnityEditor.EditorApplication.isPlaying = false;
-        //    return e.ToString();
 
-        //}
     }
 
-    public float getDistace()
-    {
-        return _Distance;
-    }
+    //public float getDistace()
+    //{
+    //    return _Distance;
+    //}
 
-    public void setDistance(float f)
-    {
-        _Distance = f;
-    }
+    //public void setDistance(float f)
+    //{
+    //    _Distance = f;
+    //}
     public void setfolder_path(string s)
     {
         folder_path = s;
@@ -302,24 +273,24 @@ public class PreTest_output : MonoBehaviour
     {
         _ID = s;
     }
-    public void setKC(string s)
-    {
-        KC = s;
-    }
-    public void setP(Boolean tf)
-    {
-        P = tf;
-    }
-    public void setKBF(Boolean tf)
-    {
-        KBF = tf;
-    }
-    public void setHCF(Boolean tf)
-    {
-        HCF = tf;
-    }
+    //public void setKC(string s)
+    //{
+    //    KC = s;
+    //}
+    //public void setP(Boolean tf)
+    //{
+    //    P = tf;
+    //}
+    //public void setKBF(Boolean tf)
+    //{
+    //    KBF = tf;
+    //}
+    //public void setHCF(Boolean tf)
+    //{
+    //    HCF = tf;
+    //}
     public void setTestTimes(int i)
     {
-       TestTimes =  i;
+        TestTimes = i;
     }
 }

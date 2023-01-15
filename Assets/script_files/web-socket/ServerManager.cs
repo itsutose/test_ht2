@@ -16,7 +16,7 @@ public class ServerManager : MonoBehaviour
     {
         //ポート番号を指定
         //ws = new WebSocketServer(12361);  // ws_home
-        ws = new WebSocketServer(12357); //ws_invb2
+        ws = new WebSocketServer(12358); //ws_invb2
         //クライアントからの通信時の挙動を定義したクラス、「ExWebSocketBehavior」を登録
         ws.AddWebSocketService<ExWebSocketBehavior>("/");
         //サーバ起動
