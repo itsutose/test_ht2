@@ -45,19 +45,41 @@ public class keyPosition : MonoBehaviour
                     continue;
                 }
 
+   
+
                 GameObject key = keylist[i, j];
                 Vector3 keyPos = key.transform.localPosition;
                 Vector3 keyScale = key.transform.localScale;
 
-                keyScale.x = keySizeX;
-                keyScale.y = keySizeY;
 
-                key.transform.localScale = keyScale;
+                // Enter‚Ì‚±‚Æ
+                if (i == 2 && j == 3)
+                {
+                    keyScale.x = keySizeX;
+                    keyScale.y = keySizeY * 2 + keyGap;
 
-                keyPos.x = (keyGap + keySizeX) * (float)(-1.5 + j) + centerX;
-                keyPos.y = (keyGap + keySizeY) * (float)(1.5 + -i) + centerY;
+                    key.transform.localScale = keyScale;
 
-                key.transform.localPosition = keyPos;
+                    keyPos.x = (keyGap + keySizeX) * (float)(-1.5 + j) + centerX;
+                    keyPos.y = (keyGap + keySizeY) * (float)(1.5 + -i) + centerY - (keySizeY * 2 + keyGap) / 2;
+
+                    key.transform.localPosition = keyPos;
+
+                    continue;
+                }
+                else
+                {
+
+                    keyScale.x = keySizeX;
+                    keyScale.y = keySizeY;
+
+                    key.transform.localScale = keyScale;
+
+                    keyPos.x = (keyGap + keySizeX) * (float)(-1.5 + j) + centerX;
+                    keyPos.y = (keyGap + keySizeY) * (float)(1.5 + -i) + centerY;
+
+                    key.transform.localPosition = keyPos;
+                }
             }
         }
     }
@@ -80,15 +102,34 @@ public class keyPosition : MonoBehaviour
                 Vector3 keyPos = key.transform.localPosition;
                 Vector3 keyScale = key.transform.localScale;
 
-                keyScale.x = keySizeX;
-                keyScale.y = keySizeY;
+                // Enter‚Ì‚±‚Æ
+                if (i == 2 && j == 3)
+                {
+                    keyScale.x = keySizeX;
+                    keyScale.y = keySizeY * 2 + keyGap;
 
-                key.transform.localScale = keyScale;
+                    key.transform.localScale = keyScale;
 
-                keyPos.x = (keyGap + keySizeX) * (float)(-1.5 + j) + centerX;
-                keyPos.y = (keyGap + keySizeY) * (float)(1.5 + -i) + centerY;
+                    keyPos.x = (keyGap + keySizeX) * (float)(-1.5 + j) + centerX;
+                    keyPos.y = (keyGap + keySizeY) * (float)(1.5 + -i) + centerY - (keySizeY);
 
-                key.transform.localPosition = keyPos;
+                    key.transform.localPosition = keyPos;
+
+                    continue;
+                }
+                else
+                {
+
+                    keyScale.x = keySizeX;
+                    keyScale.y = keySizeY;
+
+                    key.transform.localScale = keyScale;
+
+                    keyPos.x = (keyGap + keySizeX) * (float)(-1.5 + j) + centerX;
+                    keyPos.y = (keyGap + keySizeY) * (float)(1.5 + -i) + centerY;
+
+                    key.transform.localPosition = keyPos;
+                }
             }
         }
 

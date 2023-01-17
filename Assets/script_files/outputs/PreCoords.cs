@@ -90,7 +90,20 @@ public void SStart()
         // falseÇ…Ç∑ÇÈÇ∆ëSÇƒÇÃï∂èÕÇ™èëÇ´ä∑Ç¶ÇÁÇÍÇÈ
         sw = new StreamWriter(@file_path, true, Encoding.GetEncoding("Shift_JIS"));
 
-        string[] s1 = { "ID", "rx", "ry", "ux", "uy" };
+        string[] s1 = { "ID", "HorO","rx", "ry", 
+            "ux", 
+            "ux1", 
+            "ux2", 
+            "ux3", 
+            "ux4", 
+            "ux5",
+            "uy",
+            "uy1",
+            "uy2",
+            "uy3",
+            "uy4",
+            "uy5",
+        };
         string s2 = string.Join(",", s1);
         Debug.Log(s2);
         sw.WriteLine(s2);
@@ -137,7 +150,7 @@ public void SStart()
         }
     }
 
-    public void Begin(float rx, float ry, float ux, float uy)
+    public void BeginH(float rx, float ry, float ux, float uy, float ux1, float uy1, float ux2, float uy2, float ux3, float uy3, float ux4, float uy4, float ux5, float uy5)
     {
 
         if (isFirst == true)
@@ -150,7 +163,77 @@ public void SStart()
         }
         else
         {
-            string[] s1 = { _ID, rx.ToString(), ry.ToString(),ux.ToString(), uy.ToString() };
+            string[] s1 = { _ID, "H",
+                rx.ToString(), ry.ToString(),
+                ux.ToString(), 
+                ux1.ToString(),
+                ux2.ToString(),
+                ux3.ToString(),
+                ux4.ToString(),
+                ux5.ToString(),
+                uy.ToString(),
+                uy1.ToString(),
+                uy2.ToString(),
+                uy3.ToString(),
+                uy4.ToString(),
+                uy5.ToString(),
+            };
+            string s2 = string.Join(",", s1);
+
+            sw.WriteLine(s2);
+
+        }
+    }
+
+    public void BeginO(float rx, float ry, float ux, float uy)
+    {
+
+        if (isFirst == true)
+        {
+            // Ç±ÇÃéûì_Ç≈ÇÕ i == 0
+            //word = words2[i];
+            //textobject.text = word.ToString();
+            isFirst = false;
+
+        }
+        else
+        {
+            string[] s1 = { _ID, "O", rx.ToString(), ry.ToString(), ux.ToString(), uy.ToString() };
+            string s2 = string.Join(",", s1);
+
+            sw.WriteLine(s2);
+
+        }
+    }
+
+    public void BeginO(float rx, float ry, float ux, float uy, float ux1, float uy1, float ux2, float uy2, float ux3, float uy3, float ux4, float uy4, float ux5, float uy5)
+    {
+
+        if (isFirst == true)
+        {
+            // Ç±ÇÃéûì_Ç≈ÇÕ i == 0
+            //word = words2[i];
+            //textobject.text = word.ToString();
+            isFirst = false;
+
+        }
+        else
+        {
+            string[] s1 = { _ID, "O",
+                rx.ToString(), ry.ToString(),
+                ux.ToString(),
+                ux1.ToString(),
+                ux2.ToString(),
+                ux3.ToString(),
+                ux4.ToString(),
+                ux5.ToString(),
+                uy.ToString(),
+                uy1.ToString(),
+                uy2.ToString(),
+                uy3.ToString(),
+                uy4.ToString(),
+                uy5.ToString(),
+            };
             string s2 = string.Join(",", s1);
 
             sw.WriteLine(s2);

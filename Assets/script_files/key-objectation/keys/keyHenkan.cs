@@ -73,7 +73,22 @@ public class keyHenkan : key2
         mat.color = color32;
         _text.color = color32;
     }
-    
+
+    public override void takecolor(Color32 color32, string word)
+    {
+        Material mat = this.GetComponent<Renderer>().material;
+        mat.color = color32;
+
+        if (word == " ")
+        {
+            _text.color = color32;
+        }
+        else
+        {
+            _text.color = new Color32(255, 255, 255, 80);
+        }
+        _text.text = word;
+    }
 
     public override void rmcolor(int aa)
     {

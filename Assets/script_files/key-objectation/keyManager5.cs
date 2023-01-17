@@ -41,6 +41,10 @@ public class keyManager5 : MonoBehaviour
 
     private int now = 0;
 
+    private float ux1, ux2, ux3, ux4, ux5;
+    private float uy1, uy2, uy3, uy4, uy5;
+    private int hovergap = 0;
+
     // Start is called before the first frame update
     public void SStart()
     {
@@ -52,8 +56,6 @@ public class keyManager5 : MonoBehaviour
 
         System.Random randx = new System.Random();
         System.Random randy = new System.Random();
-
-        //Debug.Log("keyManager5 SStart()");
 
         for (int i = 0; i < rx.Length; i++)
         {
@@ -86,12 +88,6 @@ public class keyManager5 : MonoBehaviour
             }
         }
 
-        foreach (float num in ry)
-        {
-            //Console.WriteLine(num);
-            //Debug.Log(string.Format("keyManager5 SStart ry {0}", num));
-        }
-
         Debug.Log(string.Format("keyManager5 SStart  rx[0] {0}, ry[0] {1}", rx[0],ry[0]));
 
         //////////////////////////
@@ -113,10 +109,39 @@ public class keyManager5 : MonoBehaviour
             return;
         }
 
+        if (hovergap >= 5)
+        {
+            hovergap = 0;
+        }
+        else
+        {
+            hovergap += 1;
+        }
+
+        if(hovergap % 5 == 0)
+        {
+            ux5 = ux4;
+            ux4 = ux3;
+            ux3 = ux2;
+            ux2 = ux1;
+            ux1 = ux;
+
+            uy5 = uy4;
+            uy4 = uy3;
+            uy3 = uy2;
+            uy2 = uy1;
+            uy1 = uy;
+        }
+
+
+
+    
+
         ux = coords.getUX();
         uy = coords.getUY();
         onoff = coords.getOnoff();
         onrunning = coords.getOnrunning();
+
 
         if (onrunning == false)
         {
@@ -130,13 +155,16 @@ public class keyManager5 : MonoBehaviour
         {
             if (state == "hover")
             {
-                precoords.Begin(rx[now], ry[now], ux, uy);
+                Debug.Log(string.Format("ux {0}, ux1 {1}, ux2 {2}, ux3 {3}, ux4 {4}, ux5 {5}", ux, ux1, ux2, ux3, ux4, ux5));
+
+                precoords.BeginH(rx[now], ry[now], ux, uy, ux1, uy1, ux2, uy2, ux3, uy3, ux4, uy4, ux5, uy5);
                 now++;
             }
             else if (state == "out")
             {
-                
-                precoords.Begin(rx[now], ry[now], ux, uy);
+                Debug.Log(string.Format("state : out -> touch, ux {0}, ux1 {1}, ux2 {2}, ux3 {3}, ux4 {4}, ux5 {5}", ux, ux1, ux2, ux3, ux4, ux5));
+                //precoords.BeginO(rx[now], ry[now], ux, uy);
+                precoords.BeginO(rx[now], ry[now], ux, uy, ux1, uy1, ux2, uy2, ux3, uy3, ux4, uy4, ux5, uy5);
                 now++;
             }
 
@@ -165,6 +193,19 @@ public class keyManager5 : MonoBehaviour
             }
 
             state = "out";
+
+            ux5 = -1;
+            ux4 = -1;
+            ux3 = -1;
+            ux2 = -1;
+            ux1 = -1;
+                  
+            uy5 = -1;
+            uy4 = -1;
+            uy3 = -1;
+            uy2 = -1;
+            uy1 = -1;
+
         }
         // hover
         else if (onrunning == true && onoff == false)

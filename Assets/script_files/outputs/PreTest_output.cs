@@ -8,11 +8,15 @@ using System;
 using System.Linq;
 using System.Security.Cryptography;
 using TMPro;
+using System.Linq;
 
 public class PreTest_output : MonoBehaviour
 {
     public TextMeshProUGUI textobject;
     public TextMeshProUGUI textsub;
+
+    public GameObject a, k, s, t, n, h, m, y, r, w, hen, point, enter,space, backspace,  dummy = null;
+
 
     // file name path, others : file container
     private string folder_path;
@@ -54,16 +58,87 @@ public class PreTest_output : MonoBehaviour
                             '変','ー','、','。','！','？',
                             'E', 'S', 'B'}; // 55
 
+    private char[] words1;
     private char[] words2;
+
+    //private string[] aa = { "あ", "い", "う", "え", "お" };
+    //private string[] kk = { "か", "き", "く", "け", "こ" };
+    //private string[] ss = { "さ", "し", "す", "せ", "そ" };
+    //private string[] tt = { "た", "ち", "つ", "て", "と" };
+    //private string[] nn = { "な", "に", "ぬ", "ね", "の" };
+    //private string[] hh = { "は", "ひ", "ふ", "へ", "ほ" };
+    //private string[] mm = { "ま", "み", "む", "め", "も" };
+    //private string[] yy = { "や", "ゆ", "よ" };
+    //private string[] rr = { "ら", "り", "る", "れ", "ろ" };
+    //private string[] ww = { "わ", "を", "ん", "ー" };
+    //private string[] hhen = { "変" };
+    //private string[] pp = { "、", "。", "！", "？" };
+    //private string[] EE = { "E" };
+    //private string[] SS = { "S" };
+    //private string[] BB = { "B" }; // 55
+
+    private string[,] boin = {{ "あ", "い", "う", "え", "お" },
+                             { "か", "き", "く", "け", "こ" },
+                             { "さ", "し", "す", "せ", "そ" },
+                             { "た", "ち", "つ", "て", "と" },
+                             { "な", "に", "ぬ", "ね", "の" },
+                             { "は", "ひ", "ふ", "へ", "ほ" },
+                             { "ま", "み", "む", "め", "も" },
+                             { "や", "ゆ", "よ", "よ", "よ" },
+                             { "ら", "り", "る", "れ", "ろ" },
+                             { "わ", "を", "ん", "ー", "ー" },
+                             { "変", "変", "変", "変", "変" },
+                             { "、", "。", "！", "？", "?"},
+                             { "E" , "E" , "E" , "E" , "E"  },
+                             { "S","S","S","S","S" },
+                             { "B","B","B","B","B" } };
+        
+    private GameObject[] keylist;
 
 
     // Start is called before the first frame update
     //void Start()
     public void SStart()
     {
-        Debug.Log(string.Format("PreTest_output.SStart(): folder_path {0}, file_name {1}", folder_path, file_name));
 
-        words2 = words.Concat(words).ToArray();
+        keylist = new GameObject[] { a, k, s, t, n, h, m, y, r, w, hen, point, enter, space, backspace };
+
+
+        //Debug.Log(string.Format("PreTest_output.SStart(): folder_path {0}, file_name {1}", folder_path, file_name));
+
+        words1 = words.Concat(words).ToArray();
+        words2 = words1.Concat(words1).ToArray();
+
+        //////////////////// words2の内訳を見たい
+
+        Dictionary<string, int> wordlist = new Dictionary<string, int>();
+
+        foreach (string word in boin)
+        {
+            wordlist[word] = 0;
+        }
+
+        foreach (char word in words2)
+        {
+            if (!wordlist.ContainsKey(word.ToString()))
+            {
+                wordlist[word.ToString()] = 1;
+            }
+            else
+            {
+                wordlist[word.ToString()]++;
+            }
+        }
+
+        //Console.WriteLine(wordlist.Count);
+        Debug.Log(wordlist.Count);
+        foreach (KeyValuePair<string, int> item in wordlist.OrderBy(i => i.Key))
+        {
+            //Console.WriteLine("{0}: {1}", item.Key, item.Value);
+            Debug.Log(string.Format("{0}: {1}", item.Key, item.Value));
+        }
+
+        ////////////////////
 
         System.Random random = new System.Random();
         words2 = words2.OrderBy(x => random.Next()).ToArray();
@@ -83,8 +158,8 @@ public class PreTest_output : MonoBehaviour
         Debug.Log(s2);
         sw.WriteLine(s2);
 
-        Debug.Log(string.Format("KC {0}, P {1}, KBF {2}, HCF {3}, Distance {4}, TTs {5}, FP {6}, FN {7}",
-            KC, P, KBF, HCF, _Distance, TestTimes, file_path, file_name));
+        //Debug.Log(string.Format("KC {0}, P {1}, KBF {2}, HCF {3}, Distance {4}, TTs {5}, FP {6}, FN {7}",
+        //    KC, P, KBF, HCF, _Distance, TestTimes, file_path, file_name));
 
     }
 
@@ -152,17 +227,57 @@ public class PreTest_output : MonoBehaviour
         }   
     }
 
-    //private void TouchFeedback()
-    //{
-    //    invoke("Next",)
-    //}
-
     private void Next()
     {
         word = words2[i];
         // 次の文字を表示
         textobject.text = word.ToString();
+
+
+        // 次の押すキーの色を変える
+        NextKey(word.ToString());
+
         textsub.text = "Not touched yet.";
+    }
+
+    private void NextKey(string word)
+    {
+
+        foreach (GameObject key in keylist)
+        {
+            //key.GetComponent<key2>().takecolor(new Color32(255,255,255,250)," ");
+            key.GetComponent<key2>().takecolor(new Color32(255, 255, 255, 80)," ");
+        }
+
+        for (int i = 0; i < boin.GetLength(0); i++)
+        {
+            for (int j = 0; j < boin.GetLength(1); j++)
+            {
+                if (boin[i, j] == word)
+                {
+                    if (j == 0)
+                    {
+                        keylist[i].GetComponent<key2>().takecolor(new Color32(255, 255, 0, 255), "・");
+                    }else if(j == 1)
+                    {
+                        keylist[i].GetComponent<key2>().takecolor(new Color32(255, 255, 0, 255), "←");
+                    }
+                    else if (j == 2)
+                    {
+                        keylist[i].GetComponent<key2>().takecolor(new Color32(255, 255, 0, 255), "↑");
+                    }
+                    else if (j == 3)
+                    {
+                        keylist[i].GetComponent<key2>().takecolor(new Color32(255, 255, 0, 255), "→");
+                    }
+                    else if (j == 4)
+                    {
+                        keylist[i].GetComponent<key2>().takecolor(new Color32(255, 255, 0, 255), "↓");
+                    }
+                    break;
+                }
+            }
+        }
     }
 
     public void End(float ux, float uy)
@@ -187,12 +302,8 @@ public class PreTest_output : MonoBehaviour
             {
                 //word = words2[i];
                 //// 次の文字を表示
-                //textobject.text = word.ToString();
 
                 textsub.text = "Good!";
-
-                //Invoke("TouchFeedback", 1);
-
                 Invoke("Next", 1);
 
             }

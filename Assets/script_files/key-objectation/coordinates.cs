@@ -43,10 +43,6 @@ public class coordinates : MonoBehaviour
     void Update()
     {
 
-        //if (ratio == 1)
-        //{
-        //    ratio = keypos.getRatio();
-        //}
 
         if (server != null)
         {
@@ -82,6 +78,9 @@ public class coordinates : MonoBehaviour
                     sphere.SetActive(false);
 
                     onrunning = false;
+
+                    ux = -1;
+                    uy = -1;
 
                     return;
 

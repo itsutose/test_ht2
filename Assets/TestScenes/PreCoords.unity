@@ -2011,8 +2011,8 @@ MonoBehaviour:
   coords: {fileID: 2138986570}
   _Distance: 0.3
   folder_path: .\Assets\CSV_output\PreCoords
-  file_name: hidaka
-  _ID: hidaka
+  file_name: test
+  _ID: test
   TestTimes: 50
   magnification: 1
 --- !u!4 &698740907
