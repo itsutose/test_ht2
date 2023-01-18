@@ -2846,13 +2846,7 @@ MonoBehaviour:
   point: {fileID: 707410702}
   enter: {fileID: 1886455586}
   dummy: {fileID: 391929583}
-  centerX: 0
-  centerY: -0.007
-  keySizeX: 0.015
-  keySizeY: 0.01125
-  keyGap: 0.01
-  keyGapX: 0
-  KeyGupY: 0
+  mode: 0
   textx: {fileID: 1859380430}
   texty: {fileID: 419102732}
   textratio: {fileID: 576788539}
@@ -3396,6 +3390,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textobject: {fileID: 1414326898}
   textsub: {fileID: 1547484323}
+  a: {fileID: 415775407}
+  k: {fileID: 714317626}
+  s: {fileID: 748549561}
+  t: {fileID: 1732709809}
+  n: {fileID: 2102638895}
+  h: {fileID: 1532623332}
+  m: {fileID: 1373776510}
+  y: {fileID: 2072850887}
+  r: {fileID: 2072276587}
+  w: {fileID: 1439661466}
+  hen: {fileID: 1151141423}
+  point: {fileID: 707410702}
+  enter: {fileID: 1886455586}
+  space: {fileID: 1726296181}
+  backspace: {fileID: 868412495}
+  dummy: {fileID: 391929583}
 --- !u!4 &759438504
 Transform:
   m_ObjectHideFlags: 0
@@ -6659,11 +6669,12 @@ MonoBehaviour:
   HowTransparent: 80
   CloverTransparent: 80
   folder_path: .\Assets\CSV_output\ToCoordinates
-  file_name: test
-  _ID: 
-  _Distance: 0.15
-  TestTimes: 100
-  out_range_times: 25
+  file_name: tsunoda
+  _ID: 1
+  _Distance: 0.3
+  _Mode: 3
+  TestTimes: 70
+  out_range_times: 50
   magnification: 1
 --- !u!4 &1495511144
 Transform:
@@ -8995,12 +9006,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   server: {fileID: 368044074}
-  keypos: {fileID: 660310239}
   sphere: {fileID: 478603462}
+  PreCoordsSphere: {fileID: 0}
   pr: center
   Pointer: 1
   out_range_times: 50
-  magnification: 1.2
+  magnification: 1
 --- !u!4 &2138986571
 Transform:
   m_ObjectHideFlags: 0

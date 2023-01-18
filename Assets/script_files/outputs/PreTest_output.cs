@@ -22,6 +22,7 @@ public class PreTest_output : MonoBehaviour
     private string folder_path;
     private string file_name;
     private string _ID;
+    private int Mode;
     private string KC;
     private Boolean P;
     private Boolean KBF;
@@ -45,7 +46,7 @@ public class PreTest_output : MonoBehaviour
     private char word;
     private int i = 0;
 
-    private char[] words = { 'あ','い','う','え','お',
+    private List<char> words = new List<char>{ 'あ','い','う','え','お',
                             'か','き','く','け','こ',
                             'さ','し','す','せ','そ',
                             'た','ち','つ','て','と',
@@ -56,26 +57,12 @@ public class PreTest_output : MonoBehaviour
                             'ら','り','る','れ','ろ',
                             'わ','を','ん',
                             '変','ー','、','。','！','？',
-                            'E', 'S', 'B'}; // 55
+                            'E', 'S', 'B'};
 
-    private char[] words1;
-    private char[] words2;
 
-    //private string[] aa = { "あ", "い", "う", "え", "お" };
-    //private string[] kk = { "か", "き", "く", "け", "こ" };
-    //private string[] ss = { "さ", "し", "す", "せ", "そ" };
-    //private string[] tt = { "た", "ち", "つ", "て", "と" };
-    //private string[] nn = { "な", "に", "ぬ", "ね", "の" };
-    //private string[] hh = { "は", "ひ", "ふ", "へ", "ほ" };
-    //private string[] mm = { "ま", "み", "む", "め", "も" };
-    //private string[] yy = { "や", "ゆ", "よ" };
-    //private string[] rr = { "ら", "り", "る", "れ", "ろ" };
-    //private string[] ww = { "わ", "を", "ん", "ー" };
-    //private string[] hhen = { "変" };
-    //private string[] pp = { "、", "。", "！", "？" };
-    //private string[] EE = { "E" };
-    //private string[] SS = { "S" };
-    //private string[] BB = { "B" }; // 55
+    private List<char> words1;
+    private List<char> words2;
+
 
     private string[,] boin = {{ "あ", "い", "う", "え", "お" },
                              { "か", "き", "く", "け", "こ" },
@@ -88,7 +75,7 @@ public class PreTest_output : MonoBehaviour
                              { "ら", "り", "る", "れ", "ろ" },
                              { "わ", "を", "ん", "ー", "ー" },
                              { "変", "変", "変", "変", "変" },
-                             { "、", "。", "！", "？", "?"},
+                             { "、", "。", "！", "？", "？"},
                              { "E" , "E" , "E" , "E" , "E"  },
                              { "S","S","S","S","S" },
                              { "B","B","B","B","B" } };
@@ -106,8 +93,30 @@ public class PreTest_output : MonoBehaviour
 
         //Debug.Log(string.Format("PreTest_output.SStart(): folder_path {0}, file_name {1}", folder_path, file_name));
 
-        words1 = words.Concat(words).ToArray();
-        words2 = words1.Concat(words1).ToArray();
+        words1 = words.Concat(words).ToList();
+        words2 = words1.Concat(words1).ToList();
+        words2 = words2.Concat(words2).ToList();
+
+        for (int i = 0; i < 1; i++)
+        {
+            words2.Add((char)('わ'));
+            words2.Add((char)('を'));
+            words2.Add((char)('ん'));
+            words2.Add((char)('ー'));
+            words2.Add((char)('。'));
+            words2.Add((char)('、'));
+            words2.Add((char)('？'));
+            words2.Add((char)('！'));
+        }
+
+
+        for (int i = 0; i < 16; i++)
+        {
+            words2.Add((char)('変'));
+            words2.Add((char)('S'));
+            words2.Add((char)('B'));
+            words2.Add((char)('E'));
+        }
 
         //////////////////// words2の内訳を見たい
 
@@ -115,7 +124,7 @@ public class PreTest_output : MonoBehaviour
 
         foreach (string word in boin)
         {
-            wordlist[word] = 0;
+            wordlist[word.ToString()] = 0;
         }
 
         foreach (char word in words2)
@@ -141,7 +150,7 @@ public class PreTest_output : MonoBehaviour
         ////////////////////
 
         System.Random random = new System.Random();
-        words2 = words2.OrderBy(x => random.Next()).ToArray();
+        words2 = words2.OrderBy(x => random.Next()).ToList();
         
         file_name = FileNameCheck(folder_path, file_name);
         file_name = file_name + ".csv";
@@ -153,7 +162,7 @@ public class PreTest_output : MonoBehaviour
         // falseにすると全ての文章が書き換えられる
         sw = new StreamWriter(@file_path, true, Encoding.GetEncoding("Shift_JIS"));
 
-        string[] s1 = { "ID", "KC", "P", "KBF", "HCF", "Distance","BorE", "word", "ux", "uy", "delta time"};
+        string[] s1 = { "ID", "Mode", "KC", "P", "KBF", "HCF", "Distance","BorE", "word", "ux", "uy", "delta time"};
         string s2 = string.Join(",", s1);
         Debug.Log(s2);
         sw.WriteLine(s2);
@@ -218,7 +227,7 @@ public class PreTest_output : MonoBehaviour
         {
             DeltaTime = Time.time - preTime;
             preTime = Time.time;
-            string[] s1 = { _ID, KC, P.ToString(), KBF.ToString(), HCF.ToString(), _Distance.ToString(), "begin", word.ToString(), ux.ToString(), uy.ToString(), DeltaTime.ToString() };
+            string[] s1 = { _ID, Mode.ToString(), KC, P.ToString(), KBF.ToString(), HCF.ToString(), _Distance.ToString(), "begin", word.ToString(), ux.ToString(), uy.ToString(), DeltaTime.ToString() };
             SumTime += DeltaTime;
             string s2 = string.Join(",", s1);
 
@@ -292,7 +301,7 @@ public class PreTest_output : MonoBehaviour
         {
             //DeltaTime = Time.time - preTime;
             //preTime = Time.time;   
-            string[] s1 = { _ID, KC, P.ToString(), KBF.ToString(), HCF.ToString(), _Distance.ToString(), "end", word.ToString(), ux.ToString(), uy.ToString(), "" };
+            string[] s1 = { _ID, Mode.ToString(), KC, P.ToString(), KBF.ToString(), HCF.ToString(), _Distance.ToString(), "end", word.ToString(), ux.ToString(), uy.ToString(), "" };
             //SumTime += DeltaTime;
             string s2 = string.Join(",", s1);
             sw.WriteLine(s2);
@@ -332,9 +341,9 @@ public class PreTest_output : MonoBehaviour
 
         foreach (string file in files)
         {
-            
 
-            Match match = Regex.Match(Path.GetFileName(file), @"test(\d+)\.csv");
+
+            Match match = Regex.Match(Path.GetFileName(file), file_name + "(\\d+)\\.csv");
             if (match.Success)
             {
                 int num = int.Parse(match.Groups[1].Value);
@@ -356,27 +365,6 @@ public class PreTest_output : MonoBehaviour
 
             return result;
 
-            //int num;
-
-            //try
-            //{
-            //    string match = Regex.Match(max_file, @"[0-9]+").Value;
-
-            //    num = int.Parse(match) + 1;
-            //}
-            //catch (Exception e)
-            //{
-            //    //UnityEditor.EditorApplication.isPlaying = false;
-            //    //return e.ToString();
-            //    num = 0;
-            //}
-
-            //Debug.Log("exist");
-            //Debug.Log(num);
-            //Debug.Log("num : " + num + " , num.Tostring() :" + num.ToString());
-            //Debug.Log(file_name + num.ToString());
-            //return file_name + num.ToString();
-
         }
         else
         {
@@ -384,12 +372,6 @@ public class PreTest_output : MonoBehaviour
             return file_name + "0";
         }
         
-        //catch (Exception e)
-        //{
-        //    UnityEditor.EditorApplication.isPlaying = false;
-        //    return e.ToString();
-
-        //}
     }
 
     public float getDistace()
@@ -400,6 +382,10 @@ public class PreTest_output : MonoBehaviour
     public void setDistance(float f)
     {
         _Distance = f;
+    }
+    public void setMode(int i)
+    {
+        Mode = i;
     }
     public void setfolder_path(string s)
     {

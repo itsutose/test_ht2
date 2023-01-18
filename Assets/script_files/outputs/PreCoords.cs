@@ -102,14 +102,11 @@ public void SStart()
             "uy2",
             "uy3",
             "uy4",
-            "uy5",
+            "uy5"
         };
         string s2 = string.Join(",", s1);
         Debug.Log(s2);
         sw.WriteLine(s2);
-
-        //Debug.Log(string.Format("ID {0}, rx {1}, ry {2}, ux {3}, uy {4}",
-        //    ID, rx, ry, ux, uy));
 
     }
 

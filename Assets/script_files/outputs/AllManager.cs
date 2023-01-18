@@ -31,6 +31,7 @@ public class AllManager : MonoBehaviour
     public string _ID;
     //public string _InputType;
     public float _Distance =  (float)0.15;
+    public int _Mode;
     public int TestTimes = 10;
 
 
@@ -57,6 +58,7 @@ public class AllManager : MonoBehaviour
         pretest.GetComponent<PreTest_output>().setfolder_path(folder_path);
         pretest.GetComponent<PreTest_output>().setfile_name(file_name);
         pretest.GetComponent<PreTest_output>().setID(_ID);
+        pretest.GetComponent<PreTest_output>().setMode(_Mode);
         pretest.GetComponent<PreTest_output>().setKC(KeyColor);
         pretest.GetComponent<PreTest_output>().setP(Pointer);
         pretest.GetComponent<PreTest_output>().setKBF(KeyBoardFeedback);
@@ -64,7 +66,7 @@ public class AllManager : MonoBehaviour
         pretest.GetComponent<PreTest_output>().setDistance(_Distance);
         pretest.GetComponent<PreTest_output>().setTestTimes(TestTimes);
 
-
+        kp.GetComponent<keyPosition>().setMode(_Mode);
 
         coords.Pointer = Pointer;
         coords.out_range_times = out_range_times;

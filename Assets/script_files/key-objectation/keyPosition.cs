@@ -9,14 +9,16 @@ using UnityEngine.UI;
 public class keyPosition : MonoBehaviour
 {
     public GameObject a, k, s, t, n, h, m, y, r, w, hen, backspace, space, point, enter, dummy = null;
-    public float centerX = 0, centerY = 0;
+    private float centerX, centerY;
 
     //public float keySizeX = (float)0.02, keySizeY = (float)0.015;
     //public float keyGap = (float)0.005;
 
-    public float keySizeX, keySizeY;
-    public float keyGap;
-    public float keyGapX, KeyGupY;
+    public int mode;
+
+    private float keySizeX, keySizeY;
+    private float keyGap;
+    private float keyGapX, keyGapY;
 
     public TextMeshProUGUI textx,texty,textratio;
 
@@ -26,7 +28,33 @@ public class keyPosition : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        
+
+        if(mode == 0)
+        {
+            keySizeX = (float)0.015;
+            keySizeY = (float)0.01125;
+            keyGapX = (float)0.00375;
+            keyGapY = (float)0.00375;
+            centerY = (float)(-0.01);
+        }
+        else if (mode == 1)
+        {
+            keySizeX = (float)0.015;
+            keySizeY = (float)0.01125;
+            keyGapX = (float)0.01;
+            keyGapY = (float)0.01;
+            centerY = (float)(-0.007);
+        }
+        else if (mode == 2)
+        {
+            keySizeX = (float)0.015;
+            keySizeY = (float)0.01125;
+            keyGapX = (float)0.02;
+            keyGapY = (float)0.01;
+            centerY = (float)(-0.007);
+        }
+
+
         GameObject[,] keylist = { { a, k, s, backspace}, { t, n, h, space}, { m, y, r, enter}, { hen, w, point, dummy}};
 
         textx.text += (keySizeX * 4 + keyGap * 3).ToString();
@@ -56,12 +84,12 @@ public class keyPosition : MonoBehaviour
                 if (i == 2 && j == 3)
                 {
                     keyScale.x = keySizeX;
-                    keyScale.y = keySizeY * 2 + keyGap;
+                    keyScale.y = keySizeY * 2 + keyGapY;
 
                     key.transform.localScale = keyScale;
 
-                    keyPos.x = (keyGap + keySizeX) * (float)(-1.5 + j) + centerX;
-                    keyPos.y = (keyGap + keySizeY) * (float)(1.5 + -i) + centerY - (keySizeY * 2 + keyGap) / 2;
+                    keyPos.x = (keyGapX + keySizeX) * (float)(-1.5 + j) + centerX;
+                    keyPos.y = (keyGapY + keySizeY) * (float)(1.5 + -i) + centerY - keySizeY;
 
                     key.transform.localPosition = keyPos;
 
@@ -75,8 +103,8 @@ public class keyPosition : MonoBehaviour
 
                     key.transform.localScale = keyScale;
 
-                    keyPos.x = (keyGap + keySizeX) * (float)(-1.5 + j) + centerX;
-                    keyPos.y = (keyGap + keySizeY) * (float)(1.5 + -i) + centerY;
+                    keyPos.x = (keyGapX + keySizeX) * (float)(-1.5 + j) + centerX;
+                    keyPos.y = (keyGapY + keySizeY) * (float)(1.5 + -i) + centerY;
 
                     key.transform.localPosition = keyPos;
                 }
@@ -86,6 +114,33 @@ public class keyPosition : MonoBehaviour
 
     public void Refresh()
     {
+
+        if (mode == 0)
+        {
+            keySizeX = (float)0.015;
+            keySizeY = (float)0.01125;
+            keyGapX = (float)0.00375;
+            keyGapY = (float)0.00375;
+            centerY = (float)(-0.01);
+        }
+        else if (mode == 1)
+        {
+            keySizeX = (float)0.015;
+            keySizeY = (float)0.01125;
+            keyGapX = (float)0.01;
+            keyGapY = (float)0.01;
+            centerY = (float)(-0.007);
+        }
+        else if (mode == 2)
+        {
+            keySizeX = (float)0.015;
+            keySizeY = (float)0.01125;
+            keyGapX = (float)0.02;
+            keyGapY = (float)0.01;
+            centerY = (float)(-0.007);
+        }
+
+
         GameObject[,] keylist = { { a, k, s, backspace }, { t, n, h, space }, { m, y, r, enter }, { hen, w, point, dummy } };
 
         for (int i = 0; i < 4; i++)
@@ -110,8 +165,8 @@ public class keyPosition : MonoBehaviour
 
                     key.transform.localScale = keyScale;
 
-                    keyPos.x = (keyGap + keySizeX) * (float)(-1.5 + j) + centerX;
-                    keyPos.y = (keyGap + keySizeY) * (float)(1.5 + -i) + centerY - (keySizeY);
+                    keyPos.x = (keyGapX + keySizeX) * (float)(-1.5 + j) + centerX;
+                    keyPos.y = (keyGapY + keySizeY) * (float)(1.5 + -i) + centerY - (keySizeY);
 
                     key.transform.localPosition = keyPos;
 
@@ -125,8 +180,8 @@ public class keyPosition : MonoBehaviour
 
                     key.transform.localScale = keyScale;
 
-                    keyPos.x = (keyGap + keySizeX) * (float)(-1.5 + j) + centerX;
-                    keyPos.y = (keyGap + keySizeY) * (float)(1.5 + -i) + centerY;
+                    keyPos.x = (keyGapX + keySizeX) * (float)(-1.5 + j) + centerX;
+                    keyPos.y = (keyGapY + keySizeY) * (float)(1.5 + -i) + centerY;
 
                     key.transform.localPosition = keyPos;
                 }
@@ -151,5 +206,10 @@ public class keyPosition : MonoBehaviour
     public float getRatio()
     {
         return ratio;
+    }
+
+    public void setMode(int i)
+    {
+        mode = i;
     }
 }
