@@ -200,6 +200,8 @@ public class PreTest_output : MonoBehaviour
             "uy3",
             "uy4",
             "uy5",
+            "px",
+            "py",
             "delta time"};
         string s2 = string.Join(",", s1);
         Debug.Log(s2);
@@ -246,7 +248,7 @@ public class PreTest_output : MonoBehaviour
         }
     }
 
-    public void Begin(float ux, float uy, float ux1, float uy1, float ux2, float uy2, float ux3, float uy3, float ux4, float uy4, float ux5, float uy5)
+    public void Begin(float ux, float uy, float ux1, float uy1, float ux2, float uy2, float ux3, float uy3, float ux4, float uy4, float ux5, float uy5, float px, float py)
     {
         float DeltaTime;
 
@@ -282,6 +284,8 @@ public class PreTest_output : MonoBehaviour
                 uy3.ToString(),
                 uy4.ToString(),
                 uy5.ToString(),
+                px.ToString(),
+                py.ToString(),
                 DeltaTime.ToString() };
 
             SumTime += DeltaTime;
@@ -294,7 +298,7 @@ public class PreTest_output : MonoBehaviour
 
 
 
-    public void End(float ux, float uy)
+    public void End(float ux, float uy, float px, float py)
     {
         float DeltaTime;
 
@@ -321,7 +325,9 @@ public class PreTest_output : MonoBehaviour
                 "",
                 "",
                 "",
-                "" };
+                px.ToString(),
+                py.ToString(),
+                ""};
 
             string s2 = string.Join(",", s1);
             sw.WriteLine(s2);

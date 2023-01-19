@@ -54,6 +54,7 @@ public class keyManager4 : MonoBehaviour
 
     private float ux1, ux2, ux3, ux4, ux5;
     private float uy1, uy2, uy3, uy4, uy5;
+    private float px = -1, py = -1;
     private int hovergap = 0;
 
     // Start is called before the first frame update
@@ -115,8 +116,11 @@ public class keyManager4 : MonoBehaviour
 
         ux = coords.getUX();
         uy = coords.getUY();
+        px = coords.getPX();
+        py = coords.getPY();
         onoff = coords.getOnoff();
         onrunning = coords.getOnrunning();
+
 
         if (onrunning == false)
         {
@@ -132,11 +136,11 @@ public class keyManager4 : MonoBehaviour
             {
                 if(state == "hover")
                 {
-                    pretest.Begin(ux, uy, ux1, uy1, ux2, uy2, ux3, uy3, ux4, uy4, ux5, uy5);
+                    pretest.Begin(ux, uy, ux1, uy1, ux2, uy2, ux3, uy3, ux4, uy4, ux5, uy5, px, py);
                 }
                 else if(state == "out")
                 {
-                    pretest.Begin(ux, uy, ux1, uy1, ux2, uy2, ux3, uy3, ux4, uy4, ux5, uy5);
+                    pretest.Begin(ux, uy, ux1, uy1, ux2, uy2, ux3, uy3, ux4, uy4, ux5, uy5, px, py);
                 }
 
                 state = "touch";
@@ -147,7 +151,7 @@ public class keyManager4 : MonoBehaviour
                 // touch -> out
                 if(state == "touch")
                 {
-                    pretest.End(ux,uy);
+                    pretest.End(ux,uy, px,py);
                 }
                 
                 // touch -> hover
@@ -176,7 +180,7 @@ public class keyManager4 : MonoBehaviour
                 // touch -> hover
                 if(state == "touch")
                 {
-                    pretest.End(ux,uy);
+                    pretest.End(ux,uy,px,py);
 
                 }
                 // out -> hover
@@ -187,82 +191,82 @@ public class keyManager4 : MonoBehaviour
             }
         }
 
-        //if (HoverColorFeedback == true && KeyBoardFeedback == true)
-        //{
-        //    if (nowkey != null && onrunning == false)
-        //    {
-        //        up_touch(true);
+        if (HoverColorFeedback == true && KeyBoardFeedback == true)
+        {
+            if (nowkey != null && onrunning == false)
+            {
+                up_touch(true);
 
-        //        return;
-        //    }
+                return;
+            }
 
-        //    if (onrunning == false)
-        //    {
-        //        return;
-        //    }
+            if (onrunning == false)
+            {
+                return;
+            }
 
-        //    if (onoff == true)
-        //    {
-        //        // タッチ中
-        //        // 1フレーム前まで離れていた指をonとする
-        //        preonoff = true;
+            if (onoff == true)
+            {
+                // タッチ中
+                // 1フレーム前まで離れていた指をonとする
+                preonoff = true;
 
-        //        if (nowkey == null)
-        //        {
-        //            set_touch();
-        //        }
-        //        else
-        //        {
-        //            touch_action();
-        //        }
-        //    }
-        //    // ホバー中
-        //    else
-        //    {
-        //        // nowkeyは今押されている（若しくは，1 flame前まで押されていた）キー
-        //        if (preonoff == false)
-        //        {
-        //            foreach (GameObject key in keylist)
-        //            {
-        //                // 指座標がキー領域内にあるかどうか，なければ次のキーを探す
-        //                if (key.GetComponent<key2>().isin(ux, uy) == true)
-        //                {
-        //                    // priorkeyがkey（現在のkey）ではない
-        //                    // && priorkeyのnull判定をしないとnull参照する
-        //                    if (priorkey != key && priorkey != null)
-        //                    {
-        //                        //priorkey.GetComponent<key2>().rmcolor();
-        //                        rmcolor(priorkey, HowTransparent);
-        //                    }
+                if (nowkey == null)
+                {
+                    set_touch();
+                }
+                else
+                {
+                    touch_action();
+                }
+            }
+            // ホバー中
+            else
+            {
+                // nowkeyは今押されている（若しくは，1 flame前まで押されていた）キー
+                if (preonoff == false)
+                {
+                    foreach (GameObject key in keylist)
+                    {
+                        // 指座標がキー領域内にあるかどうか，なければ次のキーを探す
+                        if (key.GetComponent<key2>().isin(ux, uy) == true)
+                        {
+                            // priorkeyがkey（現在のkey）ではない
+                            // && priorkeyのnull判定をしないとnull参照する
+                            if (priorkey != key && priorkey != null)
+                            {
+                                //priorkey.GetComponent<key2>().rmcolor();
+                                rmcolor(priorkey, HowTransparent);
+                            }
 
-        //                    priorkey = key;
+                            priorkey = key;
 
-        //                    if (HoverColorFeedback == true)
-        //                    {
-        //                        priorkey.GetComponent<key2>().takecolor();
-        //                    }
-        //                    return;
-        //                }
-        //            }
+                            if (HoverColorFeedback == true)
+                            {
+                                priorkey.GetComponent<key2>().takecolor();
+                            }
+                            return;
+                        }
+                    }
 
-        //            //rmcolor(priorkey, HowTransparent);
-        //        }
-        //        // 指を離したとき, 1フレーム前まではonなのでpreonoff == true
-        //        else
-        //        {
+                    //rmcolor(priorkey, HowTransparent);
+                }
+                // 指を離したとき, 1フレーム前まではonなのでpreonoff == true
+                else
+                {
 
-        //            if (nowkey == null)
-        //            {
-        //                up_touch(false);
-        //            }
-        //            else
-        //            {
-        //                up_touch(true);
-        //            }
-        //            preonoff = false;
-        //        }
-        //    }
-        //}
+                    if (nowkey == null)
+                    {
+                        up_touch(false);
+                    }
+                    else
+                    {
+                        up_touch(true);
+                    }
+                    preonoff = false;
+                }
+            }
+        }
     }
 
     private void touch_action()

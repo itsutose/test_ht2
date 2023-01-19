@@ -5717,8 +5717,9 @@ MonoBehaviour:
   server: {fileID: 368044074}
   onnxloader: {fileID: 1998787734}
   sphere: {fileID: 478603462}
+  preSphere: {fileID: 0}
   PreCoordsSphere: {fileID: 612343815}
-  model: 1
+  model: 0
   Pointer: 1
   out_range_times: 50
   magnification: 1.2

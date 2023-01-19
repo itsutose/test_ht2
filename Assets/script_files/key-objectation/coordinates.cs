@@ -11,14 +11,16 @@ public class coordinates : MonoBehaviour
     public ServerManager server;
     public ONNXLoader onnxloader;
     public GameObject sphere;
+    public GameObject preSphere;
     public GameObject PreCoordsSphere;
 
+    public Boolean UtoP;
 
 
     public Boolean model;
     public Boolean Pointer = true;
     public int out_range_times = 50;
-    public float magnification = 1;
+    public float magnification;
 
     // serverから座標とかをうけとる
     // 主にandroidからのデータの処理に用いる
@@ -30,6 +32,7 @@ public class coordinates : MonoBehaviour
 
     // 他のスクリプトからのアクセスに対しての返す変数
     float ux = 0, uy = 0;
+    float px = -1, py = -1;
     Boolean onoff = false;
     private Boolean onrunning = false;
 
@@ -95,6 +98,13 @@ public class coordinates : MonoBehaviour
                     ux = -1;
                     uy = -1;
 
+
+                    for (int i = 0; i < qx.Count; i++)
+                    {
+                        qx[i] = -1.0f;
+                        qy[i] = -1.0f;
+                    }
+             
                     return;
 
                 }
@@ -140,28 +150,84 @@ public class coordinates : MonoBehaviour
                     qx.Insert(0, ux);
                     qy.Insert(0, uy);
 
-                    float ux0 = qx[0];
-                    float ux1 = qx[4];
-                    float ux2 = qx[9];
-                    float ux3 = qx[14];
-                    float ux4 = qx[19];
-                    float ux5 = qx[24];
 
-                    float uy0 = qy[0];
-                    float uy1 = qy[4];
-                    float uy2 = qy[9];
-                    float uy3 = qy[14];
-                    float uy4 = qy[19];
-                    float uy5 = qy[24];
+                    int maxLength = 35;
+                    qx.RemoveAll(x => qx.IndexOf(x) >= maxLength);
+                    qy.RemoveAll(x => qy.IndexOf(x) >= maxLength);
+
+                    float[] uxs = { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f };
+                    float sumx = 0;
+                    int nn = 0;
+
+                    for (int i = 0; i < 6; i ++)
+                    {
+
+                        if (qx[i * 5] != -1)
+                        {
+                            sumx += qx[i * 5];
+                            uxs[i] = qx[i * 5];
+                            nn = i + 1;
+                        }
+                        else
+                        {
+                            uxs[i] = sumx / (float)nn;
+                        }
+                    }
+
+                    float[] uys = { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f };
+                    float sumy = 0;
+
+                    for (int i = 0; i < 6; i++)
+                    {
+
+                        if (qy[i * 5] != -1)
+                        {
+                            sumx += qy[i * 5];
+                            uxs[i] = qy[i * 5];
+                            nn = i + 1;
+                        }
+                        else
+                        {
+                            uxs[i] = sumy / (float)nn;
+                        }
+                    }
+
+                    //Debug.Log(string.Format(" qx0 {0}   qx1 {1}   qx2 {2}   qx3 {3}   qx4 {4}, qx.Count{5} ", qx[0], qx[5], qx[10], qx[15], qx[20],qx.Count));
+                    Debug.Log(string.Format(" qx0 {0}   qx1 {1}   qx2 {2}   qx3 {3}   qx4 {4}, qx.Count{5} ", qx[0], qx[1], qx[2], qx[3], qx[4], qx.Count));
 
 
-                    float[] pxpy = onnxloader.GetComponent<ONNXLoader>().ModelPredict(ux0, uy0, ux1, uy1, ux2, uy2, ux3, uy3, ux4, uy4, ux5, uy5);
+                    //Debug.Log(string.Format("ux {0}, uy {1}, ux1 {2}, uy1 {3}, ux2 {4}, uy2 {5}, ux3 {6}, uy3 {7}, ux4 {8}, uy4 {9}, ux5 {10}, uy5 {11}",
+                    //    ux, uy, uxs[1], uys[1], uxs[2], uys[2], uxs[3], uys[3], uxs[4], uys[4], uxs[5], uys[5]));
+                    //while()
+
+
+                    float[] pxpy = onnxloader.GetComponent<ONNXLoader>().ModelPredict(ux, uy, uxs[1], uys[1], uxs[2], uys[2], uxs[3], uys[3], uxs[4], uys[4], uxs[5], uys[5]);
 
                     //Debug.Log()
 
-                    ux = pxpy[0];
-                    uy = pxpy[1];
+                    px = pxpy[0];
+                    py = pxpy[1];
+
+                    //ux = pxpy[0];
+                    //uy = pxpy[1];
+
+                    //ローカル座標を基準に、座標を取得
+                    Vector3 prelocalPos = preSphere.transform.localPosition;
+
+                    prelocalPos.x = px;
+                    prelocalPos.y = py;
+
+                    preSphere.transform.localPosition = prelocalPos;
+                
+                    if(UtoP == true)
+                    {
+                        ux = px;
+                        uy = py;
+                    }
+
                 }
+
+         
                 
                 //ローカル座標を基準に、座標を取得
                 Vector3 localPos = sphere.transform.localPosition;
@@ -189,7 +255,6 @@ public class coordinates : MonoBehaviour
         }
         else
         {
-
             same_times_count = 0;
         }
 
@@ -214,6 +279,16 @@ public class coordinates : MonoBehaviour
     public float getUY()
     {
         return uy;
+    }
+
+    public float getPX()
+    {
+        return px;
+    }
+
+    public float getPY()
+    {
+        return py;
     }
 
     public void setPreCoordsSphere(float ux, float uy)
