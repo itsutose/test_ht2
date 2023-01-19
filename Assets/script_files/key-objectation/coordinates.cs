@@ -9,10 +9,13 @@ using UnityEngine.UI;
 public class coordinates : MonoBehaviour
 {
     public ServerManager server;
-    //public keyPosition keypos;
+    public ONNXLoader onnxloader;
     public GameObject sphere;
     public GameObject PreCoordsSphere;
-    public string pr = "center";
+
+
+
+    public Boolean model;
     public Boolean Pointer = true;
     public int out_range_times = 50;
     public float magnification = 1;
@@ -29,21 +32,31 @@ public class coordinates : MonoBehaviour
     float ux = 0, uy = 0;
     Boolean onoff = false;
     private Boolean onrunning = false;
-    //private float ratio = 1;
 
     private float maxx = -100, maxy = -100, minx = 100, miny = 100;
+
+    private List<float> qx,qy;
 
     // Start is called before the first frame update
     void Start()
     {
         //ratio = keypos.getRatio();
+
+        qx = new List<float>() { };
+        qy = new List<float>() { };
+
+        for (int i = 0; i < 40; i++)
+        {
+            qx.Add(-1.0f);
+            qy.Add(-1.0f);
+        }
+
     }
 
     // Update is called once per frame
     void Update()
     {
-
-
+      
         if (server != null)
         {
             andpos = server.get_coordinates();
@@ -112,56 +125,46 @@ public class coordinates : MonoBehaviour
             
         ////////////////////////////// ここまで
 
-                //Debug.Log("coordinates has onoff : "+onoff);
-
-
                 float xx = Convert.ToSingle(result[1]);
                 float yy = Convert.ToSingle(result[2]);
-
-
-                /////// 大きさを測るよう
-
-                //if (xx > maxx)
-                //{
-                //    maxx = xx;
-                //}
-
-                //if (xx < minx)
-                //{
-                //    minx = xx;
-                //}
-
-                //if (yy > maxy)
-                //{
-                //    maxy = yy;
-                //}
-
-                //if (yy < miny)
-                //{
-                //    miny = yy;
-                //}
-
-                //Debug.Log("minx : " + minx + ", maxx :" + maxx);
-
-                ///////
 
                 // x : 倍率3.5でちょうど画面いっぱいでキーボードを網羅する ((x / maxx) - (float)0.5) * (float)3.5;
                 // y : 右式でちょうど画面いっぱいでキーボードを網羅する  (y / maxy - (float)0.5) * (float)5 - (float)0.5; 
                 //ux = (xx / maxx - (float)0.3) * (float)6;
 
-                if (pr == "center")
-                {
-                    ux = -1*(xx / sizex - (float)0.5) * 2 * (float)0.0375 * (sizex/sizey)*magnification;
-                    uy = -1*(yy / sizey - (float)0.5) * 2 * (float)0.0375 * magnification;
-                }
-                else if (pr == "right")
-                {
-                    ux = (xx / maxx - (float)0.65) * (float)5.8;
-                    uy = (yy / maxy - (float)0.5) * (float)6 - (float)0.5;
-                }
+                ux = -1*(xx / sizex - (float)0.5) * 2 * (float)0.0375 * (sizex/sizey)*magnification;
+                uy = -1*(yy / sizey - (float)0.5) * 2 * (float)0.0375 * magnification;
 
+                ////////////////////////////////////////  補正のモデル用
+                if (model == true) {
+                    qx.Insert(0, ux);
+                    qy.Insert(0, uy);
+
+                    float ux0 = qx[0];
+                    float ux1 = qx[4];
+                    float ux2 = qx[9];
+                    float ux3 = qx[14];
+                    float ux4 = qx[19];
+                    float ux5 = qx[24];
+
+                    float uy0 = qy[0];
+                    float uy1 = qy[4];
+                    float uy2 = qy[9];
+                    float uy3 = qy[14];
+                    float uy4 = qy[19];
+                    float uy5 = qy[24];
+
+
+                    float[] pxpy = onnxloader.GetComponent<ONNXLoader>().ModelPredict(ux0, uy0, ux1, uy1, ux2, uy2, ux3, uy3, ux4, uy4, ux5, uy5);
+
+                    //Debug.Log()
+
+                    ux = pxpy[0];
+                    uy = pxpy[1];
+                }
+                
                 //ローカル座標を基準に、座標を取得
-               Vector3 localPos = sphere.transform.localPosition;
+                Vector3 localPos = sphere.transform.localPosition;
 
                 localPos.x = ux;
                 localPos.y = uy;

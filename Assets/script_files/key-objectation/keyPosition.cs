@@ -14,7 +14,8 @@ public class keyPosition : MonoBehaviour
     //public float keySizeX = (float)0.02, keySizeY = (float)0.015;
     //public float keyGap = (float)0.005;
 
-    public int mode;
+
+    private int mode;
 
     private float keySizeX, keySizeY;
     private float keyGap;
@@ -29,7 +30,7 @@ public class keyPosition : MonoBehaviour
     void Awake()
     {
 
-        if(mode == 0)
+        if(mode == 1)
         {
             keySizeX = (float)0.015;
             keySizeY = (float)0.01125;
@@ -37,7 +38,7 @@ public class keyPosition : MonoBehaviour
             keyGapY = (float)0.00375;
             centerY = (float)(-0.01);
         }
-        else if (mode == 1)
+        else if (mode == 2)
         {
             keySizeX = (float)0.015;
             keySizeY = (float)0.01125;
@@ -45,7 +46,7 @@ public class keyPosition : MonoBehaviour
             keyGapY = (float)0.01;
             centerY = (float)(-0.007);
         }
-        else if (mode == 2)
+        else if (mode == 3)
         {
             keySizeX = (float)0.015;
             keySizeY = (float)0.01125;
@@ -54,6 +55,7 @@ public class keyPosition : MonoBehaviour
             centerY = (float)(-0.007);
         }
 
+        Debug.Log(string.Format("keyPosition mode:{0}", mode));
 
         GameObject[,] keylist = { { a, k, s, backspace}, { t, n, h, space}, { m, y, r, enter}, { hen, w, point, dummy}};
 
@@ -73,8 +75,6 @@ public class keyPosition : MonoBehaviour
                     continue;
                 }
 
-   
-
                 GameObject key = keylist[i, j];
                 Vector3 keyPos = key.transform.localPosition;
                 Vector3 keyScale = key.transform.localScale;
@@ -91,6 +91,9 @@ public class keyPosition : MonoBehaviour
                     keyPos.x = (keyGapX + keySizeX) * (float)(-1.5 + j) + centerX;
                     keyPos.y = (keyGapY + keySizeY) * (float)(1.5 + -i) + centerY - keySizeY;
 
+                    key.GetComponent<key2>().set_cx(keyPos.x);
+                    key.GetComponent<key2>().set_cy(keyPos.y);
+
                     key.transform.localPosition = keyPos;
 
                     continue;
@@ -101,10 +104,14 @@ public class keyPosition : MonoBehaviour
                     keyScale.x = keySizeX;
                     keyScale.y = keySizeY;
 
+
                     key.transform.localScale = keyScale;
 
                     keyPos.x = (keyGapX + keySizeX) * (float)(-1.5 + j) + centerX;
                     keyPos.y = (keyGapY + keySizeY) * (float)(1.5 + -i) + centerY;
+
+                    key.GetComponent<key2>().set_cx(keyPos.x);
+                    key.GetComponent<key2>().set_cy(keyPos.y);
 
                     key.transform.localPosition = keyPos;
                 }
@@ -115,7 +122,7 @@ public class keyPosition : MonoBehaviour
     public void Refresh()
     {
 
-        if (mode == 0)
+        if (mode == 1)
         {
             keySizeX = (float)0.015;
             keySizeY = (float)0.01125;
@@ -123,7 +130,7 @@ public class keyPosition : MonoBehaviour
             keyGapY = (float)0.00375;
             centerY = (float)(-0.01);
         }
-        else if (mode == 1)
+        else if (mode == 2)
         {
             keySizeX = (float)0.015;
             keySizeY = (float)0.01125;
@@ -131,7 +138,7 @@ public class keyPosition : MonoBehaviour
             keyGapY = (float)0.01;
             centerY = (float)(-0.007);
         }
-        else if (mode == 2)
+        else if (mode == 3)
         {
             keySizeX = (float)0.015;
             keySizeY = (float)0.01125;
@@ -161,12 +168,15 @@ public class keyPosition : MonoBehaviour
                 if (i == 2 && j == 3)
                 {
                     keyScale.x = keySizeX;
-                    keyScale.y = keySizeY * 2 + keyGap;
+                    keyScale.y = keySizeY * 2 + keyGapY;
 
                     key.transform.localScale = keyScale;
 
                     keyPos.x = (keyGapX + keySizeX) * (float)(-1.5 + j) + centerX;
                     keyPos.y = (keyGapY + keySizeY) * (float)(1.5 + -i) + centerY - (keySizeY);
+
+                    key.GetComponent<key2>().set_cx(keyPos.x);
+                    key.GetComponent<key2>().set_cy(keyPos.y);
 
                     key.transform.localPosition = keyPos;
 
@@ -182,6 +192,9 @@ public class keyPosition : MonoBehaviour
 
                     keyPos.x = (keyGapX + keySizeX) * (float)(-1.5 + j) + centerX;
                     keyPos.y = (keyGapY + keySizeY) * (float)(1.5 + -i) + centerY;
+
+                    key.GetComponent<key2>().set_cx(keyPos.x);
+                    key.GetComponent<key2>().set_cy(keyPos.y);
 
                     key.transform.localPosition = keyPos;
                 }

@@ -148,8 +148,6 @@ public class keyManager5 : MonoBehaviour
             onoff = false;
         }
 
-        //Debug.Log(string.Format("keyManager5 state {0}",state));
-
         // touch
         if (onrunning == true && onoff == true)
         {
@@ -163,7 +161,7 @@ public class keyManager5 : MonoBehaviour
             else if (state == "out")
             {
                 Debug.Log(string.Format("state : out -> touch, ux {0}, ux1 {1}, ux2 {2}, ux3 {3}, ux4 {4}, ux5 {5}", ux, ux1, ux2, ux3, ux4, ux5));
-                //precoords.BeginO(rx[now], ry[now], ux, uy);
+
                 precoords.BeginO(rx[now], ry[now], ux, uy, ux1, uy1, ux2, uy2, ux3, uy3, ux4, uy4, ux5, uy5);
                 now++;
             }

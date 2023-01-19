@@ -148,9 +148,19 @@ public class key2 : MonoBehaviour
         return cx;
     }
 
+    public void set_cx(float f)
+    {
+        cx = f;
+    }
+
     public float get_cy()
     {
         return cy;
+    }
+
+    public void set_cy(float f)
+    {
+        cy = f;
     }
 
     public float get_lx()

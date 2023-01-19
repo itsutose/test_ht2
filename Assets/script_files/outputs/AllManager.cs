@@ -45,6 +45,7 @@ public class AllManager : MonoBehaviour
     {
 
         file_name = file_name;
+        
 
         fkb.GetComponent<keyManager4>().setPreTest(PreTest);
         fkb.GetComponent<keyManager4>().setHoverColorFeedback(HoverColorFeedback);
@@ -67,13 +68,15 @@ public class AllManager : MonoBehaviour
         pretest.GetComponent<PreTest_output>().setTestTimes(TestTimes);
 
         kp.GetComponent<keyPosition>().setMode(_Mode);
+        kp.GetComponent<keyPosition>().Refresh();
+
 
         coords.Pointer = Pointer;
         coords.out_range_times = out_range_times;
         coords.magnification = magnification;
 
 
-        kp.GetComponent<keyPosition>().Refresh();
+        
         fkb.GetComponent<keyManager4>().SStart();
         pretest.SStart();
 

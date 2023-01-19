@@ -2873,11 +2873,6 @@ MonoBehaviour:
   point: {fileID: 707410702}
   enter: {fileID: 1886455586}
   dummy: {fileID: 391929583}
-  centerX: 0
-  centerY: -0.01
-  keySizeX: 0.015
-  keySizeY: 0.01125
-  keyGap: 0.00375
   textx: {fileID: 1859380430}
   texty: {fileID: 419102732}
   textratio: {fileID: 576788539}
@@ -5336,6 +5331,52 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4875755424105542, guid: c6a74181d4000004887343fb87b3c53a, type: 3}
   m_PrefabInstance: {fileID: 434163742}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1177349901
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1177349903}
+  - component: {fileID: 1177349902}
+  m_Layer: 0
+  m_Name: ONNXLoader
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1177349902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1177349901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6cd9be63d83d9d49b06c2bf682ada5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  modelAssets: {fileID: 5022602860645237092, guid: 27683ddf151a54844b2330239fb2a525, type: 3}
+  targetTexture: {fileID: 0}
+--- !u!4 &1177349903
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1177349901}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.05181486, y: 1.611897, z: 0.29598188}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 17
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1197882672 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 320748027163784554, guid: b35333cad32b99d4388c5a99ee7f9346, type: 3}
@@ -6603,15 +6644,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textobject: {fileID: 0}
   textsub: {fileID: 0}
-  folder_path: .\Assets\CSV_output\PreTest
-  file_name: test0.csv
-  _ID: 
-  KC: 
-  P: 0
-  KBF: 0
-  HCF: 0
-  _Distance: 0
-  TestTimes: 100
+  a: {fileID: 0}
+  k: {fileID: 0}
+  s: {fileID: 0}
+  t: {fileID: 0}
+  n: {fileID: 0}
+  h: {fileID: 0}
+  m: {fileID: 0}
+  y: {fileID: 0}
+  r: {fileID: 0}
+  w: {fileID: 0}
+  hen: {fileID: 0}
+  point: {fileID: 0}
+  enter: {fileID: 0}
+  space: {fileID: 0}
+  backspace: {fileID: 0}
+  dummy: {fileID: 0}
 --- !u!4 &1486723095
 Transform:
   m_ObjectHideFlags: 0
@@ -8198,11 +8246,6 @@ MonoBehaviour:
   point: {fileID: 707410702}
   enter: {fileID: 614540067}
   dummy: {fileID: 0}
-  centerX: 0
-  centerY: 0
-  keySizeX: 0.02
-  keySizeY: 0.015
-  keyGap: 0.005
   textx: {fileID: 1859380430}
   texty: {fileID: 419102732}
   textratio: {fileID: 0}
@@ -8950,8 +8993,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   server: {fileID: 368044074}
-  keypos: {fileID: 660310239}
   sphere: {fileID: 478603462}
+  PreCoordsSphere: {fileID: 0}
   pr: center
   Pointer: 1
   out_range_times: 50

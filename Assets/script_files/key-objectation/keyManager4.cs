@@ -52,6 +52,10 @@ public class keyManager4 : MonoBehaviour
     private Boolean sstart = false;
     private String state;
 
+    private float ux1, ux2, ux3, ux4, ux5;
+    private float uy1, uy2, uy3, uy4, uy5;
+    private int hovergap = 0;
+
     // Start is called before the first frame update
     public void SStart()
     {
@@ -83,8 +87,31 @@ public class keyManager4 : MonoBehaviour
             return;
         }
 
-    //    Debug.Log(string.Format("Update     keyManager4   Pretest {0}, HCF {1}, KBF {2}, KC {3}, HT {4}, CT {5}",
-    //PreTest, HoverColorFeedback, KeyBoardFeedback, KeyColor, HowTransparent, CloverTransparent));
+
+        if (hovergap >= 5)
+        {
+            hovergap = 0;
+        }
+        else
+        {
+            hovergap += 1;
+        }
+
+        if (hovergap % 5 == 0)
+        {
+            ux5 = ux4;
+            ux4 = ux3;
+            ux3 = ux2;
+            ux2 = ux1;
+            ux1 = ux;
+
+            uy5 = uy4;
+            uy4 = uy3;
+            uy3 = uy2;
+            uy2 = uy1;
+            uy1 = uy;
+        }
+
 
         ux = coords.getUX();
         uy = coords.getUY();
@@ -105,10 +132,11 @@ public class keyManager4 : MonoBehaviour
             {
                 if(state == "hover")
                 {
-                    pretest.Begin(ux,uy);
-                }else if(state == "out")
+                    pretest.Begin(ux, uy, ux1, uy1, ux2, uy2, ux3, uy3, ux4, uy4, ux5, uy5);
+                }
+                else if(state == "out")
                 {
-                    pretest.Begin(ux,uy);
+                    pretest.Begin(ux, uy, ux1, uy1, ux2, uy2, ux3, uy3, ux4, uy4, ux5, uy5);
                 }
 
                 state = "touch";
@@ -129,6 +157,18 @@ public class keyManager4 : MonoBehaviour
                 }
 
                 state = "out";
+
+                ux5 = -1;
+                ux4 = -1;
+                ux3 = -1;
+                ux2 = -1;
+                ux1 = -1;
+
+                uy5 = -1;
+                uy4 = -1;
+                uy3 = -1;
+                uy2 = -1;
+                uy1 = -1;
             }
             // hover
             else if (onrunning == true && onoff == false)

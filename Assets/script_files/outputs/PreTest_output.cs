@@ -79,6 +79,8 @@ public class PreTest_output : MonoBehaviour
                              { "E" , "E" , "E" , "E" , "E"  },
                              { "S","S","S","S","S" },
                              { "B","B","B","B","B" } };
+
+    private float[,] keyCoords;
         
     private GameObject[] keylist;
 
@@ -89,11 +91,25 @@ public class PreTest_output : MonoBehaviour
     {
 
         keylist = new GameObject[] { a, k, s, t, n, h, m, y, r, w, hen, point, enter, space, backspace };
+        //GameObject[,] keylist2 = { { a, k, s, backspace }, { t, n, h, space }, { m, y, r, enter }, { hen, w, point, dummy } };
+        //keyCoords = new float[,] {}
 
+        //if (Mode == 0) {
+        //    keyCoords = new float[,] { };
+        //}
+        //else if (Mode == 1)
+        //{
+        //    keyCoords = new float[,] { };
+        //}
+        //else(Mode == 2)
+        //{
+        //    keyCoords = new float[,] { };
+        //}
 
-        //Debug.Log(string.Format("PreTest_output.SStart(): folder_path {0}, file_name {1}", folder_path, file_name));
+        ///////////////////// 全体のキーの割合をそろえるための措置
 
         words1 = words.Concat(words).ToList();
+        
         words2 = words1.Concat(words1).ToList();
         words2 = words2.Concat(words2).ToList();
 
@@ -139,19 +155,18 @@ public class PreTest_output : MonoBehaviour
             }
         }
 
-        //Console.WriteLine(wordlist.Count);
         Debug.Log(wordlist.Count);
         foreach (KeyValuePair<string, int> item in wordlist.OrderBy(i => i.Key))
         {
-            //Console.WriteLine("{0}: {1}", item.Key, item.Value);
             Debug.Log(string.Format("{0}: {1}", item.Key, item.Value));
         }
 
-        ////////////////////
+        //////////////////// ランダムなword列を作成
 
         System.Random random = new System.Random();
         words2 = words2.OrderBy(x => random.Next()).ToList();
-        
+
+           
         file_name = FileNameCheck(folder_path, file_name);
         file_name = file_name + ".csv";
         file_path = folder_path + "\\" + file_name;
@@ -162,13 +177,35 @@ public class PreTest_output : MonoBehaviour
         // falseにすると全ての文章が書き換えられる
         sw = new StreamWriter(@file_path, true, Encoding.GetEncoding("Shift_JIS"));
 
-        string[] s1 = { "ID", "Mode", "KC", "P", "KBF", "HCF", "Distance","BorE", "word", "ux", "uy", "delta time"};
+        string[] s1 = { "ID", 
+            "Mode", 
+            "KC", 
+            "P", 
+            "KBF",
+            "HCF",
+            "Distance",
+            "BorE",
+            "word",
+            "rx", 
+            "ry",
+            "ux",
+            "ux1",
+            "ux2",
+            "ux3",
+            "ux4",
+            "ux5",
+            "uy",
+            "uy1",
+            "uy2",
+            "uy3",
+            "uy4",
+            "uy5",
+            "delta time"};
         string s2 = string.Join(",", s1);
         Debug.Log(s2);
         sw.WriteLine(s2);
 
-        //Debug.Log(string.Format("KC {0}, P {1}, KBF {2}, HCF {3}, Distance {4}, TTs {5}, FP {6}, FN {7}",
-        //    KC, P, KBF, HCF, _Distance, TestTimes, file_path, file_name));
+
 
     }
 
@@ -209,7 +246,7 @@ public class PreTest_output : MonoBehaviour
         }
     }
 
-    public void Begin(float ux, float uy)
+    public void Begin(float ux, float uy, float ux1, float uy1, float ux2, float uy2, float ux3, float uy3, float ux4, float uy4, float ux5, float uy5)
     {
         float DeltaTime;
 
@@ -227,13 +264,88 @@ public class PreTest_output : MonoBehaviour
         {
             DeltaTime = Time.time - preTime;
             preTime = Time.time;
-            string[] s1 = { _ID, Mode.ToString(), KC, P.ToString(), KBF.ToString(), HCF.ToString(), _Distance.ToString(), "begin", word.ToString(), ux.ToString(), uy.ToString(), DeltaTime.ToString() };
+
+            float rx = getKeyRX(word);
+            float ry = getKeyRY(word);
+            
+            string[] s1 = { _ID, Mode.ToString(), KC, P.ToString(), KBF.ToString(), HCF.ToString(), _Distance.ToString(), "begin", word.ToString(), 
+                rx.ToString(),ry.ToString(),
+                ux.ToString(),
+                ux1.ToString(),
+                ux2.ToString(),
+                ux3.ToString(),
+                ux4.ToString(),
+                ux5.ToString(),
+                uy.ToString(),
+                uy1.ToString(),
+                uy2.ToString(),
+                uy3.ToString(),
+                uy4.ToString(),
+                uy5.ToString(),
+                DeltaTime.ToString() };
+
             SumTime += DeltaTime;
             string s2 = string.Join(",", s1);
 
             sw.WriteLine(s2);
 
         }   
+    }
+
+
+
+    public void End(float ux, float uy)
+    {
+        float DeltaTime;
+
+        if (isFirst == true)
+        {
+         
+        }
+        else
+        {
+            float rx = getKeyRX(word);
+            float ry = getKeyRY(word);
+
+            string[] s1 = { _ID, Mode.ToString(), KC, P.ToString(), KBF.ToString(), HCF.ToString(), _Distance.ToString(), "end", word.ToString(),
+                rx.ToString(),ry.ToString(),
+                ux.ToString(),
+                "",
+                "",
+                "",
+                "",
+                "",
+                uy.ToString(),
+                "",
+                "",
+                "",
+                "",
+                "",
+                "" };
+
+            string s2 = string.Join(",", s1);
+            sw.WriteLine(s2);
+            
+            i += 1;
+            if (i <= TestTimes)
+            {
+                //word = words2[i];
+                //// 次の文字を表示
+
+                textsub.text = "Good!";
+                Invoke("Next", 1);
+
+            }
+            else
+            {
+                // 普通のプレイ終了時の処理
+                sw.WriteLine("End");
+                textobject.text = "End";
+                sw.Close();
+                UnityEditor.EditorApplication.isPlaying = false;
+
+            }
+        }       
     }
 
     private void Next()
@@ -254,7 +366,6 @@ public class PreTest_output : MonoBehaviour
 
         foreach (GameObject key in keylist)
         {
-            //key.GetComponent<key2>().takecolor(new Color32(255,255,255,250)," ");
             key.GetComponent<key2>().takecolor(new Color32(255, 255, 255, 80)," ");
         }
 
@@ -289,44 +400,41 @@ public class PreTest_output : MonoBehaviour
         }
     }
 
-    public void End(float ux, float uy)
+    private float getKeyRX(char word)
     {
-        float DeltaTime;
-
-        if (isFirst == true)
+        for (int i = 0; i < boin.GetLength(0); i++)
         {
-         
+            for (int j = 0; j < boin.GetLength(1); j++)
+            {
+                if (boin[i, j] == word.ToString())
+                {
+                    return (float)keylist[i].GetComponent<key2>().get_cx();
+                    //Debug.Log(keylist[i].GetComponent<key2>().get_cx());
+                    //return ;
+                }
+            }
         }
-        else
-        {
-            //DeltaTime = Time.time - preTime;
-            //preTime = Time.time;   
-            string[] s1 = { _ID, Mode.ToString(), KC, P.ToString(), KBF.ToString(), HCF.ToString(), _Distance.ToString(), "end", word.ToString(), ux.ToString(), uy.ToString(), "" };
-            //SumTime += DeltaTime;
-            string s2 = string.Join(",", s1);
-            sw.WriteLine(s2);
-            
-            i += 1;
-            if (i <= TestTimes)
-            {
-                //word = words2[i];
-                //// 次の文字を表示
 
-                textsub.text = "Good!";
-                Invoke("Next", 1);
-
-            }
-            else
-            {
-                // 普通のプレイ終了時の処理
-                sw.WriteLine("End");
-                textobject.text = "End";
-                sw.Close();
-                UnityEditor.EditorApplication.isPlaying = false;
-
-            }
-        }       
+        return 0f;
     }
+
+    private float getKeyRY(char word)
+    {
+        for (int i = 0; i < boin.GetLength(0); i++)
+        {
+            for (int j = 0; j < boin.GetLength(1); j++)
+            {
+                if (boin[i, j] == word.ToString())
+                {
+                    return (float)keylist[i].GetComponent<key2>().get_cy();
+                    //Debug.Log(keylist[i].GetComponent<key2>().get_cy());
+                    //return 1f;
+                }
+            }
+        }
+
+        return 0f;
+    } 
 
     private string FileNameCheck(string folder_path, string file_name)
     {
