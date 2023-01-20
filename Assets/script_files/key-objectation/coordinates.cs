@@ -20,7 +20,7 @@ public class coordinates : MonoBehaviour
     public Boolean model;
     public Boolean Pointer = true;
     public int out_range_times = 50;
-    public float magnification;
+    public float magnification = (float)1.2;
 
     // serverから座標とかをうけとる
     // 主にandroidからのデータの処理に用いる
