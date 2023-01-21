@@ -36,7 +36,7 @@ public class AllManager : MonoBehaviour
 
 
     public int out_range_times = 50;
-    public float magnification = 1;
+    public float magnification;
 
     //private string inputType;
 

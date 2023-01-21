@@ -13,17 +13,13 @@ public class keyManager3 : MonoBehaviour
     // これは MovePointer でも行われているが，
     // 別のスクリプトに頼るのは少し心もとない，
     public coordinates coords;
-    //public PreTest_output pretest;
-    //public textSet textset;
-    //public Boolean PreTest = false;
-    public Boolean HoverColorFeedback = true;
-    public Boolean KeyBoardFeedback = true;
-    public String KeyColor = "TP0";
-    public int HowTransparent = 80;
-    public int CloverTransparent = 80;
-  
-    public string pr = "center";
 
+    private Boolean HoverColorFeedback;
+    private Boolean KeyBoardFeedback;
+    private String KeyColor;
+    private int HowTransparent;
+    private int CloverTransparent;
+  
     public TextMeshProUGUI textobject;
     public float feed_back_time = 0;
 
@@ -50,7 +46,7 @@ public class keyManager3 : MonoBehaviour
     //private Boolean pretestonrunning = false;
 
     // Start is called before the first frame update
-    void Start()
+    public void SStart()
     {
         if (dummy != null)
         {
@@ -61,17 +57,17 @@ public class keyManager3 : MonoBehaviour
         {
             keylist = new GameObject[] { a, k, s, t, n, h, m, y, r, w, hen, backspace, space, enter, point};
         }
-        float ncx = n.GetComponent<key2>().get_cx();
-        float ncy = n.GetComponent<key2>().get_cy();
+        //float ncx = n.GetComponent<key2>().get_cx();
+        //float ncy = n.GetComponent<key2>().get_cy();
 
-        float hcx = h.GetComponent<key2>().get_cx();
-        float hcy = h.GetComponent<key2>().get_cy();
+        //float hcx = h.GetComponent<key2>().get_cx();
+        //float hcy = h.GetComponent<key2>().get_cy();
 
-        float ycx = y.GetComponent<key2>().get_cx();
-        float ycy = y.GetComponent<key2>().get_cy();
+        //float ycx = y.GetComponent<key2>().get_cx();
+        //float ycy = y.GetComponent<key2>().get_cy();
 
-        xKeySize = hcx - ncx;
-        yKeySize = ncy - ycy;
+        //xKeySize = hcx - ncx;
+        //yKeySize = ncy - ycy;
 
         //refresh();
         //Debug.Log(string.Format("ncx : {0}, hcx : {1}", ncx, hcx));
@@ -90,62 +86,6 @@ public class keyManager3 : MonoBehaviour
             onoff = false;
         }
 
-        //if (PreTest == true)
-        //{
-        //    Debug.Log(string.Format("PTonoff : {0}, onrunning : {1}, onoff : {2}", pretestonoff, onrunning, onoff));
-
-
-
-        //    //if(onrunning == true)
-        //    //{
-        //    //    if(preonoff == true)
-        //    //    {
-        //    //        pretest.Begin(ux,uy);
-        //    //        preonoff = false;
-        //    //    }
-        //    //}
-        //    //else
-        //    //{
-        //    //    if(pretestonrunnning == true)
-        //    //    {
-        //    //        if (preonoff == true)
-        //    //        {
-        //    //            pretest.End(ux, uy);
-
-        //    //            pretestonoff = false;
-        //    //        }
-                    
-        //    //        pretestonrunning = false;
-        //    //    }
-        //    //}
-
-        //    //// 状態遷移用
-        //    //if (onoff == true && pretestonoff == false)
-        //    //{
-                
-        //    //    Debug.Log(string.Format("  AA PTonoff : {0}, onrunning : {1}, onoff : {2}", pretestonoff, onrunning, onoff));
-                
-        //    //    pretest.Begin(ux, uy);
-        //    //    pretestonoff = true;
-
-        //    //    return;
-        //    //}
-        //    //else if((onoff == false && pretestonoff == true))
-        //    //{
-        //    //    Debug.Log(string.Format("      BB PTonoff : {0}, onrunning : {1}, onoff : {2}", pretestonoff, onrunning, onoff));
-
-        //    //    pretest.End(ux, uy);
-        //    //    pretestonoff = false;
-
-        //    //    return;
-        //    //}else if(pretestonoff == true && onrunning == false && onoff == false){
-
-        //    //    Debug.Log(string.Format("         CC PTonoff : {0}, onrunning : {1}, onoff : {2}", pretestonoff, onrunning, onoff));
-
-        //    //    pretest.End(ux, uy);
-        //    //    pretestonoff = false;
-        //    //}
-        //}
 
         if(HoverColorFeedback == true && KeyBoardFeedback == true)
         {
