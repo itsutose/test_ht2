@@ -19,6 +19,7 @@ public class keyManager3 : MonoBehaviour
     private String KeyColor;
     private int HowTransparent;
     private int CloverTransparent;
+
   
     public TextMeshProUGUI textobject;
     public float feed_back_time = 0;
@@ -42,9 +43,6 @@ public class keyManager3 : MonoBehaviour
 
     private float xKeySize, yKeySize;
 
-    //private Boolean pretestonoff = false;
-    //private Boolean pretestonrunning = false;
-
     // Start is called before the first frame update
     public void SStart()
     {
@@ -57,20 +55,7 @@ public class keyManager3 : MonoBehaviour
         {
             keylist = new GameObject[] { a, k, s, t, n, h, m, y, r, w, hen, backspace, space, enter, point};
         }
-        //float ncx = n.GetComponent<key2>().get_cx();
-        //float ncy = n.GetComponent<key2>().get_cy();
 
-        //float hcx = h.GetComponent<key2>().get_cx();
-        //float hcy = h.GetComponent<key2>().get_cy();
-
-        //float ycx = y.GetComponent<key2>().get_cx();
-        //float ycy = y.GetComponent<key2>().get_cy();
-
-        //xKeySize = hcx - ncx;
-        //yKeySize = ncy - ycy;
-
-        //refresh();
-        //Debug.Log(string.Format("ncx : {0}, hcx : {1}", ncx, hcx));
     }
 
     // Update is called once per frame

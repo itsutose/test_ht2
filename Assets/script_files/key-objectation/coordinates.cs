@@ -101,6 +101,11 @@ public class coordinates : MonoBehaviour
 
                     for (int i = 0; i < qx.Count; i++)
                     {
+
+                        if(i >= 40)
+                        {
+                            break;
+                        }
                         qx[i] = -1.0f;
                         qy[i] = -1.0f;
                     }

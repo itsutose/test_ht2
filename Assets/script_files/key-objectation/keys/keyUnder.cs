@@ -52,21 +52,40 @@ public class keyUnder : key2
     {
         Material mat;
 
+        if (aa == -1)
+        {
+            GameObject[] AllSon = new GameObject[] { a1, a2, a3 };
+
+            foreach (var key in AllSon)
+            {
+                mat = key.GetComponent<Renderer>().material;
+                mat.color = color32;
+
+                key.GetComponent<key_vowel>().textobject.color = color32;
+
+            }
+
+        }
+
         if (aa == 0)
         {
             mat = a0.GetComponent<Renderer>().material;
+            a0.GetComponent<key_vowel>().textobject.color = color32;
         }
         else if (aa == 1)
         {
             mat = a1.GetComponent<Renderer>().material;
+            a1.GetComponent<key_vowel>().textobject.color = color32;
         }
         else if (aa == 2)
         {
             mat = a2.GetComponent<Renderer>().material;
+            a2.GetComponent<key_vowel>().textobject.color = color32;
         }
         else
         {
             mat = a3.GetComponent<Renderer>().material;
+            a3.GetComponent<key_vowel>().textobject.color = color32;
         }
 
         mat.color = color32;

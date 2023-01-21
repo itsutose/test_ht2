@@ -83,18 +83,36 @@ public class keyPosition : MonoBehaviour
                 // Enter‚Ì‚±‚Æ
                 if (i == 2 && j == 3)
                 {
-                    keyScale.x = keySizeX;
-                    keyScale.y = keySizeY * 2 + keyGapY;
+                    if (mode == 1)
+                    {
+                        keyScale.x = keySizeX;
+                        keyScale.y = keySizeY * 2 + keyGapY;
 
-                    key.transform.localScale = keyScale;
+                        key.transform.localScale = keyScale;
 
-                    keyPos.x = (keyGapX + keySizeX) * (float)(-1.5 + j) + centerX;
-                    keyPos.y = (keyGapY + keySizeY) * (float)(1.5 + -i) + centerY - keySizeY;
+                        keyPos.x = (keyGapX + keySizeX) * (float)(-1.5 + j) + centerX;
+                        keyPos.y = (keyGapY + keySizeY) * (float)(1.5 + -i) + centerY - keySizeY + keyGapY;
 
-                    key.GetComponent<key2>().set_cx(keyPos.x);
-                    key.GetComponent<key2>().set_cy(keyPos.y);
+                        key.GetComponent<key2>().set_cx(keyPos.x);
+                        key.GetComponent<key2>().set_cy(keyPos.y);
 
-                    key.transform.localPosition = keyPos;
+                        key.transform.localPosition = keyPos;
+                    }
+                    else
+                    {
+                        keyScale.x = keySizeX;
+                        keyScale.y = keySizeY * 2 + keyGapY;
+
+                        key.transform.localScale = keyScale;
+
+                        keyPos.x = (keyGapX + keySizeX) * (float)(-1.5 + j) + centerX;
+                        keyPos.y = (keyGapY + keySizeY) * (float)(1.5 + -i) + centerY - keySizeY;
+
+                        key.GetComponent<key2>().set_cx(keyPos.x);
+                        key.GetComponent<key2>().set_cy(keyPos.y);
+
+                        key.transform.localPosition = keyPos;
+                    }
 
                     continue;
                 }
@@ -167,18 +185,36 @@ public class keyPosition : MonoBehaviour
                 // Enter‚Ì‚±‚Æ
                 if (i == 2 && j == 3)
                 {
-                    keyScale.x = keySizeX;
-                    keyScale.y = keySizeY * 2 + keyGapY;
+                    if (mode == 1)
+                    {
+                        keyScale.x = keySizeX;
+                        keyScale.y = keySizeY * 2 + keyGapY;
 
-                    key.transform.localScale = keyScale;
+                        key.transform.localScale = keyScale;
 
-                    keyPos.x = (keyGapX + keySizeX) * (float)(-1.5 + j) + centerX;
-                    keyPos.y = (keyGapY + keySizeY) * (float)(1.5 + -i) + centerY - (keySizeY);
+                        keyPos.x = (keyGapX + keySizeX) * (float)(-1.5 + j) + centerX;
+                        keyPos.y = (keyGapY + keySizeY) * (float)(1.5 + -i) + centerY - keySizeY + keyGapY;
 
-                    key.GetComponent<key2>().set_cx(keyPos.x);
-                    key.GetComponent<key2>().set_cy(keyPos.y);
+                        key.GetComponent<key2>().set_cx(keyPos.x);
+                        key.GetComponent<key2>().set_cy(keyPos.y);
 
-                    key.transform.localPosition = keyPos;
+                        key.transform.localPosition = keyPos;
+                    }
+                    else
+                    {
+                        keyScale.x = keySizeX;
+                        keyScale.y = keySizeY * 2 + keyGapY;
+
+                        key.transform.localScale = keyScale;
+
+                        keyPos.x = (keyGapX + keySizeX) * (float)(-1.5 + j) + centerX;
+                        keyPos.y = (keyGapY + keySizeY) * (float)(1.5 + -i) + centerY - keySizeY;
+
+                        key.GetComponent<key2>().set_cx(keyPos.x);
+                        key.GetComponent<key2>().set_cy(keyPos.y);
+
+                        key.transform.localPosition = keyPos;
+                    }
 
                     continue;
                 }
