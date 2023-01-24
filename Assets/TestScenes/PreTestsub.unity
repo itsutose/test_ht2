@@ -6927,10 +6927,10 @@ MonoBehaviour:
   pretest: {fileID: 759438503}
   coords: {fileID: 2138986570}
   kp: {fileID: 660310239}
-  PreTest: 0
-  HoverColorFeedback: 1
-  KeyBoardFeedback: 1
-  Pointer: 1
+  PreTest: 1
+  HoverColorFeedback: 0
+  KeyBoardFeedback: 0
+  Pointer: 0
   KeyColor: TP3
   HowTransparent: 80
   CloverTransparent: 80
@@ -8457,12 +8457,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coords: {fileID: 2138986570}
-  HoverColorFeedback: 0
-  KeyBoardFeedback: 0
-  KeyColor: transparent2
-  HowTransparent: 80
-  CloverTransparent: 80
-  pr: center
   textobject: {fileID: 1547484323}
   feed_back_time: 0
   a: {fileID: 415775407}

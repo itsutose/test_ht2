@@ -13,7 +13,7 @@ public class NormalManager : MonoBehaviour
 
     public FKB fkb;
     //public PreTest_output pretest;
-    public coordinates coords;
+    public coord_model_class coords;
     public keyPosition kp;
 
 
@@ -47,11 +47,11 @@ public class NormalManager : MonoBehaviour
         file_name = file_name;
 
 
-        fkb.GetComponent<keyManager3>().setHoverColorFeedback(HoverColorFeedback);
-        fkb.GetComponent<keyManager3>().setKeyBoardFeedback(KeyBoardFeedback);
-        fkb.GetComponent<keyManager3>().setKeyColor(KeyColor);
-        fkb.GetComponent<keyManager3>().setHowTransparent(HowTransparent);
-        fkb.GetComponent<keyManager3>().setCloverTransparent(CloverTransparent);
+        fkb.GetComponent<keyManager6>().setHoverColorFeedback(HoverColorFeedback);
+        fkb.GetComponent<keyManager6>().setKeyBoardFeedback(KeyBoardFeedback);
+        fkb.GetComponent<keyManager6>().setKeyColor(KeyColor);
+        fkb.GetComponent<keyManager6>().setHowTransparent(HowTransparent);
+        fkb.GetComponent<keyManager6>().setCloverTransparent(CloverTransparent);
 
         fkb.GetComponent<FKB>().setDistance(_Distance);
 
@@ -60,13 +60,13 @@ public class NormalManager : MonoBehaviour
         kp.GetComponent<keyPosition>().Refresh();
 
 
-        coords.Pointer = Pointer;
-        coords.out_range_times = out_range_times;
-        coords.magnification = magnification;
+        coords.setPointer(Pointer);
+        coords.setORT(out_range_times);
+        coords.setMagnification(magnification);
 
 
 
-        fkb.GetComponent<keyManager3>().SStart();
+        fkb.GetComponent<keyManager6>().SStart();
 
 
     }
@@ -77,42 +77,41 @@ public class NormalManager : MonoBehaviour
         if (Time.time <= 0.05)
         {
 
-            fkb.GetComponent<keyManager3>().setHoverColorFeedback(HoverColorFeedback);
-            fkb.GetComponent<keyManager3>().setKeyBoardFeedback(KeyBoardFeedback);
-            fkb.GetComponent<keyManager3>().setKeyColor(KeyColor);
-            fkb.GetComponent<keyManager3>().setHowTransparent(HowTransparent);
-            fkb.GetComponent<keyManager3>().setCloverTransparent(CloverTransparent);
+            fkb.GetComponent<keyManager6>().setHoverColorFeedback(HoverColorFeedback);
+            fkb.GetComponent<keyManager6>().setKeyBoardFeedback(KeyBoardFeedback);
+            fkb.GetComponent<keyManager6>().setKeyColor(KeyColor);
+            fkb.GetComponent<keyManager6>().setHowTransparent(HowTransparent);
+            fkb.GetComponent<keyManager6>().setCloverTransparent(CloverTransparent);
 
             fkb.GetComponent<FKB>().setDistance(_Distance);
 
-
-            coords.Pointer = Pointer;
-            coords.out_range_times = out_range_times;
-            coords.magnification = magnification;
+            coords.setPointer(Pointer);
+            coords.setORT(out_range_times);
+            coords.setMagnification(magnification);
 
             //kp.GetComponent<keyPosition>().Refresh();
-            fkb.GetComponent<keyManager4>().refresh();
+            fkb.GetComponent<keyManager6>().refresh();
             return;
         }
 
         if (Input.GetKey(KeyCode.Return))
         {
    
-            fkb.GetComponent<keyManager3>().setHoverColorFeedback(HoverColorFeedback);
-            fkb.GetComponent<keyManager3>().setKeyBoardFeedback(KeyBoardFeedback);
-            fkb.GetComponent<keyManager3>().setKeyColor(KeyColor);
-            fkb.GetComponent<keyManager3>().setHowTransparent(HowTransparent);
-            fkb.GetComponent<keyManager3>().setCloverTransparent(CloverTransparent);
+            fkb.GetComponent<keyManager6>().setHoverColorFeedback(HoverColorFeedback);
+            fkb.GetComponent<keyManager6>().setKeyBoardFeedback(KeyBoardFeedback);
+            fkb.GetComponent<keyManager6>().setKeyColor(KeyColor);
+            fkb.GetComponent<keyManager6>().setHowTransparent(HowTransparent);
+            fkb.GetComponent<keyManager6>().setCloverTransparent(CloverTransparent);
                                        
             fkb.GetComponent<FKB>().setDistance(_Distance);
 
 
-            coords.Pointer = Pointer;
-            coords.out_range_times = out_range_times;
-            coords.magnification = magnification;
+            coords.setPointer(Pointer);
+            coords.setORT(out_range_times);
+            coords.setMagnification(magnification);
 
             kp.GetComponent<keyPosition>().Refresh();
-            fkb.GetComponent<keyManager3>().refresh();
+            fkb.GetComponent<keyManager6>().refresh();
         }
 
         if (Input.GetKey(KeyCode.R))

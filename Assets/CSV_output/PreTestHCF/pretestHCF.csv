@@ -1,0 +1,13 @@
+ID,KC,P,KBF,HCF,Distance,BorE,word,ux,uy,delta time
+,TP3,False,True,True,0.15,end,B,-0.001469216,0.0002098881,
+,TP3,False,True,True,0.15,begin,B,0.02973414,0.01070429,14.01376
+,TP3,False,True,True,0.15,end,B,0.02952426,0.01168377,
+,TP3,False,True,True,0.15,begin,Çﬂ,-0.03267258,-0.02280784,4.055206
+,TP3,False,True,True,0.15,end,Çﬂ,0,-0.01805037,
+,TP3,False,True,True,0.15,begin,ÅB,0.01812034,-0.02805504,1.684351
+,TP3,False,True,True,0.15,end,ÅB,0.02777519,-0.03029384,
+,TP3,False,True,True,0.15,begin,ÇÃ,0.006366605,-0.0002798508,1.188654
+,TP3,False,True,True,0.15,end,ÇÃ,0.0129431,-0.01021455,
+,TP3,False,True,True,0.15,begin,Ç,-0.002518657,-0.03365205,1.863461
+,TP3,False,True,True,0.15,end,Ç,0.05191232,-0.01259328,
+interrupt
