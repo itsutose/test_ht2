@@ -606,7 +606,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &154759033
 GameObject:
@@ -703,7 +703,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &202469884 stripped
 GameObject:
@@ -965,7 +965,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &278666099
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -979,8 +979,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   server: {fileID: 368044074}
-  model_class: {fileID: 0}
-  model_reg: {fileID: 0}
+  model_class: {fileID: 1177349904}
+  model_reg: {fileID: 1177349905}
   sphere: {fileID: 478603462}
   preSphere: {fileID: 1607637421}
   PreCoordsSphere: {fileID: 0}
@@ -1413,7 +1413,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 20
+  m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &368044073
 GameObject:
@@ -1914,11 +1914,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fkb: {fileID: 1903498264}
-  coords: {fileID: 953286015}
+  coords: {fileID: 1794700457}
   kp: {fileID: 660310239}
   HoverColorFeedback: 1
   KeyBoardFeedback: 1
-  Pointer: 0
+  Pointer: 1
   KeyColor: TP3
   HowTransparent: 80
   CloverTransparent: 80
@@ -1928,6 +1928,7 @@ MonoBehaviour:
   _Distance: 0.3
   _Mode: 3
   TestTimes: 10
+  ModelType: reg
   out_range_times: 50
   magnification: 1.2
 --- !u!4 &436008955
@@ -1943,7 +1944,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &437194984
 GameObject:
@@ -2558,7 +2559,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!64 &606687150
 MeshCollider:
@@ -2813,7 +2814,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &642853212
 PrefabInstance:
@@ -3006,7 +3007,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &666472101 stripped
 Transform:
@@ -3495,7 +3496,7 @@ Transform:
   - {fileID: 1168626574}
   - {fileID: 990254934}
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &755544953 stripped
 GameObject:
@@ -4322,7 +4323,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &953286015
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4612,7 +4613,7 @@ Transform:
   m_Children:
   - {fileID: 419208045}
   m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &990254933
 GameObject:
@@ -4926,7 +4927,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 19
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1055129250 stripped
 GameObject:
@@ -5197,7 +5198,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &1099323370 stripped
 GameObject:
@@ -5529,7 +5530,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1177349904
 MonoBehaviour:
@@ -5564,9 +5565,9 @@ MonoBehaviour:
   CSVsd_mean: {fileID: 4900000, guid: 461cfa19dc123aa499727e6aa228ee83, type: 3}
   CSVsd_scale: {fileID: 4900000, guid: 341d39da730ca254594ae6c4749fe56a, type: 3}
   CSVminmax_data_min: {fileID: 4900000, guid: baf3047e54822944096e780e74cc9bb5, type: 3}
-  CSVminmax_scale: {fileID: 4900000, guid: baf3047e54822944096e780e74cc9bb5, type: 3}
-  DLRegression: {fileID: 5022602860645237092, guid: 2bb3321865afb11438da4e7465f76ede, type: 3}
-  PreProccessing: n
+  CSVminmax_scale: {fileID: 4900000, guid: 25561afdd3f8282409fa47390e0a09a7, type: 3}
+  DLRegression: {fileID: 5022602860645237092, guid: 3b01829db2052fd45a9dc198c2bae462, type: 3}
+  PreProccessing: sd
 --- !u!114 &1197882672 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 320748027163784554, guid: b35333cad32b99d4388c5a99ee7f9346, type: 3}
@@ -5967,7 +5968,7 @@ Transform:
   m_Children:
   - {fileID: 1362012658}
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1343638007 stripped
 Transform:
@@ -6974,7 +6975,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1486900335 stripped
 Transform:
@@ -7028,7 +7029,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1509144007 stripped
 GameObject:
@@ -7478,7 +7479,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1607637422
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7918,7 +7919,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
       propertyPath: m_RootOrder
-      value: 13
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -8261,6 +8262,57 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8148842188449012656, guid: b35333cad32b99d4388c5a99ee7f9346, type: 3}
   m_PrefabInstance: {fileID: 1666323825}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1794700456
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1794700458}
+  - component: {fileID: 1794700457}
+  m_Layer: 0
+  m_Name: coord_model
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1794700457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1794700456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07be17bbb34d530478a10e1ab17c188c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  server: {fileID: 368044074}
+  model_class: {fileID: 1177349904}
+  model_reg: {fileID: 1177349905}
+  sphere: {fileID: 478603462}
+  preSphere: {fileID: 1607637421}
+  UtoP: 0
+  model: 1
+--- !u!4 &1794700458
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1794700456}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.0005000001, y: 1.6, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1805513886 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2865398429927957628, guid: b35333cad32b99d4388c5a99ee7f9346, type: 3}
@@ -8562,7 +8614,7 @@ Transform:
   - {fileID: 1397816847}
   - {fileID: 1607637426}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1903498260
 MonoBehaviour:
@@ -8605,7 +8657,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5102d9ca6d1f87a4f82b9dfbf6520ded, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coords: {fileID: 953286015}
+  coords: {fileID: 1794700457}
   textobject: {fileID: 1547484323}
   feed_back_time: 0
   a: {fileID: 415775407}

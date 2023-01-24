@@ -13,7 +13,7 @@ public class NormalManager : MonoBehaviour
 
     public FKB fkb;
     //public PreTest_output pretest;
-    public coord_model_class coords;
+    public coord_model coords;
     public keyPosition kp;
 
 
@@ -35,6 +35,7 @@ public class NormalManager : MonoBehaviour
     public int TestTimes = 10;
 
 
+    public string ModelType = "class";
     public int out_range_times = 50;
     public float magnification = (float)1.2;
 
@@ -47,6 +48,7 @@ public class NormalManager : MonoBehaviour
         file_name = file_name;
 
 
+        fkb.GetComponent<keyManager6>().setModelType(ModelType);
         fkb.GetComponent<keyManager6>().setHoverColorFeedback(HoverColorFeedback);
         fkb.GetComponent<keyManager6>().setKeyBoardFeedback(KeyBoardFeedback);
         fkb.GetComponent<keyManager6>().setKeyColor(KeyColor);

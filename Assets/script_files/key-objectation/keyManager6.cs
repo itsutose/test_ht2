@@ -12,13 +12,14 @@ public class keyManager6 : MonoBehaviour
     // sphereのunityにおける座標を取得する．
     // これは MovePointer でも行われているが，
     // 別のスクリプトに頼るのは少し心もとない，
-    public coord_model_class coords;
+    public coord_model coords;
 
     private Boolean HoverColorFeedback;
     private Boolean KeyBoardFeedback;
     private String KeyColor;
     private int HowTransparent = 80;
     private int CloverTransparent;
+    private string ModelType;
 
 
     public TextMeshProUGUI textobject;
@@ -352,91 +353,129 @@ public class keyManager6 : MonoBehaviour
     private void set_touch()
     {
 
-        Debug.Log("keyManager6  set_touch running");
-        int label = coords.getLabel();
+        if (ModelType == "class")
+        {
 
-        if (label == 0)
-        {
-            nowkey = a;
-        } else if (label == 1)
-        {
-            nowkey = k;
-        }
-        else if (label == 2)
-        {
-            nowkey = s;
-        }
-        else if (label == 3)
-        {
-            nowkey = t;
-        }
-        else if (label == 4)
-        {
-            nowkey = n;
-        }
-        else if (label == 5)
-        {
-            nowkey = h;
-        }
-        else if (label == 6)
-        {
-            nowkey = m;
-        }
-        else if (label == 7)
-        {
-            nowkey = y;
-        }
-        else if (label == 8)
-        {
-            nowkey = r;
-        }
-        else if (label == 9)
-        {
-            nowkey = w;
-        }
-        else if (label == 10)
-        {
-            nowkey = point;
-        }
-        else if (label == 11)
-        {
-            nowkey = space;
-        }
-        else if (label == 12)
-        {
-            nowkey = backspace;
-        }
-        else if (label == 13)
-        {
-            nowkey = enter;
-        }
-        else if (label == 14)
-        {
-            nowkey = hen;
-        }
+            Debug.Log("keyManager6  set_touch running");
+            int label = coords.getLabel();
 
-        if (feed_back_time == 0)
-        {
-            nowkey.GetComponent<key2>().visible_key();
-            takecolor(nowkey, CloverTransparent, -1);
+            if (label == 0)
+            {
+                nowkey = a;
+            }
+            else if (label == 1)
+            {
+                nowkey = k;
+            }
+            else if (label == 2)
+            {
+                nowkey = s;
+            }
+            else if (label == 3)
+            {
+                nowkey = t;
+            }
+            else if (label == 4)
+            {
+                nowkey = n;
+            }
+            else if (label == 5)
+            {
+                nowkey = h;
+            }
+            else if (label == 6)
+            {
+                nowkey = m;
+            }
+            else if (label == 7)
+            {
+                nowkey = y;
+            }
+            else if (label == 8)
+            {
+                nowkey = r;
+            }
+            else if (label == 9)
+            {
+                nowkey = w;
+            }
+            else if (label == 10)
+            {
+                nowkey = point;
+            }
+            else if (label == 11)
+            {
+                nowkey = space;
+            }
+            else if (label == 12)
+            {
+                nowkey = backspace;
+            }
+            else if (label == 13)
+            {
+                nowkey = enter;
+            }
+            else if (label == 14)
+            {
+                nowkey = hen;
+            }
+
+            if (feed_back_time == 0)
+            {
+                nowkey.GetComponent<key2>().visible_key();
+                takecolor(nowkey, CloverTransparent, -1);
+            }
+            else
+            {
+                Invoke("invoke", feed_back_time);
+            }
+
+            // priorkeyはホバーでの入力を念頭に入れている
+            if (priorkey != null)
+            {
+                rmcolor(priorkey, HowTransparent);
+            }
+
+            Debug.Log(string.Format("keyManager6  label {0}", label));
+
+            foreach (GameObject key in keylist)
+            {
+                takecolor(key, HowTransparent);
+            }
         }
         else
         {
-            Invoke("invoke", feed_back_time);
+            foreach (GameObject key in keylist)
+            {
+                if (key.GetComponent<key2>().isin(ux, uy) == true)
+                {
+                    nowkey = key;
+
+                    if (feed_back_time == 0)
+                    {
+                        nowkey.GetComponent<key2>().visible_key();
+                        takecolor(nowkey, CloverTransparent, -1);
+                    }
+                    else
+                    {
+                        Invoke("invoke", feed_back_time);
+                    }
+
+                    // priorkeyはホバーでの入力を念頭に入れている
+                    if (priorkey != null)
+                    {
+                        rmcolor(priorkey, HowTransparent);
+                    }
+                    break;
+                }
+            }
+
+            foreach (GameObject key in keylist)
+            {
+                takecolor(key, HowTransparent);
+            }
         }
 
-        // priorkeyはホバーでの入力を念頭に入れている
-        if (priorkey != null)
-        {
-            rmcolor(priorkey, HowTransparent);
-        }
-
-        Debug.Log(string.Format("keyManager6  label {0}", label));
-
-        foreach (GameObject key in keylist)
-        {
-            takecolor(key, HowTransparent);
-        }
     }
 
     private void rmcolor(GameObject k, int alpha)
@@ -537,6 +576,11 @@ public class keyManager6 : MonoBehaviour
         {
             return false;
         }
+    }
+
+    public void setModelType(string s)
+    {
+        ModelType = s;
     }
 
     public Boolean getHoverColorFeedback()

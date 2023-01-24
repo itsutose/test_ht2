@@ -130,7 +130,10 @@ public class keyManager3 : MonoBehaviour
                         }
                     }
 
-                    rmcolor(priorkey, HowTransparent);
+                    if (priorkey != null)
+                    {
+                        rmcolor(priorkey, HowTransparent);
+                    }
                 }
                 // 指を離したとき, 1フレーム前まではonなのでpreonoff == true
                 else

@@ -6,17 +6,19 @@ using System.Text.RegularExpressions;
 using System;
 using UnityEngine.UI;
 
-public class coord_model_class : MonoBehaviour
+public class coord_model : MonoBehaviour
 {
     public ServerManager server;
 
-    public ONNX_multi_classification onnxloader;
+    public ONNX_multi_classification model_class;
+    public ONNX_Regression model_reg;
+
     public GameObject sphere;
     public GameObject preSphere;
-    public GameObject PreCoordsSphere;
+
 
     public Boolean UtoP;
-
+    public Boolean model;
 
     //public Boolean Pointer = true;
     //public int out_range_times = 50;
@@ -160,50 +162,83 @@ public class coord_model_class : MonoBehaviour
 
                 ////////////////////////////////////////  補正のモデル用
 
-                qx.Insert(0, ux);
-                qy.Insert(0, uy);
-
-
-                int maxLength = 35;
-                qx.RemoveAll(x => qx.IndexOf(x) >= maxLength);
-                qy.RemoveAll(x => qy.IndexOf(x) >= maxLength);
-
-                uxs = new float[] { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f };
-                float sumx = 0;
-                int nn = 0;
-
-                for (int i = 0; i < 6; i++)
+                if (model == true)
                 {
+                    qx.Insert(0, ux);
+                    qy.Insert(0, uy);
 
-                    if (qx[i * 5] != -1)
+
+                    int maxLength = 35;
+                    qx.RemoveAll(x => qx.IndexOf(x) >= maxLength);
+                    qy.RemoveAll(x => qy.IndexOf(x) >= maxLength);
+
+                    uxs = new float[] { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f };
+                    float sumx = 0;
+                    int nn = 0;
+
+                    for (int i = 0; i < 6; i++)
                     {
-                        sumx += qx[i * 5];
-                        uxs[i] = qx[i * 5];
-                        nn = i + 1;
+
+                        if (qx[i * 5] != -1)
+                        {
+                            sumx += qx[i * 5];
+                            uxs[i] = qx[i * 5];
+                            nn = i + 1;
+                        }
+                        else
+                        {
+                            uxs[i] = sumx / (float)nn;
+                        }
                     }
-                    else
+
+                    uys = new float[] { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f };
+                    float sumy = 0;
+                    nn = 0;
+                    for (int i = 0; i < 6; i++)
                     {
-                        uxs[i] = sumx / (float)nn;
+
+                        if (qy[i * 5] != -1)
+                        {
+                            sumy += qy[i * 5];
+                            uys[i] = qy[i * 5];
+                            nn = i + 1;
+                        }
+                        else
+                        {
+                            uys[i] = sumy / (float)nn;
+                        }
+                    }
+
+                    //Debug.Log(string.Format(" qx0 {0}   qx1 {1}   qx2 {2}   qx3 {3}   qx4 {4}, qx.Count{5} ", qx[0], qx[5], qx[10], qx[15], qx[20],qx.Count));
+                    //Debug.Log(string.Format(" qx0 {0}   qx1 {1}   qx2 {2}   qx3 {3}   qx4 {4}, qx.Count{5} ", qx[0], qx[1], qx[2], qx[3], qx[4], qx.Count));
+
+
+                    float[] pxpy = model_reg.GetComponent<ONNX_Regression>().ModelPredict(ux,  uxs[1], uxs[2], uxs[3],uxs[4],uxs[5], uy, uys[1], uys[2], uys[3],  uys[4],  uys[5]);
+
+                    px = pxpy[0];
+                    py = pxpy[1];
+
+                    Debug.Log("coord_model running   " + px + "  ,  " + py);
+
+                    //ローカル座標を基準に、座標を取得
+                    Vector3 prelocalPos = preSphere.transform.localPosition;
+
+                    Debug.Log(string.Format("coord_model  before  {0}   {1}", prelocalPos.x, prelocalPos.y));
+
+                    prelocalPos.x = px;
+                    prelocalPos.y = py;
+
+                    preSphere.transform.localPosition = prelocalPos;
+
+                    Debug.Log(string.Format("coord_model  after   {0}   {1}", prelocalPos.x, prelocalPos.y));
+
+                    if (UtoP == true && onoff == false)
+                    {
+                        ux = px;
+                        uy = py;
                     }
                 }
 
-                uys = new float[] { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f };
-                float sumy = 0;
-                nn = 0;
-                for (int i = 0; i < 6; i++)
-                {
-
-                    if (qy[i * 5] != -1)
-                    {
-                        sumy += qy[i * 5];
-                        uys[i] = qy[i * 5];
-                        nn = i + 1;
-                    }
-                    else
-                    {
-                        uys[i] = sumy / (float)nn;
-                    }
-                }
 
                 //ローカル座標を基準に、座標を取得
                 Vector3 localPos = sphere.transform.localPosition;
@@ -239,18 +274,18 @@ public class coord_model_class : MonoBehaviour
 
     public int getLabel()
     {
-        //label = onnxloader.GetComponent<ONNX_multi_classification>().ModelPredict(ux, uy, uxs[1], uys[1], uxs[2], uys[2], uxs[3], uys[3], uxs[4], uys[4], uxs[5], uys[5]);
+        //label = model_class.GetComponent<ONNX_multi_classification>().ModelPredict(ux, uy, uxs[1], uys[1], uxs[2], uys[2], uxs[3], uys[3], uxs[4], uys[4], uxs[5], uys[5]);
 
-        //return label;
-        Debug.Log(string.Format("ux  {0}, uy  {1}", ux, uy));
+        ////return label;
+        //Debug.Log(string.Format("ux  {0}, uy  {1}", ux, uy));
 
-        for (int i = 1; i < 6; i++)
-        {
-            Debug.Log(string.Format("ux{0}  {1}, uy{2}  {3}",i, uxs[i],i, uys[i]));
-        }
+        //for (int i = 1; i < 6; i++)
+        //{
+        //    Debug.Log(string.Format("ux{0}  {1}, uy{2}  {3}", i, uxs[i], i, uys[i]));
+        //}
 
-        //Debug.Log(onnxloader.GetComponent<ONNX_multi_classification>().ModelPredict(ux, uy, uxs[1], uys[1], uxs[2], uys[2], uxs[3], uys[3], uxs[4], uys[4], uxs[5], uys[5]));
-        return onnxloader.GetComponent<ONNX_multi_classification>().ModelPredict(ux,  uxs[1], uxs[2], uxs[3], uxs[4], uxs[5], uy, uys[1], uys[2], uys[3], uys[4], uys[5]);
+        //Debug.Log(model_class.GetComponent<ONNX_multi_classification>().ModelPredict(ux, uy, uxs[1], uys[1], uxs[2], uys[2], uxs[3], uys[3], uxs[4], uys[4], uxs[5], uys[5]));
+        return model_class.GetComponent<ONNX_multi_classification>().ModelPredict(ux, uxs[1], uxs[2], uxs[3], uxs[4], uxs[5], uy, uys[1], uys[2], uys[3], uys[4], uys[5]);
 
     }
 
@@ -290,23 +325,23 @@ public class coord_model_class : MonoBehaviour
     }
 
 
-    public void setPreCoordsSphere(float ux, float uy)
-    {
+    //public void setPreCoordsSphere(float ux, float uy)
+    //{
 
-        PreCoordsSphere.SetActive(true);
-        //ローカル座標を基準に、座標を取得
-        Vector3 localPos = PreCoordsSphere.transform.localPosition;
+    //    PreCoordsSphere.SetActive(true);
+    //    //ローカル座標を基準に、座標を取得
+    //    Vector3 localPos = PreCoordsSphere.transform.localPosition;
 
-        localPos.x = ux;
-        localPos.y = uy;
+    //    localPos.x = ux;
+    //    localPos.y = uy;
 
-        PreCoordsSphere.transform.localPosition = localPos;
-    }
+    //    PreCoordsSphere.transform.localPosition = localPos;
+    //}
 
-    public void setPreCoordsSphereColor(Color32 color32)
-    {
-        Material mat = PreCoordsSphere.GetComponent<Renderer>().material;
-        mat.color = color32;
+    //public void setPreCoordsSphereColor(Color32 color32)
+    //{
+    //    Material mat = PreCoordsSphere.GetComponent<Renderer>().material;
+    //    mat.color = color32;
 
-    }
+    //}
 }

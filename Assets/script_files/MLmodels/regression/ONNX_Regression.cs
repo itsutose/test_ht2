@@ -149,30 +149,31 @@ public class ONNX_Regression : MonoBehaviour
 
         var output1 = worker.Execute(input);
 
-        Debug.Log(string.Format("1 {0}", output1));
+        //Debug.Log(string.Format("1 {0}", output1));
 
         //var output1 = worker.PeekOutput();
 
         Tensor output2 = worker.PeekOutput();
 
-        Debug.Log(string.Format("1.5 {0}", input));
+        float[] a = new float[2] { output2[0, 0, 0, 0], output2[0, 0, 0, 1] };
+        //Debug.Log(string.Format("1.5 {0}", input));
 
-        Debug.Log(string.Format("2 {0}", output2));
+        //Debug.Log(string.Format("2 {0}", output2));
 
-        //var input = Tensor.New(new[] { 1, 12 }, Tensor.DataType.Float);
-        //input.SetData(inputTensor);
-        //var output = model.Execute(input);
-        //float[] outputData = output.ToReadOnlyArray();
-        //Debug.Log(output.shape);
-        //Debug.Log(string.Format("Predict ux {0}, uy {1}",))
+        ////var input = Tensor.New(new[] { 1, 12 }, Tensor.DataType.Float);
+        ////input.SetData(inputTensor);
+        ////var output = model.Execute(input);
+        ////float[] outputData = output.ToReadOnlyArray();
+        ////Debug.Log(output.shape);
+        ////Debug.Log(string.Format("Predict ux {0}, uy {1}",))
 
-        Debug.Log(string.Format("3 {0}  {1}", output2[0, 0, 0, 0], output2[0, 0, 0, 1]));
+        //Debug.Log(string.Format("3 {0}  {1}", output2[0, 0, 0, 0], output2[0, 0, 0, 1]));
 
 
         input.Dispose();
         output2.Dispose();
 
 
-        return new float[] { output2[0,0,0,0] , output2[0,0,0,1] };
+        return new float[] { a[0], a[1] };
     }
 }
