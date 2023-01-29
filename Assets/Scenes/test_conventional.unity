@@ -445,7 +445,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &108007414
 Transform:
   m_ObjectHideFlags: 0
@@ -1788,7 +1788,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9602dd2d57ceed94dabccb43cab03be2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: {fileID: 0}
 --- !u!1 &589986851
 GameObject:
   m_ObjectHideFlags: 0
@@ -1946,6 +1945,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textset: {fileID: 0}
+  _text: {fileID: 0}
   a0: {fileID: 0}
 --- !u!4 &614540073 stripped
 Transform:
@@ -2344,6 +2344,7 @@ MonoBehaviour:
   a1: {fileID: 1786288362}
   a2: {fileID: 1120923634}
   a3: {fileID: 202469884}
+  _text: {fileID: 0}
 --- !u!1 &714317626 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3053337137989686210, guid: b35333cad32b99d4388c5a99ee7f9346, type: 3}
@@ -3261,6 +3262,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textset: {fileID: 0}
+  _text: {fileID: 0}
   a0: {fileID: 292732457}
   a1: {fileID: 1663540059}
   a2: {fileID: 1111539064}
@@ -3805,6 +3807,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textset: {fileID: 0}
+  _text: {fileID: 0}
   a0: {fileID: 1002540498}
 --- !u!1 &1158405523 stripped
 GameObject:
@@ -4300,6 +4303,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textset: {fileID: 0}
+  _text: {fileID: 0}
   a0: {fileID: 0}
 --- !u!1 &1341233871
 GameObject:
@@ -4484,6 +4488,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textset: {fileID: 0}
+  _text: {fileID: 0}
   a0: {fileID: 1009627968}
   a1: {fileID: 1563929417}
   a2: {fileID: 692382300}
@@ -4604,6 +4609,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textset: {fileID: 0}
+  _text: {fileID: 0}
   a0: {fileID: 1055129250}
   a1: {fileID: 1254942245}
   a2: {fileID: 584441162}
@@ -4934,6 +4940,7 @@ MonoBehaviour:
   a1: {fileID: 1439661463}
   a2: {fileID: 1439661462}
   a3: {fileID: 1439661461}
+  _text: {fileID: 0}
 --- !u!4 &1486900335 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4562126893162318, guid: c6a74181d4000004887343fb87b3c53a, type: 3}
@@ -5117,7 +5124,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: "\u3075\u308A\u3063\u304F\u306B\u3085\u3046"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8d1ca8c671bb5f74b88613694ea76574, type: 2}
   m_sharedMaterial: {fileID: -5590371454485309420, guid: 8d1ca8c671bb5f74b88613694ea76574, type: 2}
@@ -5144,8 +5151,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 0.3
-  m_fontSizeBase: 0.3
+  m_fontSize: 0.2
+  m_fontSizeBase: 0.2
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -6038,7 +6045,7 @@ Transform:
   m_GameObject: {fileID: 1903498257}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.018, y: 1.4, z: 0.5}
-  m_LocalScale: {x: 0.0273, y: 0.01736409, z: 0.015}
+  m_LocalScale: {x: 0.06491318, y: 0.041287854, z: 0.035666585}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 973804469}
@@ -6117,9 +6124,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coords: {fileID: 0}
-  color_feedback: 1
-  sphere_feedback: 1
-  pr: center
   textobject: {fileID: 1547484323}
   feed_back_time: 0
   a: {fileID: 415775407}
@@ -6151,7 +6155,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   center: {fileID: 1703136455}
-  distance: 0.15
+  Distance: 0.15
   debug: 1
 --- !u!1 &1908965227
 GameObject:
@@ -6406,6 +6410,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textset: {fileID: 0}
   all_delete: 0
+  _text: {fileID: 0}
   a0: {fileID: 0}
 --- !u!1001 &1947919838
 PrefabInstance:
@@ -6626,6 +6631,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textset: {fileID: 0}
+  _text: {fileID: 0}
   a0: {fileID: 1262091523}
   a1: {fileID: 1022586151}
   a2: {fileID: 942014749}
@@ -6649,6 +6655,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textset: {fileID: 0}
+  _text: {fileID: 0}
   a0: {fileID: 1738720790}
   a1: {fileID: 1148272723}
   a2: {fileID: 1203980513}
@@ -6677,6 +6684,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textset: {fileID: 0}
+  _text: {fileID: 0}
   a0: {fileID: 1805513886}
   a1: {fileID: 1158405523}
   a2: {fileID: 1509144007}
@@ -6700,6 +6708,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textset: {fileID: 0}
+  _text: {fileID: 0}
   a0: {fileID: 1963633246}
   a1: {fileID: 1910975509}
   a2: {fileID: 1212731771}
@@ -6723,6 +6732,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textset: {fileID: 0}
+  _text: {fileID: 0}
   a0: {fileID: 755544953}
   a1: {fileID: 1659929801}
   a2: {fileID: 1848360361}
@@ -6751,6 +6761,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textset: {fileID: 0}
+  _text: {fileID: 0}
   a0: {fileID: 1169304404}
   a1: {fileID: 816951785}
   a2: {fileID: 1702935052}

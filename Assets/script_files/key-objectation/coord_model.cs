@@ -35,10 +35,12 @@ public class coord_model : MonoBehaviour
     // 他のスクリプトからのアクセスに対しての返す変数
     float ux = 0, uy = 0;
     float px = -1, py = -1;
+    float subx, suby;
     int label = -1;
     Boolean onoff = false;
     private Boolean onrunning = false;
     private Boolean Pointer;
+    private Boolean HoverPointer;
     private int out_range_times;
     private float magnification;
 
@@ -141,7 +143,16 @@ public class coord_model : MonoBehaviour
 
                 if (result[0] == "0")
                 {
-                    mat1.color = Color.blue;
+                    if (HoverPointer == true)
+                    {
+                        mat1.color = new Color32(0, 0, 255, 255);
+                    }
+                    else
+                    {
+                        mat1.color = new Color32(0, 0, 0, 0);
+                        //Debug.Log("coord_model  color is transparent");
+                    }
+
                 }
                 else if (result[0] == "1")
                 {
@@ -157,87 +168,108 @@ public class coord_model : MonoBehaviour
                 // y : 右式でちょうど画面いっぱいでキーボードを網羅する  (y / maxy - (float)0.5) * (float)5 - (float)0.5; 
                 //ux = (xx / maxx - (float)0.3) * (float)6;
 
-                ux = -1 * (xx / sizex - (float)0.5) * 2 * (float)0.0375 * (sizex / sizey) * magnification;
-                uy = -1 * (yy / sizey - (float)0.5) * 2 * (float)0.0375 * magnification;
+                float ux0 = -1 * (xx / sizex - (float)0.5) * 2 * (float)0.0375 * (sizex / sizey) * magnification;
+                float uy0 = -1 * (yy / sizey - (float)0.5) * 2 * (float)0.0375 * magnification;
 
                 ////////////////////////////////////////  補正のモデル用
 
-                if (model == true)
+                //if (model == true)
+                //{
+
+                qx.Insert(0, ux0);
+                qy.Insert(0, uy0);
+
+
+                int maxLength = 35;
+                qx.RemoveAll(x => qx.IndexOf(x) >= maxLength);
+                qy.RemoveAll(x => qy.IndexOf(x) >= maxLength);
+
+                uxs = new float[] { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f };
+                float sumx = 0;
+                int nn = 0;
+
+                for (int i = 0; i < 6; i++)
                 {
-                    qx.Insert(0, ux);
-                    qy.Insert(0, uy);
 
-
-                    int maxLength = 35;
-                    qx.RemoveAll(x => qx.IndexOf(x) >= maxLength);
-                    qy.RemoveAll(x => qy.IndexOf(x) >= maxLength);
-
-                    uxs = new float[] { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f };
-                    float sumx = 0;
-                    int nn = 0;
-
-                    for (int i = 0; i < 6; i++)
+                    if (qx[i * 5] != -1)
                     {
-
-                        if (qx[i * 5] != -1)
-                        {
-                            sumx += qx[i * 5];
-                            uxs[i] = qx[i * 5];
-                            nn = i + 1;
-                        }
-                        else
-                        {
-                            uxs[i] = sumx / (float)nn;
-                        }
+                        sumx += qx[i * 5];
+                        uxs[i] = qx[i * 5];
+                        nn = i + 1;
                     }
-
-                    uys = new float[] { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f };
-                    float sumy = 0;
-                    nn = 0;
-                    for (int i = 0; i < 6; i++)
+                    else
                     {
-
-                        if (qy[i * 5] != -1)
-                        {
-                            sumy += qy[i * 5];
-                            uys[i] = qy[i * 5];
-                            nn = i + 1;
-                        }
-                        else
-                        {
-                            uys[i] = sumy / (float)nn;
-                        }
+                        uxs[i] = sumx / (float)nn;
                     }
+                }
 
-                    //Debug.Log(string.Format(" qx0 {0}   qx1 {1}   qx2 {2}   qx3 {3}   qx4 {4}, qx.Count{5} ", qx[0], qx[5], qx[10], qx[15], qx[20],qx.Count));
-                    //Debug.Log(string.Format(" qx0 {0}   qx1 {1}   qx2 {2}   qx3 {3}   qx4 {4}, qx.Count{5} ", qx[0], qx[1], qx[2], qx[3], qx[4], qx.Count));
+                uys = new float[] { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f };
+                float sumy = 0;
+                nn = 0;
+                for (int i = 0; i < 6; i++)
+                {
 
-
-                    float[] pxpy = model_reg.GetComponent<ONNX_Regression>().ModelPredict(ux,  uxs[1], uxs[2], uxs[3],uxs[4],uxs[5], uy, uys[1], uys[2], uys[3],  uys[4],  uys[5]);
-
-                    px = pxpy[0];
-                    py = pxpy[1];
-
-                    Debug.Log("coord_model running   " + px + "  ,  " + py);
-
-                    //ローカル座標を基準に、座標を取得
-                    Vector3 prelocalPos = preSphere.transform.localPosition;
-
-                    Debug.Log(string.Format("coord_model  before  {0}   {1}", prelocalPos.x, prelocalPos.y));
-
-                    prelocalPos.x = px;
-                    prelocalPos.y = py;
-
-                    preSphere.transform.localPosition = prelocalPos;
-
-                    Debug.Log(string.Format("coord_model  after   {0}   {1}", prelocalPos.x, prelocalPos.y));
-
-                    if (UtoP == true && onoff == false)
+                    if (qy[i * 5] != -1)
                     {
+                        sumy += qy[i * 5];
+                        uys[i] = qy[i * 5];
+                        nn = i + 1;
+                    }
+                    else
+                    {
+                        uys[i] = sumy / (float)nn;
+                    }
+                }
+
+
+                if (UtoP == true)
+                {
+
+                    if (onoff == true)
+                    {
+                        ux = ux0 + subx;
+                        uy = uy0 + suby;
+                    }
+                    else
+                    {
+                        Debug.Log(string.Format("coord_model  ux0  {0}  uy0 {1}", ux0, uy0));
+
+                        float[] pxpy = model_reg.GetComponent<ONNX_Regression>().ModelPredict(ux0,  uxs[1], uxs[2], uxs[3],uxs[4],uxs[5], uy0, uys[1], uys[2], uys[3],  uys[4],  uys[5]);
+
+                        px = pxpy[0];
+                        py = pxpy[1];
+
+                        Debug.Log(string.Format("coord_model  px  {0}  py {1}", px, py));
+
+
+                        Debug.Log("coord_model running   " + px + "  ,  " + py);
+
+                        //ローカル座標を基準に、座標を取得
+                        Vector3 prelocalPos = preSphere.transform.localPosition;
+
+                        Debug.Log(string.Format("coord_model  before  {0}   {1}", prelocalPos.x, prelocalPos.y));
+
+                        prelocalPos.x = px;
+                        prelocalPos.y = py;
+
+                        preSphere.transform.localPosition = prelocalPos;
+
+                        Debug.Log(string.Format("coord_model  after   {0}   {1}", prelocalPos.x, prelocalPos.y));
+
+                        subx = px - ux0;
+                        suby = py - uy0;
+
                         ux = px;
                         uy = py;
                     }
                 }
+                else
+                {
+                    ux = ux0;
+                    uy = uy0;
+
+                }
+                
 
 
                 //ローカル座標を基準に、座標を取得
@@ -312,6 +344,11 @@ public class coord_model : MonoBehaviour
     public void setPointer(Boolean b)
     {
         Pointer = b;
+    }
+
+    public void setHoverPointer(Boolean b)
+    {
+        HoverPointer = b;
     }
 
     public void setORT(int i)

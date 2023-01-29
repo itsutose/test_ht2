@@ -20,7 +20,8 @@ public class AllManager : MonoBehaviour
     public Boolean PreTest = false;
     public Boolean HoverColorFeedback = true;
     public Boolean KeyBoardFeedback = true;
-    public Boolean Pointer = true;
+    public Boolean Pointer;
+    public Boolean HoverPointer;
     public String KeyColor = "TP0";
     public int HowTransparent = 80;
     public int CloverTransparent = 80;
@@ -62,6 +63,7 @@ public class AllManager : MonoBehaviour
         pretest.GetComponent<PreTest_output>().setMode(_Mode);
         pretest.GetComponent<PreTest_output>().setKC(KeyColor);
         pretest.GetComponent<PreTest_output>().setP(Pointer);
+        pretest.GetComponent<PreTest_output>().setHP(HoverPointer);
         pretest.GetComponent<PreTest_output>().setKBF(KeyBoardFeedback);
         pretest.GetComponent<PreTest_output>().setHCF(HoverColorFeedback);
         pretest.GetComponent<PreTest_output>().setDistance(_Distance);
@@ -71,7 +73,8 @@ public class AllManager : MonoBehaviour
         kp.GetComponent<keyPosition>().Refresh();
 
 
-        coords.Pointer = Pointer;
+        coords.setPointer(Pointer);
+        coords.setHoverPointer(HoverPointer);
         coords.out_range_times = out_range_times;
         coords.magnification = magnification;
 
@@ -101,12 +104,14 @@ public class AllManager : MonoBehaviour
             //pretest.GetComponent<PreTest_output>().setID(_ID);
             pretest.GetComponent<PreTest_output>().setKC(KeyColor);
             pretest.GetComponent<PreTest_output>().setP(Pointer);
+            pretest.GetComponent<PreTest_output>().setHP(HoverPointer);
             pretest.GetComponent<PreTest_output>().setKBF(KeyBoardFeedback);
             pretest.GetComponent<PreTest_output>().setHCF(HoverColorFeedback);
             pretest.GetComponent<PreTest_output>().setDistance(_Distance);
             pretest.GetComponent<PreTest_output>().setTestTimes(TestTimes);
 
-            coords.Pointer = Pointer;
+            coords.setPointer(Pointer);
+            coords.setHoverPointer(HoverPointer);
             coords.out_range_times = out_range_times;
             coords.magnification = magnification;
 
@@ -137,7 +142,8 @@ public class AllManager : MonoBehaviour
             pretest.GetComponent<PreTest_output>().setTestTimes(TestTimes);
 
 
-            coords.Pointer = Pointer;
+            coords.setPointer(Pointer);
+            coords.setHoverPointer(HoverPointer);
             coords.out_range_times = out_range_times;
             coords.magnification = magnification;
 

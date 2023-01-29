@@ -1916,19 +1916,22 @@ MonoBehaviour:
   fkb: {fileID: 1903498264}
   coords: {fileID: 1794700457}
   kp: {fileID: 660310239}
-  HoverColorFeedback: 1
+  csvop: {fileID: 1508191599}
+  HoverColorFeedback: 0
   KeyBoardFeedback: 1
   Pointer: 1
+  HoverPointer: 0
   KeyColor: TP3
   HowTransparent: 80
   CloverTransparent: 80
   folder_path: .\Assets\CSV_output\Normal
-  file_name: test
+  file_name: NoHoverML2.csv
   _ID: 
+  _InputType: noyes
   _Distance: 0.3
-  _Mode: 3
+  _Mode: 2
   TestTimes: 10
-  ModelType: reg
+  ModelType: class
   out_range_times: 50
   magnification: 1.2
 --- !u!4 &436008955
@@ -2070,7 +2073,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f0e40fc865770de4cb1577c051163a9d, type: 2}
+  - {fileID: 2100000, guid: 64b2074034261d148b652ec17fd8ca97, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5510,6 +5513,7 @@ GameObject:
   - component: {fileID: 1177349903}
   - component: {fileID: 1177349904}
   - component: {fileID: 1177349905}
+  - component: {fileID: 1177349906}
   m_Layer: 0
   m_Name: ONNXLoader
   m_TagString: Untagged
@@ -5544,12 +5548,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca26a86b09b78094d805942d11b6676c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CSVsd_mean: {fileID: 4900000, guid: 6a9f72ea64bb4bc42b37742107be5414, type: 3}
-  CSVsd_scale: {fileID: 4900000, guid: 52cfa9fbf828cba4aa7f513f94bd783f, type: 3}
-  CSVminmax_data_min: {fileID: 4900000, guid: 4d0e3fca5cb102a46ada5443be3dd584, type: 3}
-  CSVminmax_scale: {fileID: 4900000, guid: d7652dc8ab9554a45b0c7e29cf618550, type: 3}
-  DLClass: {fileID: 5022602860645237092, guid: 8f8e3c6db0e64a849989544f2a963ed8, type: 3}
-  PreProccessing: sd
+  CSV_sd_mean: {fileID: 4900000, guid: 817ef346af822cc478c0c5dc3b65d504, type: 3}
+  CSV_sd_scale: {fileID: 4900000, guid: 92d208f3971a41046b7110df20f8adef, type: 3}
+  CSV_mm_data_min: {fileID: 4900000, guid: 0ed4e17aecc33114f83fd26b0976abb0, type: 3}
+  CSV_mm_scale: {fileID: 4900000, guid: b677747e292dc07408a45be71be9f277, type: 3}
+  CSV_mmsd_mean: {fileID: 4900000, guid: 1aee264d51e989543bd0e5b831d14687, type: 3}
+  CSV_mmsd_scale: {fileID: 4900000, guid: 44698211a53788b428d067c2204f8e2e, type: 3}
+  DLClass: {fileID: 5022602860645237092, guid: 9ec42bd832168ed40afe690de4eb409a, type: 3}
+  PreProccessing: mmsd
+  max_i: -1
+  max: -1
+  sd_mean: []
+  sd_scale: []
+  minmax_data_min: []
+  minmax_scale: []
+  mmsd_mean: []
+  mmsd_scale: []
 --- !u!114 &1177349905
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5562,12 +5576,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6cd9be63d83d9d49b06c2bf682ada5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CSVsd_mean: {fileID: 4900000, guid: 461cfa19dc123aa499727e6aa228ee83, type: 3}
-  CSVsd_scale: {fileID: 4900000, guid: 341d39da730ca254594ae6c4749fe56a, type: 3}
-  CSVminmax_data_min: {fileID: 4900000, guid: baf3047e54822944096e780e74cc9bb5, type: 3}
-  CSVminmax_scale: {fileID: 4900000, guid: 25561afdd3f8282409fa47390e0a09a7, type: 3}
-  DLRegression: {fileID: 5022602860645237092, guid: 3b01829db2052fd45a9dc198c2bae462, type: 3}
+  CSV_sd_mean: {fileID: 4900000, guid: 817ef346af822cc478c0c5dc3b65d504, type: 3}
+  CSV_sd_scale: {fileID: 4900000, guid: 92d208f3971a41046b7110df20f8adef, type: 3}
+  CSV_mm_data_min: {fileID: 4900000, guid: 0ed4e17aecc33114f83fd26b0976abb0, type: 3}
+  CSV_mm_scale: {fileID: 4900000, guid: b677747e292dc07408a45be71be9f277, type: 3}
+  CSV_mmsd_mean: {fileID: 4900000, guid: 1aee264d51e989543bd0e5b831d14687, type: 3}
+  CSV_mmsd_scale: {fileID: 4900000, guid: 44698211a53788b428d067c2204f8e2e, type: 3}
+  DLRegression: {fileID: 5022602860645237092, guid: 41d8ca5c84e59494caee99667b267af7, type: 3}
+  PreProccessing: mmsd
+--- !u!114 &1177349906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1177349901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 849ed4ad887d65f48ac488516a8b6504, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CSV_sd_mean: {fileID: 4900000, guid: 817ef346af822cc478c0c5dc3b65d504, type: 3}
+  CSV_sd_scale: {fileID: 4900000, guid: 92d208f3971a41046b7110df20f8adef, type: 3}
+  CSV_mm_data_min: {fileID: 4900000, guid: 0ed4e17aecc33114f83fd26b0976abb0, type: 3}
+  CSV_mm_scale: {fileID: 4900000, guid: b677747e292dc07408a45be71be9f277, type: 3}
+  CSV_mmsd_mean: {fileID: 4900000, guid: 1aee264d51e989543bd0e5b831d14687, type: 3}
+  CSV_mmsd_scale: {fileID: 4900000, guid: 44698211a53788b428d067c2204f8e2e, type: 3}
+  DLClass: {fileID: 5022602860645237092, guid: 31d3113b7ab652f46bd734d9f3b759fd, type: 3}
   PreProccessing: sd
+  TwoInput: 1
 --- !u!114 &1197882672 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 320748027163784554, guid: b35333cad32b99d4388c5a99ee7f9346, type: 3}
@@ -7011,11 +7048,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b546edff5addbdd4cabc6199c3a83b58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  folder_path: .\Assets\CSV_output
-  file_name: test21.csv
-  _ID: 0
-  _InputType: normal
-  _Distance: 
 --- !u!4 &1508191600
 Transform:
   m_ObjectHideFlags: 0
@@ -7479,7 +7511,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1607637422
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8292,12 +8324,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   server: {fileID: 368044074}
-  model_class: {fileID: 1177349904}
+  model_class: {fileID: 1177349906}
   model_reg: {fileID: 1177349905}
   sphere: {fileID: 478603462}
   preSphere: {fileID: 1607637421}
   UtoP: 0
-  model: 1
+  model: 0
 --- !u!4 &1794700458
 Transform:
   m_ObjectHideFlags: 0
@@ -9413,7 +9445,6 @@ MonoBehaviour:
   PreCoordsSphere: {fileID: 0}
   UtoP: 0
   model: 0
-  Pointer: 1
   out_range_times: 50
   magnification: 1.2
 --- !u!4 &2138986571

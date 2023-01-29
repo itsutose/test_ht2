@@ -37,13 +37,11 @@ using UnityEngine.UI;  // ’Ç‰Á‚µ‚Ü
 
 public class csv_output : MonoBehaviour
 {
-    int[] num = { 0, 1, 2, 3, 4,5,5,56,7 };
-    //C:\Users\t-yamaguchi\unity\test_ht2\Assets
-    public string folder_path = ".\\Assets\\CSV_output";
-    public string file_name = "ScapeGoat.txt";
-    public string _ID;
-    public string _InputType;
-    public string _Distance;
+    private string folder_path;
+    private string file_name;
+    private string _ID;
+    private string _InputType;
+    private string _Distance;
 
     private StreamWriter sw;
 
@@ -55,7 +53,7 @@ public class csv_output : MonoBehaviour
     private int i = 0;
 
     // Start is called before the first frame update
-    void Start()
+    public void SStart()
     {
         file_path = folder_path + "\\" + file_name;
 
@@ -118,11 +116,6 @@ public class csv_output : MonoBehaviour
         string s2 = string.Join(",", s1);
         sw.WriteLine(s2);
 
-        //i += 1;
-        //if (i == 5)
-        //{
-        //    sw.Close();
-        //}
     }
 
     //public void EnterSave(string id, string InputType, string distance, string phrase, string word, string detectedKey, string ux, string uy)
@@ -144,6 +137,31 @@ public class csv_output : MonoBehaviour
     public void csvClose()
     {
         sw.Close();
+    }
+
+    public void setFolderPath(string s)
+    {
+        folder_path = s;
+    }
+
+    public void setFileName(string s)
+    {
+        file_name = s;
+    }
+
+    public void setID(string s)
+    {
+        _ID = s;
+    }
+
+    public void setInputType(string s)
+    {
+        _InputType = s;
+    }
+
+    public void setDistance(string s)
+    {
+        _Distance = s;
     }
 
 }

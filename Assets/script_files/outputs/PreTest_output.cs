@@ -15,7 +15,7 @@ public class PreTest_output : MonoBehaviour
     public TextMeshProUGUI textobject;
     public TextMeshProUGUI textsub;
 
-    public GameObject a, k, s, t, n, h, m, y, r, w, hen, point, enter,space, backspace,  dummy = null;
+    public GameObject a, k, s, t, n, h, m, y, r, w, hen, point, enter, space, backspace, dummy = null;
 
 
     // file name path, others : file container
@@ -25,6 +25,7 @@ public class PreTest_output : MonoBehaviour
     private int Mode;
     private string KC;
     private Boolean P;
+    private Boolean HP;
     private Boolean KBF;
     private Boolean HCF;
     private float _Distance;
@@ -46,21 +47,23 @@ public class PreTest_output : MonoBehaviour
     private char word;
     private int i = 0;
 
-    private List<char> words = new List<char>{ 'あ','い','う','え','お',
-                            'か','き','く','け','こ',
-                            'さ','し','す','せ','そ',
-                            'た','ち','つ','て','と',
-                            'な','に','ぬ','ね','の',
-                            'は','ひ','ふ','へ','ほ',
-                            'ま','み','む','め','も',
-                            'や','ゆ','よ',
-                            'ら','り','る','れ','ろ',
-                            'わ','を','ん',
-                            '変','ー','、','。','！','？',
-                            'E', 'S', 'B'};
+    //private List<char> words = new List<char>{ 'あ','い','う','え','お',
+    //                        'か','き','く','け','こ',
+    //                        'さ','し','す','せ','そ',
+    //                        'た','ち','つ','て','と',
+    //                        'な','に','ぬ','ね','の',
+    //                        'は','ひ','ふ','へ','ほ',
+    //                        'ま','み','む','め','も',
+    //                        'や','ゆ','よ',
+    //                        'ら','り','る','れ','ろ',
+    //                        'わ','を','ん',
+    //                        '変','ー','、','。','！','？',
+    //                        'E', 'S', 'B'};
+
+    private List<char> words = new List<char> { 'な', 'に', 'わ', 'を', 'ん', 'ー', '、', '。', '！', '？', 'E', 'E', 'E', 'S', 'B', 'E', 'S', 'B', 'E', 'S','E', 'E', 'E', 'S', 'B', 'E', 'S', 'B', 'E', 'S', 'S', 'S', 'B', '変', '変', '変', '変', '変', '変', '変', '変', '変', 'や', 'ゆ', 'よ', 'や', 'ゆ', 'よ' };
 
 
-    private List<char> words1;
+private List<char> words1;
     private List<char> words2;
 
 
@@ -84,6 +87,7 @@ public class PreTest_output : MonoBehaviour
         
     private GameObject[] keylist;
 
+    private float prerx, prery;
 
     // Start is called before the first frame update
     //void Start()
@@ -180,7 +184,8 @@ public class PreTest_output : MonoBehaviour
         string[] s1 = { "ID", 
             "Mode", 
             "KC", 
-            "P", 
+            "P",
+            "HP",
             "KBF",
             "HCF",
             "Distance",
@@ -202,7 +207,9 @@ public class PreTest_output : MonoBehaviour
             "uy5",
             "px",
             "py",
-            "delta time"};
+            "delta time",
+            "pre_rx",
+            "pre_ry"};
         string s2 = string.Join(",", s1);
         Debug.Log(s2);
         sw.WriteLine(s2);
@@ -260,6 +267,8 @@ public class PreTest_output : MonoBehaviour
             DeltaTime = 0;
             preTime = Time.time;
             isFirst = false;
+            //prerx = ux;
+            //prery = uy;
 
         }
         else
@@ -270,7 +279,7 @@ public class PreTest_output : MonoBehaviour
             float rx = getKeyRX(word);
             float ry = getKeyRY(word);
             
-            string[] s1 = { _ID, Mode.ToString(), KC, P.ToString(), KBF.ToString(), HCF.ToString(), _Distance.ToString(), "begin", word.ToString(), 
+            string[] s1 = { _ID, Mode.ToString(), KC, P.ToString(),HP.ToString(), KBF.ToString(), HCF.ToString(), _Distance.ToString(), "begin", word.ToString(), 
                 rx.ToString(),ry.ToString(),
                 ux.ToString(),
                 ux1.ToString(),
@@ -286,7 +295,9 @@ public class PreTest_output : MonoBehaviour
                 uy5.ToString(),
                 px.ToString(),
                 py.ToString(),
-                DeltaTime.ToString() };
+                DeltaTime.ToString(),
+                prerx.ToString(),
+                prery.ToString()};
 
             SumTime += DeltaTime;
             string s2 = string.Join(",", s1);
@@ -304,14 +315,15 @@ public class PreTest_output : MonoBehaviour
 
         if (isFirst == true)
         {
-         
+            prerx = ux;
+            prery = uy;
         }
         else
         {
             float rx = getKeyRX(word);
             float ry = getKeyRY(word);
 
-            string[] s1 = { _ID, Mode.ToString(), KC, P.ToString(), KBF.ToString(), HCF.ToString(), _Distance.ToString(), "end", word.ToString(),
+            string[] s1 = { _ID, Mode.ToString(), KC, P.ToString(),HP.ToString(), KBF.ToString(), HCF.ToString(), _Distance.ToString(), "end", word.ToString(),
                 rx.ToString(),ry.ToString(),
                 ux.ToString(),
                 "",
@@ -327,7 +339,14 @@ public class PreTest_output : MonoBehaviour
                 "",
                 px.ToString(),
                 py.ToString(),
-                ""};
+                "",
+                prerx.ToString(),
+                prery.ToString()
+            };
+
+
+            prerx = ux;
+            prery = uy;
 
             string s2 = string.Join(",", s1);
             sw.WriteLine(s2);
@@ -520,6 +539,10 @@ public class PreTest_output : MonoBehaviour
     public void setP(Boolean tf)
     {
         P = tf;
+    }
+    public void setHP(Boolean tf)
+    {
+        HP = tf;
     }
     public void setKBF(Boolean tf)
     {

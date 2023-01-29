@@ -7,10 +7,12 @@ using Unity.Barracuda;
 public class ONNX_Regression : MonoBehaviour
 {
 
-    [SerializeField] TextAsset CSVsd_mean;// CSVファイル
-    [SerializeField] TextAsset CSVsd_scale;// CSVファイル
-    [SerializeField] TextAsset CSVminmax_data_min;// CSVファイル
-    [SerializeField] TextAsset CSVminmax_scale;// CSVファイル
+    [SerializeField] TextAsset CSV_sd_mean;// CSVファイル
+    [SerializeField] TextAsset CSV_sd_scale;// CSVファイル
+    [SerializeField] TextAsset CSV_mm_data_min;// CSVファイル
+    [SerializeField] TextAsset CSV_mm_scale;// CSVファイル
+    [SerializeField] TextAsset CSV_mmsd_mean;// CSVファイル
+    [SerializeField] TextAsset CSV_mmsd_scale;// CSVファイル
 
     public NNModel DLRegression;
 
@@ -29,6 +31,8 @@ public class ONNX_Regression : MonoBehaviour
     private float[] sd_scale;
     private float[] minmax_data_min;
     private float[] minmax_scale;
+    private float[] mmsd_mean;  
+    private float[] mmsd_scale;
 
 
     //public RenderTexture targetTexture;
@@ -36,10 +40,12 @@ public class ONNX_Regression : MonoBehaviour
     void Start()
     {
 
-        string[] lines1 = CSVsd_mean.text.Split('\n');
-        string[] lines2 = CSVsd_scale.text.Split('\n');
-        string[] lines3 = CSVminmax_data_min.text.Split('\n');
-        string[] lines4 = CSVminmax_scale.text.Split('\n');
+        string[] lines1 = CSV_sd_mean.text.Split('\n');
+        string[] lines2 = CSV_sd_scale.text.Split('\n');
+        string[] lines3 = CSV_mm_data_min.text.Split('\n');
+        string[] lines4 = CSV_mm_scale.text.Split('\n');
+        string[] lines5 = CSV_mmsd_mean.text.Split('\n');
+        string[] lines6 = CSV_mmsd_scale.text.Split('\n');
 
         sd_mean = new float[12]{
             float.Parse(lines1[0]),
@@ -101,6 +107,37 @@ public class ONNX_Regression : MonoBehaviour
             float.Parse(lines4[11])
         };
 
+        mmsd_mean = new float[12]{
+            float.Parse(lines5[0]),
+            float.Parse(lines5[1]),
+            float.Parse(lines5[2]),
+            float.Parse(lines5[3]),
+            float.Parse(lines5[4]),
+            float.Parse(lines5[5]),
+            float.Parse(lines5[6]),
+            float.Parse(lines5[7]),
+            float.Parse(lines5[8]),
+            float.Parse(lines5[9]),
+            float.Parse(lines5[10]),
+            float.Parse(lines5[11])
+        };
+
+        mmsd_scale = new float[12]{
+            float.Parse(lines6[0]),
+            float.Parse(lines6[1]),
+            float.Parse(lines6[2]),
+            float.Parse(lines6[3]),
+            float.Parse(lines6[4]),
+            float.Parse(lines6[5]),
+            float.Parse(lines6[6]),
+            float.Parse(lines6[7]),
+            float.Parse(lines6[8]),
+            float.Parse(lines6[9]),
+            float.Parse(lines6[10]),
+            float.Parse(lines6[11])
+        };
+
+
         model = ModelLoader.Load(DLRegression);
 
         // 参考
@@ -132,11 +169,11 @@ public class ONNX_Regression : MonoBehaviour
             }
             else if (PreProccessing == "mm")
             {
-                input[0, 0, 0, i] = (us[i] - minmax_data_min[i]) / minmax_scale[i];
+                input[0, 0, 0, i] = (us[i] - minmax_data_min[i]) * minmax_scale[i];
             }
             else if(PreProccessing == "mmsd")
             {
-                input[0, 0, 0, i] = ( (us[i] - minmax_data_min[i]) / minmax_scale[i] ) - sd_mean[i] / sd_scale[i];
+                input[0, 0, 0, i] = (us[i] - mmsd_mean[i]) * mmsd_scale[i];
             }
             else
             {

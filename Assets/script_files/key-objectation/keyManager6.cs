@@ -75,7 +75,7 @@ public class keyManager6 : MonoBehaviour
         }
 
 
-        if (HoverColorFeedback == true && KeyBoardFeedback == true)
+        if (KeyBoardFeedback == true)
         {
             if (nowkey != null && onrunning == false)
             {
@@ -338,11 +338,13 @@ public class keyManager6 : MonoBehaviour
 
         keep_word = nowkey.GetComponent<key2>().takeword(son, textobject.text);
 
-        if (HoverColorFeedback == true)
-        {
-            // Color32(255,255,0,255) ÇÕâ©êF
-            nowkey.GetComponent<key2>().takecolor(new Color32(255, 255, 0, 255), son);
-        }
+        //if (HoverColorFeedback == true)
+        //{
+        //    // Color32(255,255,0,255) ÇÕâ©êF
+        //    nowkey.GetComponent<key2>().takecolor(new Color32(255, 255, 0, 255), son);
+        //}
+
+        nowkey.GetComponent<key2>().takecolor(new Color32(255, 255, 0, 255), son);
     }
 
     private void invoke()
@@ -352,7 +354,7 @@ public class keyManager6 : MonoBehaviour
 
     private void set_touch()
     {
-
+        Debug.Log("keyManager6  set_touch");
         if (ModelType == "class")
         {
 
@@ -539,6 +541,7 @@ public class keyManager6 : MonoBehaviour
 
     private void up_touch(Boolean oo)
     {
+        Debug.Log("keyManager6  up_touch");
         foreach (GameObject key in keylist)
         {
             rmcolor(key, HowTransparent);

@@ -18,7 +18,8 @@ public class coordinates : MonoBehaviour
 
 
     public Boolean model;
-    public Boolean Pointer = true;
+    private Boolean Pointer;
+    private Boolean HoverPointer;
     public int out_range_times = 50;
     public float magnification = (float)1.2;
 
@@ -131,7 +132,14 @@ public class coordinates : MonoBehaviour
 
                 if (result[0] == "0")
                 {
-                    mat1.color = Color.blue;
+                    if (HoverPointer == true)
+                    {
+                        mat1.color = new Color32(0, 0, 255, 255);
+                    }
+                    else
+                    {
+                        mat1.color = new Color32(0, 0, 255, 0);
+                    }
                 }
                 else if (result[0] == "1")
                 {
@@ -264,6 +272,16 @@ public class coordinates : MonoBehaviour
         }
 
         return false;
+    }
+
+    public void setPointer(Boolean tf)
+    {
+        Pointer = tf;
+    }
+
+    public void setHoverPointer(Boolean tf)
+    {
+        HoverPointer = tf;
     }
 
     public bool getOnoff()

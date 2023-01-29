@@ -15,12 +15,13 @@ public class NormalManager : MonoBehaviour
     //public PreTest_output pretest;
     public coord_model coords;
     public keyPosition kp;
-
+    public csv_output csvop;
 
     //public Boolean PreTest = false;
     public Boolean HoverColorFeedback = true;
     public Boolean KeyBoardFeedback = true;
     public Boolean Pointer = true;
+    public Boolean HoverPointer = true;
     public String KeyColor = "TP0";
     public int HowTransparent = 80;
     public int CloverTransparent = 80;
@@ -29,7 +30,7 @@ public class NormalManager : MonoBehaviour
     public string folder_path = ".\\Assets\\CSV_output\\Normal";
     public string file_name = "test";
     public string _ID;
-    //public string _InputType;
+    public string _InputType;
     public float _Distance = (float)0.15;
     public int _Mode;
     public int TestTimes = 10;
@@ -47,6 +48,12 @@ public class NormalManager : MonoBehaviour
 
         file_name = file_name;
 
+        csvop.setFolderPath(folder_path);
+        csvop.setFileName(file_name);
+        csvop.setID(_ID);
+        csvop.setInputType(_InputType);
+        csvop.setDistance(_Distance.ToString());
+
 
         fkb.GetComponent<keyManager6>().setModelType(ModelType);
         fkb.GetComponent<keyManager6>().setHoverColorFeedback(HoverColorFeedback);
@@ -63,13 +70,13 @@ public class NormalManager : MonoBehaviour
 
 
         coords.setPointer(Pointer);
+        coords.setHoverPointer(HoverPointer);
         coords.setORT(out_range_times);
         coords.setMagnification(magnification);
 
 
-
         fkb.GetComponent<keyManager6>().SStart();
-
+        csvop.SStart();
 
     }
 
@@ -87,7 +94,8 @@ public class NormalManager : MonoBehaviour
 
             fkb.GetComponent<FKB>().setDistance(_Distance);
 
-            coords.setPointer(Pointer);
+            coords.setPointer(Pointer); 
+            coords.setHoverPointer(HoverPointer);
             coords.setORT(out_range_times);
             coords.setMagnification(magnification);
 
@@ -109,6 +117,7 @@ public class NormalManager : MonoBehaviour
 
 
             coords.setPointer(Pointer);
+            coords.setHoverPointer(HoverPointer);
             coords.setORT(out_range_times);
             coords.setMagnification(magnification);
 
