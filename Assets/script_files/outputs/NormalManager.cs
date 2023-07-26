@@ -32,7 +32,7 @@ public class NormalManager : MonoBehaviour
     public string _ID;
     public string _InputType;
     public float _Distance = (float)0.15;
-    public int _Mode;
+    public float _Mode;
     public int TestTimes = 10;
 
 

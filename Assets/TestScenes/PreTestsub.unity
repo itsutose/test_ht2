@@ -4275,7 +4275,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &923470401
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5243,7 +5243,7 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
@@ -6617,8 +6617,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4280295456
-  m_fontColor: {r: 0.1254902, g: 0.1254902, b: 0.1254902, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -6890,12 +6890,12 @@ MonoBehaviour:
   KeyColor: TP3
   HowTransparent: 80
   CloverTransparent: 80
-  folder_path: .\Assets\CSV_output\PointerONNoHover
+  folder_path: .\Assets\CSV_output\PointerONNoHover\tsunoda
   file_name: modeTWO
-  _ID: 1
+  _ID: 2
   _Distance: 0.3
-  _Mode: 2
-  TestTimes: 80
+  _Mode: 3
+  TestTimes: 75
   out_range_times: 50
   magnification: 1.2
 --- !u!4 &1495511144
@@ -6942,11 +6942,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b546edff5addbdd4cabc6199c3a83b58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  folder_path: .\Assets\CSV_output\
-  file_name: test9.csv
-  _ID: 0
-  _InputType: normal
-  _Distance: 
 --- !u!4 &1508191600
 Transform:
   m_ObjectHideFlags: 0
@@ -7149,8 +7144,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4280295456
-  m_fontColor: {r: 0.1254902, g: 0.1254902, b: 0.1254902, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

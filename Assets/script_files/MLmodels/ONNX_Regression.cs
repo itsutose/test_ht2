@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Barracuda;
+using System;
 
 
 public class ONNX_Regression : MonoBehaviour
@@ -17,6 +18,8 @@ public class ONNX_Regression : MonoBehaviour
     public NNModel DLRegression;
 
     public string PreProccessing = "n";
+    public Boolean TwoInput = false;
+    public int norm;
 
     private Model model;
 
@@ -31,7 +34,7 @@ public class ONNX_Regression : MonoBehaviour
     private float[] sd_scale;
     private float[] minmax_data_min;
     private float[] minmax_scale;
-    private float[] mmsd_mean;  
+    private float[] mmsd_mean;
     private float[] mmsd_scale;
 
 
@@ -158,59 +161,120 @@ public class ONNX_Regression : MonoBehaviour
     {
         float[] us = new float[12] { ux, ux1, ux2, ux3, ux4, ux5, uy, uy1, uy2, uy3, uy4, uy5 };
 
-        Tensor input = new Tensor(n: 1, h: 1, w: 1, c:12);
-
-        for (int i = 0; i < 12; i++)
+        if (TwoInput == false)
         {
-            if (PreProccessing == "sd")
-            {
-                input[0, 0, 0, i] = (us[i] - sd_mean[i]) / sd_scale[i];
+            Tensor input = new Tensor(n: 1, h: 1, w: 1, c: 12);
 
-            }
-            else if (PreProccessing == "mm")
+            for (int i = 0; i < 12; i++)
             {
-                input[0, 0, 0, i] = (us[i] - minmax_data_min[i]) * minmax_scale[i];
+                if (PreProccessing == "sd")
+                {
+                    input[0, 0, 0, i] = ((us[i] - sd_mean[i]) / sd_scale[i]) * norm;
+
+                }
+                else if (PreProccessing == "mm")
+                {
+                    input[0, 0, 0, i] = ((us[i] - minmax_data_min[i]) * minmax_scale[i]) * norm;
+                }
+                else if (PreProccessing == "mmsd")
+                {
+                    input[0, 0, 0, i] = (us[i] - mmsd_mean[i]) * mmsd_scale[i];
+                }
+                else
+                {
+                    input[0, 0, 0, i] = us[i];
+                }
             }
-            else if(PreProccessing == "mmsd")
-            {
-                input[0, 0, 0, i] = (us[i] - mmsd_mean[i]) * mmsd_scale[i];
-            }
-            else
-            {
-                input[0, 0, 0, i] = us[i];
-            }
+
+            Debug.Log(string.Format("ONNX model   ux  {0}, uy  {1}, ux1  {2}, uy1  {3}, ux2  {4}, uy2  {5}, ux3  {6}, uy3  {7}, ux4  {8}, uy4  {9}, ux5  {10}, uy5  {11}", ux, uy, ux1, uy1, ux2, uy2, ux3, uy3, ux4, uy4, ux5, uy5));
+            Debug.Log(string.Format("{0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11}", ux, ux1, ux2, ux3, ux4, ux5, uy, uy1, uy2, uy3, uy4, uy5));
+            Debug.Log(string.Format("ONNX model input 0:{0}  1:{1}  2:{2}  3:{3}  4:{4}  5:{5}" +
+           "‚Ü:{6}  ‚â:{7}  ‚ç:{8}  ‚í:{9}  point:{10}  space:{11}",
+           input[0, 0, 0, 0], input[0, 0, 0, 1], input[0, 0, 0, 2],
+           input[0, 0, 0, 3], input[0, 0, 0, 4], input[0, 0, 0, 5],
+           input[0, 0, 0, 6], input[0, 0, 0, 7], input[0, 0, 0, 8],
+           input[0, 0, 0, 9], input[0, 0, 0, 10], input[0, 0, 0, 11]));
+
+            //var input = new Tensor(inputTensor, 1,12);
+            //var output = model.Execute(input);
+
+            var output1 = worker.Execute(input);
+
+            //Debug.Log(string.Format("1 {0}", output1));
+
+            //var output1 = worker.PeekOutput();
+
+            Tensor output2 = worker.PeekOutput();
+
+            float[] a = new float[2] { output2[0, 0, 0, 0], output2[0, 0, 0, 1] };
+            //Debug.Log(string.Format("1.5 {0}", input));
+
+            //Debug.Log(string.Format("2 {0}", output2));
+
+            ////var input = Tensor.New(new[] { 1, 12 }, Tensor.DataType.Float);
+            ////input.SetData(inputTensor);
+            ////var output = model.Execute(input);
+            ////float[] outputData = output.ToReadOnlyArray();
+            ////Debug.Log(output.shape);
+            ////Debug.Log(string.Format("Predict ux {0}, uy {1}",))
+
+            //Debug.Log(string.Format("3 {0}  {1}", output2[0, 0, 0, 0], output2[0, 0, 0, 1]));
+
+
+            input.Dispose();
+            output2.Dispose();
+
+
+            return new float[] { a[0] / (float)norm, a[1] / (float)norm };
         }
+        else
+        {
+            input = new Tensor(n: 1, h: 1, w: 1, c: 2);
 
-        //var input = new Tensor(inputTensor, 1,12);
-        //var output = model.Execute(input);
+            for (int i = 0; i < 2; i++)
+            {
+                //if(i != 0 || i != 6)
+                //{
+                //    continue;
+                //}
 
-        var output1 = worker.Execute(input);
+                if (PreProccessing == "sd")
+                {
+                    input[0, 0, 0, i] = ((us[i * 6] - sd_mean[i * 6]) / sd_scale[i * 6]) * norm;
 
-        //Debug.Log(string.Format("1 {0}", output1));
+                }
+                else if (PreProccessing == "mm")
+                {
+                    input[0, 0, 0, i] = ((us[i * 6] - minmax_data_min[i * 6]) * minmax_scale[i * 6]) * norm;
+                }
+                else if (PreProccessing == "mmsd")
+                {
+                    input[0, 0, 0, i] = ((us[i * 6] - minmax_data_min[i * 6]) * minmax_scale[i * 6] - sd_mean[i * 6]) / sd_scale[i * 6];
 
-        //var output1 = worker.PeekOutput();
+                }
+                else
+                {
+                    input[0, 0, 0, i] = us[i * 6];
+                }
+            }
 
-        Tensor output2 = worker.PeekOutput();
+            //// input the uxuys to model
+            //worker.Execute(input);
 
-        float[] a = new float[2] { output2[0, 0, 0, 0], output2[0, 0, 0, 1] };
-        //Debug.Log(string.Format("1.5 {0}", input));
-
-        //Debug.Log(string.Format("2 {0}", output2));
-
-        ////var input = Tensor.New(new[] { 1, 12 }, Tensor.DataType.Float);
-        ////input.SetData(inputTensor);
-        ////var output = model.Execute(input);
-        ////float[] outputData = output.ToReadOnlyArray();
-        ////Debug.Log(output.shape);
-        ////Debug.Log(string.Format("Predict ux {0}, uy {1}",))
-
-        //Debug.Log(string.Format("3 {0}  {1}", output2[0, 0, 0, 0], output2[0, 0, 0, 1]));
-
-
-        input.Dispose();
-        output2.Dispose();
+            //Tensor output2 = worker.PeekOutput();
 
 
-        return new float[] { a[0], a[1] };
+            var output1 = worker.Execute(input);
+
+            Tensor output2 = worker.PeekOutput();
+
+            float[] a = new float[2] { output2[0, 0, 0, 0]/1000f, output2[0, 0, 0, 1]/1000f };
+
+            input.Dispose();
+            output2.Dispose();
+
+
+            return new float[] { a[0], a[1] };
+        }
     }
 }

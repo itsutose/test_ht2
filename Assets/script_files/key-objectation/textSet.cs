@@ -20,33 +20,33 @@ public class textSet : MonoBehaviour
 
     string[,] practice = {
         //{"Please input your name", "名前を入力してください" },
-        {"思い切りも必要", "おもいきりもひつよう"},
-          { "今日も徹夜", "きょうもてつや" },
-          { "筑波山に登る", "つくばさんにのぼる" },
-          { "つくばエクスプレス", "つくばえくすぷれす" },
-          { "メールを送信", "めーるをそうしん"},
-          { "これもお願い", "これもおねがい" },
-          { "続きが気になる", "つづきがきになる" },
-          { "みんなでミニゲーム","みんなでみにげーむ" },
-          { "プログラミング", "ぷろぐらみんぐ" },
-          { "発表会に臨む", "はっぴょうかいにのぞむ" },
-          { "ページをめくる", "ぺーじをめくる"},
-          { "仙台へ旅行", "せんだいへりょこう" },
-          { "百円玉", "ひゃくえんだま" },
-          { "やっぱりいいよ","やっぱりいいよ"},
-          { "水を補充する", "みずをほじゅうする"},
-          { "鍋奉行をする", "なべぶぎょうをする" },
-          { "パソコンは高い", "ぱそこんはたかい"},
-          { "ありがとうとざいます","ありがとうございます"},
-          { "全国都道府県","ぜんこくとどうふけん"},
-          { "記録を縮める","きろくをちぢめる"},
-          { "僅かにとどまる","わずかにとどまる"},
-          { "マット運動が得意", "まっとうんどうがとくい"},
-          { "湯冷めした","ゆざめした"},
-          { "足跡をたどる", "あしあとをたどる" },
-          { "シャワーを浴びた","しゃわーをあびた"},
-          { "お湯がぬるくなる","おゆがぬるくなる"},
-          { "犬と散歩","いぬとさんぽ"}};
+          {"0","思い切りも必要", "おもいきりもひつよう"},
+          {"1","今日も徹夜", "きょうもてつや"},
+          {"2","筑波山に登る", "つくばさんにのぼる"},
+          {"3","つくばエクスプレス", "つくばえくすぷれす"},
+          {"4","メールを送信", "めーるをそうしん"},
+          {"5","これもお願い", "これもおねがい" },
+          {"6","続きが気になる", "つづきがきになる" },
+          {"7","みんなでミニゲーム","みんなでみにげーむ" },
+          {"8","プログラミング", "ぷろぐらみんぐ" },
+          {"9","発表会に臨む", "はっぴょうかいにのぞむ" },
+          {"10","ページをめくる", "ぺーじをめくる"},
+          {"11","仙台へ旅行", "せんだいへりょこう" },
+          {"12","百円玉", "ひゃくえんだま" },
+          {"13","やっぱりいいよ","やっぱりいいよ"},
+          {"14","水を補充する", "みずをほじゅうする"},
+          {"15","鍋奉行をする", "なべぶぎょうをする" },
+          {"16","パソコンは高い", "ぱそこんはたかい"},
+          {"17","ありがとうとざいます","ありがとうございます"},
+          {"18","全国都道府県","ぜんこくとどうふけん"},
+          {"19","記録を縮める","きろくをちぢめる"},
+          {"20","僅かにとどまる","わずかにとどまる"},
+          {"21","マット運動が得意", "まっとうんどうがとくい"},
+          {"22","湯冷めした","ゆざめした"},
+          {"23","足跡をたどる", "あしあとをたどる" },
+          {"24","シャワーを浴びた","しゃわーをあびた"},
+          {"25","お湯がぬるくなる","おゆがぬるくなる"},
+          {"26","犬と散歩","いぬとさんぽ"}};
 
     //{"螺旋階段をのぼる","らせんかいだんをのぼる"}
 
@@ -58,7 +58,41 @@ public class textSet : MonoBehaviour
         //{
         //    Debug.Log(practice[i, 1]);
         //}
-        
+        //Debug.Log(practice.Length/2);
+
+        //System.Random random = new System.Random();
+        //words2 = .OrderBy(x => random.Next()).ToList();
+
+        System.Random rnd = new System.Random();
+        int rows = practice.GetLength(0);
+        int cols = practice.GetLength(1);
+
+        for (int i = 0; i < rows; i++)
+        {
+            int randomIndex = rnd.Next(rows);
+            Debug.Log("randomIndex : "+randomIndex);
+            for (int j = 0; j < cols; j++)
+            {
+                string temp = practice[i, j];
+                practice[i, j] = practice[randomIndex, j];
+                practice[randomIndex, j] = temp;
+            }
+        }
+
+        //foreach(var line in practice)
+        //{
+        //    Debug.Log(string.Join(",", line));
+        //}
+
+        for (int i = 0; i < practice.GetLength(0); i++)
+        {
+            for (int j = 0; j < practice.GetLength(1); j++)
+            {
+                string element = practice[i, j];
+                Debug.Log(element);
+            }
+        }
+
     }
 
 
@@ -88,15 +122,23 @@ public class textSet : MonoBehaviour
         //    Debug.Log("InputWord,  phrase:" + phrase + ", word: " + word + ", ux: " + ux + ", uy: " + uy);
         //    csvOP.KeyInputSave(phrase, word, ux, uy);
         //}
-        if(isFirst == true)
+        if (isFirst == true)
         {
 
         }
         else
         {
-            string phrase = practice[i, 1];
-            Debug.Log("InputWord,  phrase:" + phrase + ", word: " + word + ", ux: " + ux + ", uy: " + uy);
-            csvOP.KeyInputSave(phrase, word, ux, uy);
+            if (i < practice.GetLength(0))
+            {
+                string phrase = practice[i, 2];
+                string original_num = practice[i, 0];
+                Debug.Log("InputWord,  phrase:" + phrase + ", word: " + word + ", ux: " + ux + ", uy: " + uy);
+                csvOP.KeyInputSave(phrase, word, ux, uy, original_num);
+            }
+            else
+            {
+                csvOP.KeyInputSave("dummy", 'd', 'd', 'd', "dummy");
+            }
         }
     }
 
@@ -104,40 +146,63 @@ public class textSet : MonoBehaviour
     {
       
         Debug.Log(string.Format("textSet.NextText : {0}",Time.time));
-        
-        string phrase = practice[i, 1];
+
+        string phrase = "s";
+
+        if (i < practice.GetLength(0))
+        {
+            phrase = practice[i, 2];
+        }
         
         if (isFirst == true)
         {
             Debug.Log("NextText,  phrase " + phrase + ", word :" + word + ", ux :" + ux + ", uy :" + uy);
-
-            ExampleText.text = i.ToString() + ". " + practice[i, 0] + "\n" + practice[i, 1];
+            csvOP.EnterSave(phrase, word, ux, uy);
+            ExampleText.text = i.ToString() + ". " + practice[i, 1] + "\n" + practice[i, 2];
             textobject.text = "";
 
             isFirst = false;
         }
         else
         {
-            csvOP.EnterSave(phrase, word, ux, uy);
+
+            if (i < practice.GetLength(0))
+            {
+                phrase = practice[i, 2];
+                csvOP.EnterSave(phrase, word, ux, uy);
+            }
             // ======================= ここまででi回目の作業 ========================
 
-            i += 1;
-            ExampleText.text = i.ToString() + ". " + practice[i, 0] + "\n" + practice[i, 1];
-            textobject.text = "";
+ 
 
-            if (until == i)
-            {
-                csvOP.csvClose();
+            //if (until == i)
+            //{
+            //    csvOP.csvClose();
+            //}
+
+
+            if (i >= practice.GetLength(0) && i <= practice.GetLength(0)+10)
+            { 
+                 ExampleText.text = "END";
+                csvOP.EnterSave("dummy", 'd', 'd', 'd');
+
+                return;
             }
-
-
-            if (i >= practice.Length / 2)
-            {
-                ExampleText.text = "END";
-
+            else if(i>= practice.GetLength(0)+5)
+            { 
                 csvOP.csvClose();
                 return;
             }
+            
+            i += 1;
+            
+            if (i < practice.GetLength(0))
+            {
+                
+                ExampleText.text = i.ToString() + ". " + practice[i, 1] + "\n" + practice[i, 2];
+                textobject.text = "";
+            }
+
         }
     }
 

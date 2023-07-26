@@ -1925,9 +1925,9 @@ MonoBehaviour:
   HowTransparent: 80
   CloverTransparent: 80
   folder_path: .\Assets\CSV_output\Normal
-  file_name: NoHoverML2.csv
-  _ID: 
-  _InputType: noyes
+  file_name: MLtwelve
+  _ID: test2
+  _InputType: NormalFlick
   _Distance: 0.3
   _Mode: 2
   TestTimes: 10
@@ -5548,22 +5548,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca26a86b09b78094d805942d11b6676c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CSV_sd_mean: {fileID: 4900000, guid: 817ef346af822cc478c0c5dc3b65d504, type: 3}
-  CSV_sd_scale: {fileID: 4900000, guid: 92d208f3971a41046b7110df20f8adef, type: 3}
-  CSV_mm_data_min: {fileID: 4900000, guid: 0ed4e17aecc33114f83fd26b0976abb0, type: 3}
-  CSV_mm_scale: {fileID: 4900000, guid: b677747e292dc07408a45be71be9f277, type: 3}
-  CSV_mmsd_mean: {fileID: 4900000, guid: 1aee264d51e989543bd0e5b831d14687, type: 3}
-  CSV_mmsd_scale: {fileID: 4900000, guid: 44698211a53788b428d067c2204f8e2e, type: 3}
-  DLClass: {fileID: 5022602860645237092, guid: 9ec42bd832168ed40afe690de4eb409a, type: 3}
-  PreProccessing: mmsd
-  max_i: -1
-  max: -1
-  sd_mean: []
-  sd_scale: []
-  minmax_data_min: []
-  minmax_scale: []
-  mmsd_mean: []
-  mmsd_scale: []
 --- !u!114 &1177349905
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5582,8 +5566,10 @@ MonoBehaviour:
   CSV_mm_scale: {fileID: 4900000, guid: b677747e292dc07408a45be71be9f277, type: 3}
   CSV_mmsd_mean: {fileID: 4900000, guid: 1aee264d51e989543bd0e5b831d14687, type: 3}
   CSV_mmsd_scale: {fileID: 4900000, guid: 44698211a53788b428d067c2204f8e2e, type: 3}
-  DLRegression: {fileID: 5022602860645237092, guid: 41d8ca5c84e59494caee99667b267af7, type: 3}
-  PreProccessing: mmsd
+  DLRegression: {fileID: 5022602860645237092, guid: f22b65477f0f14c4dbb9baab692e2df4, type: 3}
+  PreProccessing: sd
+  TwoInput: 0
+  norm: 1000
 --- !u!114 &1177349906
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5602,9 +5588,9 @@ MonoBehaviour:
   CSV_mm_scale: {fileID: 4900000, guid: b677747e292dc07408a45be71be9f277, type: 3}
   CSV_mmsd_mean: {fileID: 4900000, guid: 1aee264d51e989543bd0e5b831d14687, type: 3}
   CSV_mmsd_scale: {fileID: 4900000, guid: 44698211a53788b428d067c2204f8e2e, type: 3}
-  DLClass: {fileID: 5022602860645237092, guid: 31d3113b7ab652f46bd734d9f3b759fd, type: 3}
+  DLClass: {fileID: 5022602860645237092, guid: 18ac37f55bf63064787c104942c6bf84, type: 3}
   PreProccessing: sd
-  TwoInput: 1
+  TwoInput: 0
 --- !u!114 &1197882672 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 320748027163784554, guid: b35333cad32b99d4388c5a99ee7f9346, type: 3}

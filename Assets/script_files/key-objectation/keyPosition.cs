@@ -15,7 +15,7 @@ public class keyPosition : MonoBehaviour
     //public float keyGap = (float)0.005;
 
 
-    private int mode;
+    private float mode;
 
     private float keySizeX, keySizeY;
     private float keyGap;
@@ -46,6 +46,14 @@ public class keyPosition : MonoBehaviour
             keyGapY = (float)0.01;
             centerY = (float)(-0.007);
         }
+        else if (mode == 4)
+        {
+            keySizeX = (float)0.03;
+            keySizeY = (float)0.0225;
+            keyGapX = (float)0.01;
+            keyGapY = (float)0.01;
+            centerY = (float)(-0.007);
+        }
         else if (mode == 3)
         {
             keySizeX = (float)0.015;
@@ -54,15 +62,15 @@ public class keyPosition : MonoBehaviour
             keyGapY = (float)0.01;
             centerY = (float)(-0.007);
         }
-        else if(mode == 4)
-        {
-            keySizeX = (float)0.03;
-            keySizeY = (float)0.025;
-            keyGapX = (float)0.005;
-            keyGapY = (float)0.0025;
-            centerY = (float)(-0.007);
+        //else if(mode == 4)
+        //{
+        //    keySizeX = (float)0.03;
+        //    keySizeY = (float)0.025;
+        //    keyGapX = (float)0.005;
+        //    keyGapY = (float)0.0025;
+        //    centerY = (float)(-0.007);
 
-        }
+        //}
 
         Debug.Log(string.Format("keyPosition mode:{0}", mode));
 
@@ -275,7 +283,7 @@ public class keyPosition : MonoBehaviour
         return ratio;
     }
 
-    public void setMode(int i)
+    public void setMode(float i)
     {
         mode = i;
     }

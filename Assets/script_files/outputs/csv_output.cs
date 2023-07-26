@@ -6,34 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System;
 
-using UnityEngine.UI;  // 追加しま
-//public class csv_output : MonoBehaviour
-//{
-//    // Use this for initialization
-//    void Start()
-//    {
-//        string filePath = Application.dataPath + @"\Scripts\File\WriteText1.txt";
-
-
-//        "Assets\\script_files\\key-objectation\\outputs"
-
-//        string myString1 = "かきくけこ\nさしすせそ\n";
-//        File.AppendAllText(filePath, myString1);
-
-//        string[] myStringArray = { "あいうえお", "かきくけこ", "さしすせそ" };
-//        File.WriteAllLines(filePath, myStringArray);
-
-//        string myString2 = "あいうえお\nかきくけこ\nさしすせそ\nたちつてと\nなにぬねの";
-//        File.WriteAllText(filePath, myString2);
-
-//    }
-
-//    // Update is called once per frame
-//    void Update()
-//    {
-
-//    }
-//}
+using UnityEngine.UI; 
 
 public class csv_output : MonoBehaviour
 {
@@ -51,10 +24,15 @@ public class csv_output : MonoBehaviour
     private float SumTime = 0;
 
     private int i = 0;
+    private int now_time = 0;
 
     // Start is called before the first frame update
     public void SStart()
     {
+        //file_path = folder_path + "\\" + file_name;
+
+        file_name = FileNameCheck(folder_path, file_name);
+        file_name = file_name + ".csv";
         file_path = folder_path + "\\" + file_name;
 
         //Debug.Log(file_path);
@@ -64,7 +42,7 @@ public class csv_output : MonoBehaviour
         //sw = new StreamWriter(@".\\Assets\\CSV_output\\SaveData4.csv", true, Encoding.GetEncoding("Shift_JIS"));
         sw = new StreamWriter(@file_path, true, Encoding.GetEncoding("Shift_JIS"));
 
-        string[] s1 = { "ID","input type", "distance", "Phrase", "word", "ux", "uy", "delta time", "sum time" };
+        string[] s1 = { "participant","method", "session","isPractice", "phrase", "phraseNumber", "phraseCount", "keystroke", "timestamp"};
         string s2 = string.Join(",", s1);
         Debug.Log(s2);
         sw.WriteLine(s2);
@@ -82,6 +60,18 @@ public class csv_output : MonoBehaviour
 
     void Update()
     {
+        //long milliseconds = DateTime.Now.Millisecond;
+
+        //Debug.Log("Current time in milliseconds: " + milliseconds);
+
+        //milliseconds = DateTime.Now.Ticks / 10000;
+
+        //Debug.Log("Current time in milliseconds: " + milliseconds);
+
+        //Debug.Log("Current time : " + Time.time * 1000);
+
+        //Debug.Log("Current time : " + Time.time + milliseconds);
+
 
         //エンターキーが入力された場合「true」
         if (Input.GetKey(KeyCode.Space))
@@ -93,26 +83,38 @@ public class csv_output : MonoBehaviour
     }
 
     //public void KeyInputSave(string id, string InputType, string distance, string phrase, string word, string detectedKey, string ux, string uy)
-    public void KeyInputSave(string phrase, char word, float ux, float uy)
+    public void KeyInputSave(string phrase, char word, float ux, float uy, string original_num)
     {
         float DeltaTime;
+        int millitime = (int)((Time.time - preTime) * 1000);
 
-        if (isFirst == true)
-        {
-            DeltaTime = 0;
-            preTime = Time.time;
-            isFirst = false;
-        }
-        else
-        {
-            DeltaTime = Time.time - preTime;
-            preTime = Time.time;
-        }
+        //if (isFirst == true)
+        //{
+        //    DeltaTime = 0;
+        //    preTime = Time.time;
+        //    //millitime = 0;
+        //    isFirst = false;
+        //}
+        //else
+        //{
+        //    DeltaTime = Time.time - preTime;
+        //    //preTime = Time.time;
+        //}
+        string wo = word.ToString();
 
+        if(wo == "o")
+        {
+            wo = "option";
+        }else if(wo == "D")
+        {
+            wo = "backspace";
+        }
 
         //string[] s1 = { id, InputType, distance, phrase, word, detectedKey, ux, uy, DeltaTime.ToString(), " "};
-        string[] s1 = { _ID, _InputType, _Distance, phrase, word.ToString(), ux.ToString(), uy.ToString(), DeltaTime.ToString(), " " };
-        SumTime += DeltaTime;
+        //string[] s1 = { _ID, _InputType, _Distance, phrase, word.ToString(), ux.ToString(), uy.ToString(), DeltaTime.ToString(), " " };
+
+        string[] s1 = { _ID, _InputType, "3" , "FALSE", phrase, original_num, now_time.ToString(), wo , millitime.ToString()};
+        //SumTime += DeltaTime;
         string s2 = string.Join(",", s1);
         sw.WriteLine(s2);
 
@@ -122,17 +124,67 @@ public class csv_output : MonoBehaviour
     public void EnterSave(string phrase, char word, float ux, float uy)
     {
         Debug.Log(string.Format("Enter.Save : {0}", Time.time));
-        float DeltaTime = Time.time - preTime;
+        //float DeltaTime = Time.time - preTime;
 
-        SumTime += DeltaTime;
-        string[] s1 = { _ID, _InputType, _Distance, phrase, word.ToString(), ux.ToString(), uy.ToString(), DeltaTime.ToString(), SumTime.ToString() };
-        string s2 = string.Join(",", s1);
-        sw.WriteLine(s2);
+        //SumTime += DeltaTime;
+        //string[] s1 = { _ID, _InputType, _Distance, phrase, word.ToString(), ux.ToString(), uy.ToString(), DeltaTime.ToString(), SumTime.ToString() };
+        //string[] s1 = { "dummy","dummy","dummy","dummy","dummy","dummy","dummy","dummy", "dummy" };
+        //string s2 = string.Join(",", s1);
+        //sw.WriteLine();
 
+        now_time += 1;
         preTime = Time.time;
         SumTime = 0;
-        isFirst = true;
+        //isFirst = true;
     }
+
+
+    private string FileNameCheck(string folder_path, string file_name)
+    {
+        Boolean exist = false;
+        int i = 1;
+        string file_path = folder_path + "\\" + file_name + ".csv";
+
+        int max_num = -1;
+        string max_file = "";
+
+        string[] files = Directory.GetFiles(folder_path, file_name + "*.csv");
+
+        foreach (string file in files)
+        {
+
+
+            Match match = Regex.Match(Path.GetFileName(file), file_name + "(\\d+)\\.csv");
+            if (match.Success)
+            {
+                int num = int.Parse(match.Groups[1].Value);
+                if (num > max_num)
+                {
+                    max_num = num;
+                    max_file = file;
+                }
+            }
+
+            Debug.Log(string.Format("filecheck {0} , max_num {1}", file, max_num));
+        }
+
+        if (max_num != -1)
+        {
+            Debug.Log(string.Format("{0}", folder_path + "\\" + file_name + (max_num + 1).ToString() + ".csv"));
+
+            string result = file_name + (max_num + 1).ToString();
+
+            return result;
+
+        }
+        else
+        {
+            Debug.Log("file_name is not exist");
+            return file_name + "0";
+        }
+
+    }
+
 
     public void csvClose()
     {

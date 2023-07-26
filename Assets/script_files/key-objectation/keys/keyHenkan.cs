@@ -212,7 +212,8 @@ public class keyHenkan : key2
 
     public override void InputWordtoCSV(char word)
     {
-        textset.InputWord(output_word, this.ux, this.uy);
+        //textset.InputWord(output_word, this.ux, this.uy);
+        textset.InputWord('o', this.ux, this.uy);
     }
     
 

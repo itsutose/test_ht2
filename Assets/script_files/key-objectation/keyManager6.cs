@@ -161,8 +161,6 @@ public class keyManager6 : MonoBehaviour
     {
         float cx = nowkey.GetComponent<key2>().get_cx();
         float cy = nowkey.GetComponent<key2>().get_cy();
-        //float cx = set_ux;
-        //float cy = set_uy;
         float r = (float)0.000005;
 
         //if (nowkey.GetComponent<key2>().isin(ux, uy) == true)

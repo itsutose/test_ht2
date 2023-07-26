@@ -239,10 +239,10 @@ public class coord_model : MonoBehaviour
                         px = pxpy[0];
                         py = pxpy[1];
 
-                        Debug.Log(string.Format("coord_model  px  {0}  py {1}", px, py));
+                        //Debug.Log(string.Format("coord_model  px  {0}  py {1}", px, py));
 
 
-                        Debug.Log("coord_model running   " + px + "  ,  " + py);
+                        //Debug.Log("coord_model running   " + px + "  ,  " + py);
 
                         //ローカル座標を基準に、座標を取得
                         Vector3 prelocalPos = preSphere.transform.localPosition;
