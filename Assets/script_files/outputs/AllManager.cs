@@ -115,7 +115,7 @@ public class AllManager : MonoBehaviour
             coords.out_range_times = out_range_times;
             coords.magnification = magnification;
 
-            //kp.GetComponent<keyPosition>().Refresh();
+            kp.GetComponent<keyPosition>().Refresh();
             fkb.GetComponent<keyManager4>().refresh();
             return;
         }

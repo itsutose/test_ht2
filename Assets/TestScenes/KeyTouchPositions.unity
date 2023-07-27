@@ -6891,10 +6891,10 @@ MonoBehaviour:
   HowTransparent: 80
   CloverTransparent: 80
   folder_path: .\Assets\CSV_output\test_20230727
-  file_name: test
+  file_name: Adjusted_test
   _ID: 2
   _Distance: 0.3
-  _Mode: 2
+  _Mode: 4
   TestTimes: 75
   out_range_times: 50
   magnification: 1.2

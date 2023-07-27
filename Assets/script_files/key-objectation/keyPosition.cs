@@ -30,47 +30,50 @@ public class keyPosition : MonoBehaviour
     void Awake()
     {
 
-        if(mode == 1)
-        {
-            keySizeX = (float)0.015;
-            keySizeY = (float)0.01125;
-            keyGapX = (float)0.00375;
-            keyGapY = (float)0.00375;
-            centerY = (float)(-0.01);
-        }
-        else if (mode == 2)
-        {
-            keySizeX = (float)0.015;
-            keySizeY = (float)0.01125;
-            keyGapX = (float)0.01;
-            keyGapY = (float)0.01;
-            centerY = (float)(-0.007);
-        }
-        else if (mode == 4)
-        {
-            keySizeX = (float)0.03;
-            keySizeY = (float)0.0225;
-            keyGapX = (float)0.01;
-            keyGapY = (float)0.01;
-            centerY = (float)(-0.007);
-        }
-        else if (mode == 3)
-        {
-            keySizeX = (float)0.015;
-            keySizeY = (float)0.01125;
-            keyGapX = (float)0.02;
-            keyGapY = (float)0.01;
-            centerY = (float)(-0.007);
-        }
-        //else if(mode == 4)
+        //if(mode == 1)
+        //{
+        //    keySizeX = (float)0.015;
+        //    keySizeY = (float)0.01125;
+        //    keyGapX = (float)0.00375;
+        //    keyGapY = (float)0.00375;
+        //    centerY = (float)(-0.01);
+        //}
+        //else if (mode == 2)
+        //{
+        //    keySizeX = (float)0.015;
+        //    keySizeY = (float)0.01125;
+        //    keyGapX = (float)0.01;
+        //    keyGapY = (float)0.01;
+        //    centerY = (float)(-0.007);
+        //}
+        //else if (mode == 4)
         //{
         //    keySizeX = (float)0.03;
-        //    keySizeY = (float)0.025;
-        //    keyGapX = (float)0.005;
-        //    keyGapY = (float)0.0025;
+        //    keySizeY = (float)0.0225;
+        //    keyGapX = (float)0.01;
+        //    keyGapY = (float)0.01;
         //    centerY = (float)(-0.007);
+        //}
+        //else if (mode == 3)
+        //{
+        //    keySizeX = (float)0.015;
+        //    keySizeY = (float)0.01125;
+        //    keyGapX = (float)0.02;
+        //    keyGapY = (float)0.01;
+        //    centerY = (float)(-0.007);
+        //}
+        //// 画面領域いっぱいのキーボード，キーの間隔はなし
+        //else if (mode == 4)
+        //{
+        //    keySizeX = (float)0.08/3;
+        //    keySizeY = (float)0.089/5;
+        //    keyGapX = (float)0;
+        //    keyGapY = (float)0;
+        //    centerY = (float)0;
 
         //}
+
+        setModeToPosition();
 
         Debug.Log(string.Format("keyPosition mode:{0}", mode));
 
@@ -157,39 +160,41 @@ public class keyPosition : MonoBehaviour
     public void Refresh()
     {
 
-        if (mode == 1)
-        {
-            keySizeX = (float)0.015;
-            keySizeY = (float)0.01125;
-            keyGapX = (float)0.00375;
-            keyGapY = (float)0.00375;
-            centerY = (float)(-0.01);
-        }
-        else if (mode == 2)
-        {
-            keySizeX = (float)0.015;
-            keySizeY = (float)0.01125;
-            keyGapX = (float)0.01;
-            keyGapY = (float)0.01;
-            centerY = (float)(-0.007);
-        }
-        else if (mode == 3)
-        {
-            keySizeX = (float)0.015;
-            keySizeY = (float)0.01125;
-            keyGapX = (float)0.02;
-            keyGapY = (float)0.01;
-            centerY = (float)(-0.007);
-        }
-        else if(mode == 4)
-        {
-            keySizeX = (float)0.02;
-            keySizeY = (float)0.014;
-            keyGapX = (float)0.005;
-            keyGapY = (float)0.0025;
-            centerY = (float)(-0.007);
+        //if (mode == 1)
+        //{
+        //    keySizeX = (float)0.015;
+        //    keySizeY = (float)0.01125;
+        //    keyGapX = (float)0.00375;
+        //    keyGapY = (float)0.00375;
+        //    centerY = (float)(-0.01);
+        //}
+        //else if (mode == 2)
+        //{
+        //    keySizeX = (float)0.015;
+        //    keySizeY = (float)0.01125;
+        //    keyGapX = (float)0.01;
+        //    keyGapY = (float)0.01;
+        //    centerY = (float)(-0.007);
+        //}
+        //else if (mode == 3)
+        //{
+        //    keySizeX = (float)0.015;
+        //    keySizeY = (float)0.01125;
+        //    keyGapX = (float)0.02;
+        //    keyGapY = (float)0.01;
+        //    centerY = (float)(-0.007);
+        //}
+        //else if(mode == 4)
+        //{
+        //    keySizeX = (float)0.02;
+        //    keySizeY = (float)0.014;
+        //    keyGapX = (float)0.005;
+        //    keyGapY = (float)0.0025;
+        //    centerY = (float)(-0.007);
 
-        }
+        //}
+
+        setModeToPosition();
 
 
         GameObject[,] keylist = { { a, k, s, backspace }, { t, n, h, space }, { m, y, r, enter }, { hen, w, point, dummy } };
@@ -220,6 +225,21 @@ public class keyPosition : MonoBehaviour
 
                         keyPos.x = (keyGapX + keySizeX) * (float)(-1.5 + j) + centerX;
                         keyPos.y = (keyGapY + keySizeY) * (float)(1.5 + -i) + centerY - keySizeY + keyGapY;
+
+                        key.GetComponent<key2>().set_cx(keyPos.x);
+                        key.GetComponent<key2>().set_cy(keyPos.y);
+
+                        key.transform.localPosition = keyPos;
+                    }
+                    else if (mode ==4)
+                    {
+                        keyScale.x = keySizeX;
+                        keyScale.y = keySizeY * 2 + keyGapY;
+
+                        key.transform.localScale = keyScale;
+
+                        keyPos.x = (keyGapX + keySizeX) * (float)(-1.5 + j) + centerX;
+                        keyPos.y = (keyGapY + keySizeY) * (float)(1.5 + -i) + centerY - keySizeY/2 + keyGapY;
 
                         key.GetComponent<key2>().set_cx(keyPos.x);
                         key.GetComponent<key2>().set_cy(keyPos.y);
@@ -277,6 +297,51 @@ public class keyPosition : MonoBehaviour
     //{
         
     //}
+    private void setModeToPosition()
+    {
+        if (mode == 1)
+        {
+            keySizeX = (float)0.015;
+            keySizeY = (float)0.01125;
+            keyGapX = (float)0.00375;
+            keyGapY = (float)0.00375;
+            centerY = (float)(-0.01);
+        }
+        else if (mode == 2)
+        {
+            keySizeX = (float)0.015;
+            keySizeY = (float)0.01125;
+            keyGapX = (float)0.01;
+            keyGapY = (float)0.01;
+            centerY = (float)(-0.007);
+        }
+        //else if (mode == 4)
+        //{
+        //    keySizeX = (float)0.03;
+        //    keySizeY = (float)0.0225;
+        //    keyGapX = (float)0.01;
+        //    keyGapY = (float)0.01;
+        //    centerY = (float)(-0.007);
+        //}
+        else if (mode == 3)
+        {
+            keySizeX = (float)0.015;
+            keySizeY = (float)0.01125;
+            keyGapX = (float)0.02;
+            keyGapY = (float)0.01;
+            centerY = (float)(-0.007);
+        }
+        // 画面領域いっぱいのキーボード，キーの間隔はなし
+        else if (mode == 4)
+        {
+            keySizeX = (float)(0.08 / 3);
+            keySizeY = (float)(0.089 / 5);
+            keyGapX = (float)0;
+            keyGapY = (float)0;
+            centerY = (float)(-0.0089);
+
+        }
+    }
 
     public float getRatio()
     {
