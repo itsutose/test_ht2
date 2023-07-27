@@ -36,6 +36,27 @@ public class key2 : MonoBehaviour
         return false;
     }
 
+    // ux, uy ‚ªƒL[‚Ì”ÍˆÍ“à‚É‚ ‚é‚©
+    public bool small_isin(float ux, float uy)
+    {
+        this.ux = ux;
+        this.uy = uy;
+        int small = 4;
+
+        float minx = cx - lx / small;
+        float maxx = cx + lx / small;
+        float miny = cy - ly / small;
+        float maxy = cy + ly / small;
+
+        if (range(ux, minx, maxx) && range(uy, miny, maxy))
+        {
+
+            //Debug.Log(string.Format("keyName: {0}, cx : {1}, cy : {2} ",name, cx,cy));
+            return true;
+        }
+        return false;
+    }
+
     // rangeŠÖ”
     protected bool range(float a, float b, float c)
     {

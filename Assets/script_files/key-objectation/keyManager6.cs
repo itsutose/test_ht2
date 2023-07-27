@@ -174,7 +174,7 @@ public class keyManager6 : MonoBehaviour
         //}
 
 
-        if (nowkey.GetComponent<key2>().isin(ux - (set_ux - cx), uy - (set_uy - cy)) == true)
+        if (nowkey.GetComponent<key2>().small_isin(ux - (set_ux - cx), uy - (set_uy - cy)) == true)
         {
             if (son != 0)
             {

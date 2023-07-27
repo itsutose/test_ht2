@@ -1940,14 +1940,14 @@ MonoBehaviour:
   KeyColor: TP3
   HowTransparent: 80
   CloverTransparent: 80
-  folder_path: .\Assets\CSV_output\tsunoda\HMF
-  file_name: tsunoda
+  folder_path: .\Assets\CSV_output\test_20230727\text_input
+  file_name: test
   _ID: test2
   _InputType: HMF
   _Distance: 0.3
   _Mode: 4
   TestTimes: 10
-  ModelType: class
+  ModelType: 
   out_range_times: 50
   magnification: 1.2
 --- !u!4 &436008955
@@ -9436,7 +9436,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2138986569}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9b71a76b576d770408bbf385d92bc096, type: 3}
   m_Name: 
