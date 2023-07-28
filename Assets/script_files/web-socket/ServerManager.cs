@@ -10,6 +10,7 @@ public class ServerManager : MonoBehaviour
     private static string coordinates = null;
     public string debug = null;
     private string prior = null;
+    private static string state = "TOUCH_UP";
 
     WebSocketServer ws;
     void Start()
@@ -26,7 +27,19 @@ public class ServerManager : MonoBehaviour
 
     public string get_coordinates()
     {
-        return ServerManager.coordinates;
+
+
+        if(state == "TOUCH_DOWN" || state == "TOUCH_UP")
+        {
+            string currentState = state;
+            state = null;
+            return currentState;
+        }
+        else
+        {
+            return ServerManager.coordinates;
+        }
+
     }
 
 
@@ -68,7 +81,6 @@ public class ServerManager : MonoBehaviour
         //誰かがメッセージを送信してきたときに呼ばれるメソッド
         protected override void OnMessage(MessageEventArgs e)
         {
-            //Debug.Log(string.Format("ServerMessage OnMessage {0}, Type: {1}", e.Data, e.Data.GetType()));
 
             if (e.Data != null)
             {
@@ -79,50 +91,28 @@ public class ServerManager : MonoBehaviour
                 {
                     string firstWord = splitData[0];
 
-                    if (firstWord == "1" || firstWord == "0")
+                    if (firstWord == "1")
                     {
                         //Debug.Log(string.Format("ServerMessage OnMessage {0}, Type: {1}", e.Data, e.Data.GetType()));
+                        ServerManager.coordinates = e.Data.ToString();
                     }
-                    //else if (firstWord == "TOUCH_DOWN")
-                    //{
-                    //    Debug.Log(string.Format("ServerMessage OnMessage {0}", e.Data));
-                    //}
-                    //else if (firstWord == "TOUCH_UP")
-                    //{
-                    //    Debug.Log(string.Format("ServerMessage OnMessage {0}", e.Data));
-                    //}
-                    //else
-                    //{
-                    //    Debug.Log(string.Format("ServerMessage OnMessage {0}", e.Data));
-                    //}
+                    else if (firstWord == "TOUCH_DOWN" || firstWord == "TOUCH_UP")
+                    {
+                        //Debug.Log(string.Format("ServerMessage OnMessage {0}", e.Data));
+                        ServerManager.coordinates = e.Data.ToString();
+                        state = firstWord;
+                    }
+                    else
+                    {
+                        //Debug.Log(string.Format("ServerMessage OnMessage {0}", e.Data));
+                    }
                 }
-                //else
-                //{
-                //    //TOUCH_DOWNとTOUCH_UPのとき
-                //    //Debug.Log(splitData);
-                //    Debug.Log(string.Format("ServerMessage OnMessage e.Data {0}", e.Data));
-
-                //}
             }
             else
             {
                 Debug.Log("ServerMessage OnMessage: e.Data is null");
             }
 
-            
-
-            ServerManager.coordinates = e.Data;
-
-            if(e.Data == "TOUCH_UP")
-            {
-                Debug.Log("TOUCH_UP");
-            }
-            else if(e.Data == "TOUCH_DOWN")
-            {
-                Debug.Log("TOUCH_DOWN");
-            }
-
-            //log();
         }
 
         public void log()

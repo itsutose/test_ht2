@@ -41,7 +41,7 @@ public class key2 : MonoBehaviour
     {
         this.ux = ux;
         this.uy = uy;
-        int small = 4;
+        int small = 3;
 
         float minx = cx - lx / small;
         float maxx = cx + lx / small;

@@ -33,7 +33,7 @@ public class coord_model : MonoBehaviour
     float sizex = 1900, sizey = 1072; // 横（x）は良さそう
 
     // 他のスクリプトからのアクセスに対しての返す変数
-    float ux = 0, uy = 0;
+    float ux = 100, uy = 100;
     float px = -1, py = -1;
     float subx, suby;
     int label = -1;
@@ -41,6 +41,7 @@ public class coord_model : MonoBehaviour
     private Boolean onrunning = false;
     private Boolean Pointer;
     private Boolean HoverPointer;
+    private Boolean Hover = false;
     private int out_range_times;
     private float magnification;
 
@@ -77,69 +78,100 @@ public class coord_model : MonoBehaviour
 
             //Debug.Log(string.Format("coord_model server message {0}",));
             andpos = server.get_coordinates();
+
             if (andpos != null)
             {
+                string[] splitData = andpos.Split(' ');
+
+                if (splitData.Length > 0)
+                {
+                    string firstWord = splitData[0];
+
+                    if (firstWord == "1" || firstWord == "0")
+                    {
+                        //Debug.Log(string.Format("ServerMessage OnMessage {0}, Type: {1}", andpos, andpos.GetType()));
+                    }
+                    else {
+
+                    
+                        Debug.Log(string.Format("coord_model {0}, Type: {1}", andpos, andpos.GetType()));
+                        //if (firstWord == "TOUCH_DOWN")
+                        //{
+                        //    Debug.Log(string.Format("coord_model {0}", server.get_coordinates()));
+                        //}
+                        //else if (firstWord == "TOUCH_UP")
+                        //{
+                        //    Debug.Log("coord_model TOUCH_UP");
+                        //}
+                        //else
+                        //{
+                        //    //Debug.Log(string.Format("ServerMessage OnMessage {0}", andpos));
+                        //}
+                    }
+                }
+
+
                 string[] result = Regex.Split(andpos, " ");
-
-
-                if (result.Length != 5)
-                {
-                    return;
-                }
-
-                last_time = now_time;
-                now_time = result[4];
-
-                if (result[0] == "0")
-                {
-                    onoff = false;
-                }
-                else if (result[0] == "1")
-                {
-                    onoff = true;
-                }
 
 
                 ////////////////////////  ここからはpointerを表示するかどうか
 
 
                 // 信号が一定時間送られなかったとき
-                if (count_times(now_time, last_time) == true)
+                //if (count_times(now_time, last_time) == true)
+                if (Hover == false)
                 {
-                    sphere.SetActive(false);
-
-                    onrunning = false;
-
-                    ux = -1;
-                    uy = -1;
-
-
-                    for (int i = 0; i < qx.Count; i++)
+                    if (result[0] == "TOUCH_UP")
                     {
 
-                        if (i >= 40)
-                        {
-                            break;
-                        }
-                        qx[i] = -1.0f;
-                        qy[i] = -1.0f;
-                    }
-
-                    return;
-
-                }
-                else
-                {
-                    if (Pointer == true)
-                    {
-                        sphere.SetActive(true);
-                        onrunning = true;
-                    }
-                    else
-                    {
+                        Debug.Log("cooed_model TOUCH_UP");
                         sphere.SetActive(false);
-                        onrunning = true;
+                        onoff = false;
+                        onrunning = false;
+
+                        ux = -1;
+                        uy = -1;
+
+
+                        for (int i = 0; i < qx.Count; i++)
+                        {
+
+                            if (i >= 40)
+                            {
+                                break;
+                            }
+                            qx[i] = -1.0f;
+                            qy[i] = -1.0f;
+                        }
+
+                        return;
+
                     }
+                    else if (result[0] == "TOUCH_DOWN")
+                    {
+                        Debug.Log("cooed_model TOUCH_DOWN");
+                        if (Pointer == true)
+                        {
+                            sphere.SetActive(true);
+                            onrunning = true;
+                            onoff = true;
+                        }
+                        else
+                        {
+                            sphere.SetActive(false);
+                            onrunning = true;
+                            onoff = true;
+                        }
+                    }
+                }
+
+                
+
+                if (result.Length != 5 || result[0] == "TOUCH_DOWN" || result[0] == "TOUCH_UP")
+                {
+                    ux = 100;
+                    uy = 100;
+                    return;
                 }
 
                 Material mat1 = sphere.GetComponent<Renderer>().material;
@@ -164,6 +196,8 @@ public class coord_model : MonoBehaviour
 
                 ////////////////////////////// ここまで
 
+
+
                 float xx = Convert.ToSingle(result[1]);
                 float yy = Convert.ToSingle(result[2]);
 
@@ -174,10 +208,12 @@ public class coord_model : MonoBehaviour
                 float ux0 = -1 * (xx / sizex - (float)0.5) * 2 * (float)0.0375 * (sizex / sizey) * magnification;
                 float uy0 = -1 * (yy / sizey - (float)0.5) * 2 * (float)0.0375 * magnification;
 
+                //float[] uxuy = pass_ux_uy_from_coord();
+                //float ux0 = uxuy[0];
+                //float uy0 = uxuy[1];
+
                 ////////////////////////////////////////  補正のモデル用
 
-                //if (model == true)
-                //{
 
                 qx.Insert(0, ux0);
                 qy.Insert(0, uy0);
@@ -224,7 +260,7 @@ public class coord_model : MonoBehaviour
                     }
                 }
 
-
+                // 回帰で補正をする場合にUtoP == true，それ以外はfalse
                 if (UtoP == true)
                 {
 
@@ -241,11 +277,6 @@ public class coord_model : MonoBehaviour
 
                         px = pxpy[0];
                         py = pxpy[1];
-
-                        //Debug.Log(string.Format("coord_model  px  {0}  py {1}", px, py));
-
-
-                        //Debug.Log("coord_model running   " + px + "  ,  " + py);
 
                         //ローカル座標を基準に、座標を取得
                         Vector3 prelocalPos = preSphere.transform.localPosition;
@@ -273,7 +304,6 @@ public class coord_model : MonoBehaviour
 
                 }
                 
-
 
                 //ローカル座標を基準に、座標を取得
                 Vector3 localPos = sphere.transform.localPosition;
@@ -309,18 +339,46 @@ public class coord_model : MonoBehaviour
 
     public int getLabel()
     {
-        //label = model_class.GetComponent<ONNX_multi_classification>().ModelPredict(ux, uy, uxs[1], uys[1], uxs[2], uys[2], uxs[3], uys[3], uxs[4], uys[4], uxs[5], uys[5]);
-
-        ////return label;
-        //Debug.Log(string.Format("ux  {0}, uy  {1}", ux, uy));
-
-        //for (int i = 1; i < 6; i++)
-        //{
-        //    Debug.Log(string.Format("ux{0}  {1}, uy{2}  {3}", i, uxs[i], i, uys[i]));
-        //}
 
         //Debug.Log(model_class.GetComponent<ONNX_multi_classification>().ModelPredict(ux, uy, uxs[1], uys[1], uxs[2], uys[2], uxs[3], uys[3], uxs[4], uys[4], uxs[5], uys[5]));
         return model_class.GetComponent<ONNX_multi_classification>().ModelPredict(ux, uxs[1], uxs[2], uxs[3], uxs[4], uxs[5], uy, uys[1], uys[2], uys[3], uys[4], uys[5]);
+
+    }
+
+    public float[] pass_ux_uy_from_coord()
+    {
+
+        string andpos = server.get_coordinates();
+        float startTime = Time.time;
+
+        if (andpos != null)
+        {
+
+            while (startTime - Time.time <= 0.01) {
+
+                string[] splitData = andpos.Split(' ');
+                string[] result = Regex.Split(andpos, " ");
+
+                if (result.Length == 5)
+                {
+                    float xx = Convert.ToSingle(result[1]);
+                    float yy = Convert.ToSingle(result[2]);
+
+                    // x : 倍率3.5でちょうど画面いっぱいでキーボードを網羅する ((x / maxx) - (float)0.5) * (float)3.5;
+                    // y : 右式でちょうど画面いっぱいでキーボードを網羅する  (y / maxy - (float)0.5) * (float)5 - (float)0.5; 
+                    //ux = (xx / maxx - (float)0.3) * (float)6;
+
+                    float ux0 = -1 * (xx / sizex - (float)0.5) * 2 * (float)0.0375 * (sizex / sizey) * magnification;
+                    float uy0 = -1 * (yy / sizey - (float)0.5) * 2 * (float)0.0375 * magnification;
+
+               
+                    return new float[] {ux0, uy0};
+                }
+            }
+            
+        }
+
+        return new float[] { getUX(), getUY() };
 
     }
 

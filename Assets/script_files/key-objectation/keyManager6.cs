@@ -79,7 +79,12 @@ public class keyManager6 : MonoBehaviour
         {
             if (nowkey != null && onrunning == false)
             {
-                up_touch(true);
+                if (ux != 100 && uy != 100)
+                {
+                    set_ux = ux;
+                    set_uy = uy;
+                    up_touch(true);
+                }
 
                 return;
             }
@@ -98,63 +103,69 @@ public class keyManager6 : MonoBehaviour
 
                 if (nowkey == null)
                 {
-                    set_ux = ux;
-                    set_uy = uy;
-                    set_touch();
+                    if (ux != 100 && uy != 100)
+                    {
+                        set_ux = ux;
+                        set_uy = uy;
+                        set_touch();
+                    }
                 }
                 else
                 {
-                    touch_action();
+                    if (ux != 100 && uy != 100)
+                    {
+                        touch_action();
+                    }
                 }
             }
             // ホバー中
             else
             {
-                // nowkeyは今押されている（若しくは，1 flame前まで押されていた）キー
-                if (preonoff == false)
-                {
-                    foreach (GameObject key in keylist)
-                    {
-                        // 指座標がキー領域内にあるかどうか，なければ次のキーを探す
-                        if (key.GetComponent<key2>().isin(ux, uy) == true)
-                        {
-                            // priorkeyがkey（現在のkey）ではない
-                            // && priorkeyのnull判定をしないとnull参照する
-                            if (priorkey != key && priorkey != null)
-                            {
-                                //priorkey.GetComponent<key2>().rmcolor();
-                                rmcolor(priorkey, HowTransparent);
-                            }
+                //// nowkeyは今押されている（若しくは，1 flame前まで押されていた）キー
+                //if (preonoff == false)
+                //{
+                //    foreach (GameObject key in keylist)
+                //    {
+                //        // 指座標がキー領域内にあるかどうか，なければ次のキーを探す
+                //        if (key.GetComponent<key2>().isin(ux, uy) == true)
+                //        {
+                //            // priorkeyがkey（現在のkey）ではない
+                //            // && priorkeyのnull判定をしないとnull参照する
+                //            if (priorkey != key && priorkey != null)
+                //            {
+                //                //priorkey.GetComponent<key2>().rmcolor();
+                //                rmcolor(priorkey, HowTransparent);
+                //            }
 
-                            priorkey = key;
+                //            priorkey = key;
 
-                            if (HoverColorFeedback == true)
-                            {
-                                priorkey.GetComponent<key2>().takecolor();
-                            }
-                            return;
-                        }
-                    }
-                    if (priorkey != null)
-                    {
-                        rmcolor(priorkey, HowTransparent);
-                    }
-                }
-                // 指を離したとき, 1フレーム前まではonなのでpreonoff == true
-                else
-                {
-                    Debug.Log(string.Format("keyManager6  nowkey {0}", nowkey));
+                //            if (HoverColorFeedback == true)
+                //            {
+                //                priorkey.GetComponent<key2>().takecolor();
+                //            }
+                //            return;
+                //        }
+                //    }
+                //    if (priorkey != null)
+                //    {
+                //        rmcolor(priorkey, HowTransparent);
+                //    }
+                //}
+                //// 指を離したとき, 1フレーム前まではonなのでpreonoff == true
+                //else
+                //{
+                //    Debug.Log(string.Format("keyManager6  nowkey {0}", nowkey));
 
-                    if (nowkey == null)
-                    {
-                        up_touch(false);
-                    }
-                    else
-                    {
-                        up_touch(true);
-                    }
-                    preonoff = false;
-                }
+                //    if (nowkey == null)
+                //    {
+                //        up_touch(false);
+                //    }
+                //    else
+                //    {
+                //        up_touch(true);
+                //    }
+                //    preonoff = false;
+                //}
             }
         }
     }
@@ -474,7 +485,10 @@ public class keyManager6 : MonoBehaviour
 
             foreach (GameObject key in keylist)
             {
-                takecolor(key, HowTransparent);
+                if (nowkey != null)
+                {
+                    takecolor(key, HowTransparent);
+                }
             }
         }
 
