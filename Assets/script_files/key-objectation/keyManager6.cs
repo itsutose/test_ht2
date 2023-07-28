@@ -86,6 +86,7 @@ public class keyManager6 : MonoBehaviour
 
             if (onrunning == false)
             {
+
                 return;
             }
 
@@ -142,6 +143,7 @@ public class keyManager6 : MonoBehaviour
                 // 指を離したとき, 1フレーム前まではonなのでpreonoff == true
                 else
                 {
+                    Debug.Log(string.Format("keyManager6  nowkey {0}", nowkey));
 
                     if (nowkey == null)
                     {
@@ -352,7 +354,7 @@ public class keyManager6 : MonoBehaviour
 
     private void set_touch()
     {
-        Debug.Log("keyManager6  set_touch");
+        //Debug.Log("keyManager6  set_touch");
         if (ModelType == "class")
         {
 
@@ -539,7 +541,7 @@ public class keyManager6 : MonoBehaviour
 
     private void up_touch(Boolean oo)
     {
-        Debug.Log("keyManager6  up_touch");
+        //Debug.Log("keyManager6  up_touch");
         foreach (GameObject key in keylist)
         {
             rmcolor(key, HowTransparent);

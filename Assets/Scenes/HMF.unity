@@ -1940,7 +1940,7 @@ MonoBehaviour:
   KeyColor: TP3
   HowTransparent: 80
   CloverTransparent: 80
-  folder_path: .\Assets\CSV_output\test_20230727\text_input
+  folder_path: .\Assets\CSV_output\test_20230728
   file_name: test
   _ID: test2
   _InputType: HMF
@@ -2819,7 +2819,6 @@ MonoBehaviour:
   ExampleText: {fileID: 1414326898}
   textobject: {fileID: 1547484323}
   csvOP: {fileID: 1508191599}
-  until: 27
 --- !u!4 &638275901
 Transform:
   m_ObjectHideFlags: 0

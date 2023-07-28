@@ -68,23 +68,59 @@ public class ServerManager : MonoBehaviour
         //誰かがメッセージを送信してきたときに呼ばれるメソッド
         protected override void OnMessage(MessageEventArgs e)
         {
-            //if (debug.Contains("1"))
-            //{
-            //    Debug.Log(e.Data);
-            //}
-            //if(prior != e.Data)
-            //{
-            //    prior = e.Data;
-                
-            //}
-            //else
-            //{
+            //Debug.Log(string.Format("ServerMessage OnMessage {0}, Type: {1}", e.Data, e.Data.GetType()));
 
-            //}
+            if (e.Data != null)
+            {
+                string dataString = e.Data.ToString();
+                string[] splitData = dataString.Split(' ');
+
+                if (splitData.Length > 0)
+                {
+                    string firstWord = splitData[0];
+
+                    if (firstWord == "1" || firstWord == "0")
+                    {
+                        //Debug.Log(string.Format("ServerMessage OnMessage {0}, Type: {1}", e.Data, e.Data.GetType()));
+                    }
+                    //else if (firstWord == "TOUCH_DOWN")
+                    //{
+                    //    Debug.Log(string.Format("ServerMessage OnMessage {0}", e.Data));
+                    //}
+                    //else if (firstWord == "TOUCH_UP")
+                    //{
+                    //    Debug.Log(string.Format("ServerMessage OnMessage {0}", e.Data));
+                    //}
+                    //else
+                    //{
+                    //    Debug.Log(string.Format("ServerMessage OnMessage {0}", e.Data));
+                    //}
+                }
+                //else
+                //{
+                //    //TOUCH_DOWNとTOUCH_UPのとき
+                //    //Debug.Log(splitData);
+                //    Debug.Log(string.Format("ServerMessage OnMessage e.Data {0}", e.Data));
+
+                //}
+            }
+            else
+            {
+                Debug.Log("ServerMessage OnMessage: e.Data is null");
+            }
+
+            
 
             ServerManager.coordinates = e.Data;
 
-            //if()
+            if(e.Data == "TOUCH_UP")
+            {
+                Debug.Log("TOUCH_UP");
+            }
+            else if(e.Data == "TOUCH_DOWN")
+            {
+                Debug.Log("TOUCH_DOWN");
+            }
 
             //log();
         }

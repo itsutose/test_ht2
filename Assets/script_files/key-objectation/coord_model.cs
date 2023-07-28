@@ -74,10 +74,13 @@ public class coord_model : MonoBehaviour
 
         if (server != null)
         {
+
+            //Debug.Log(string.Format("coord_model server message {0}",));
             andpos = server.get_coordinates();
             if (andpos != null)
             {
                 string[] result = Regex.Split(andpos, " ");
+
 
                 if (result.Length != 5)
                 {

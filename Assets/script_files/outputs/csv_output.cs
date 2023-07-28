@@ -46,38 +46,18 @@ public class csv_output : MonoBehaviour
         string s2 = string.Join(",", s1);
         Debug.Log(s2);
         sw.WriteLine(s2);
-        //foreach (int i in num)
-        //{
-        //    sw.WriteLine(i);// ファイルに書き出したあと改行
-        //}
-
-        //sw.WriteLine("おわり");
-
-        //sw.Flush();
-        //sw.Close();
 
     }
 
     void Update()
     {
-        //long milliseconds = DateTime.Now.Millisecond;
-
-        //Debug.Log("Current time in milliseconds: " + milliseconds);
-
-        //milliseconds = DateTime.Now.Ticks / 10000;
-
-        //Debug.Log("Current time in milliseconds: " + milliseconds);
-
-        //Debug.Log("Current time : " + Time.time * 1000);
-
-        //Debug.Log("Current time : " + Time.time + milliseconds);
-
 
         //エンターキーが入力された場合「true」
         if (Input.GetKey(KeyCode.Space))
         {
             //オブジェクトを削除
             sw.WriteLine("interrupt");
+            csvClose();
             UnityEditor.EditorApplication.isPlaying = false;
         }
     }
@@ -88,18 +68,7 @@ public class csv_output : MonoBehaviour
         float DeltaTime;
         int millitime = (int)((Time.time - preTime) * 1000);
 
-        //if (isFirst == true)
-        //{
-        //    DeltaTime = 0;
-        //    preTime = Time.time;
-        //    //millitime = 0;
-        //    isFirst = false;
-        //}
-        //else
-        //{
-        //    DeltaTime = Time.time - preTime;
-        //    //preTime = Time.time;
-        //}
+
         string wo = word.ToString();
 
         if(wo == "o")
@@ -114,9 +83,9 @@ public class csv_output : MonoBehaviour
         //string[] s1 = { _ID, _InputType, _Distance, phrase, word.ToString(), ux.ToString(), uy.ToString(), DeltaTime.ToString(), " " };
 
         string[] s1 = { _ID, _InputType, "3" , "FALSE", phrase, original_num, now_time.ToString(), wo , millitime.ToString()};
-        //SumTime += DeltaTime;
         string s2 = string.Join(",", s1);
         sw.WriteLine(s2);
+        sw.Flush();
 
     }
 
@@ -124,19 +93,21 @@ public class csv_output : MonoBehaviour
     public void EnterSave(string phrase, char word, float ux, float uy)
     {
         Debug.Log(string.Format("Enter.Save : {0}", Time.time));
-        //float DeltaTime = Time.time - preTime;
 
-        //SumTime += DeltaTime;
-        //string[] s1 = { _ID, _InputType, _Distance, phrase, word.ToString(), ux.ToString(), uy.ToString(), DeltaTime.ToString(), SumTime.ToString() };
-        //string[] s1 = { "dummy","dummy","dummy","dummy","dummy","dummy","dummy","dummy", "dummy" };
-        //string s2 = string.Join(",", s1);
         //sw.WriteLine();
+        //sw.Flush();
 
         now_time += 1;
         preTime = Time.time;
         SumTime = 0;
         //isFirst = true;
     }
+
+    void OnApplicationQuit()
+    {
+        csvClose();
+    }
+
 
 
     private string FileNameCheck(string folder_path, string file_name)
