@@ -94,7 +94,7 @@ public class coord_model : MonoBehaviour
                     else {
 
                     
-                        Debug.Log(string.Format("coord_model {0}, Type: {1}", andpos, andpos.GetType()));
+                        //Debug.Log(string.Format("coord_model {0}, Type: {1}", andpos, andpos.GetType()));
                         //if (firstWord == "TOUCH_DOWN")
                         //{
                         //    Debug.Log(string.Format("coord_model {0}", server.get_coordinates()));
@@ -318,24 +318,24 @@ public class coord_model : MonoBehaviour
         }
     }
 
-    bool count_times(string nt, string lt)
-    {
+    //bool count_times(string nt, string lt)
+    //{
 
-        if (nt == lt)
-        {
-            same_times_count += 1;
-            if (same_times_count >= out_range_times)
-            {
-                return true;
-            }
-        }
-        else
-        {
-            same_times_count = 0;
-        }
+    //    if (nt == lt)
+    //    {
+    //        same_times_count += 1;
+    //        if (same_times_count >= out_range_times)
+    //        {
+    //            return true;
+    //        }
+    //    }
+    //    else
+    //    {
+    //        same_times_count = 0;
+    //    }
 
-        return false;
-    }
+    //    return false;
+    //}
 
     public int getLabel()
     {

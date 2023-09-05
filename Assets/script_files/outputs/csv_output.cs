@@ -19,6 +19,7 @@ public class csv_output : MonoBehaviour
     private StreamWriter sw;
 
     private Boolean isFirst = true;
+    private Boolean IsPractice;
     private string file_path;
     private float preTime = 0;
     private float SumTime = 0;
@@ -26,11 +27,22 @@ public class csv_output : MonoBehaviour
     private int i = 0;
     private int now_time = 0;
 
+    public void setIsPractice(Boolean io)
+    {
+        IsPractice = io;
+    }
+
     // Start is called before the first frame update
     public void SStart()
     {
         //file_path = folder_path + "\\" + file_name;
-
+        if (IsPractice == true) { 
+            file_name = "HMF_" + _ID + "_practice";
+        }
+        else
+        {
+            file_name = "HMF_" + _ID + "_test";
+        }
         file_name = FileNameCheck(folder_path, file_name);
         file_name = file_name + ".csv";
         file_path = folder_path + "\\" + file_name;
@@ -81,8 +93,17 @@ public class csv_output : MonoBehaviour
 
         //string[] s1 = { id, InputType, distance, phrase, word, detectedKey, ux, uy, DeltaTime.ToString(), " "};
         //string[] s1 = { _ID, _InputType, _Distance, phrase, word.ToString(), ux.ToString(), uy.ToString(), DeltaTime.ToString(), " " };
+        string ip;
+        if(IsPractice == true)
+        {
+            ip = "True";
+        }
+        else
+        {
+            ip = "False";
+        }
 
-        string[] s1 = { _ID, _InputType, "3" , "FALSE", phrase, original_num, now_time.ToString(), wo , millitime.ToString()};
+        string[] s1 = { _ID, _InputType, "3" , ip, phrase, original_num, now_time.ToString(), wo , millitime.ToString()};
         string s2 = string.Join(",", s1);
         sw.WriteLine(s2);
         sw.Flush();

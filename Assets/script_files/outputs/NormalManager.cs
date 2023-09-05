@@ -16,6 +16,7 @@ public class NormalManager : MonoBehaviour
     public coord_model coords;
     public keyPosition kp;
     public csv_output csvop;
+    public textSet textset;
 
     //public Boolean PreTest = false;
     public Boolean HoverColorFeedback = true;
@@ -28,12 +29,13 @@ public class NormalManager : MonoBehaviour
 
 
     public string folder_path = ".\\Assets\\CSV_output\\Normal";
-    public string file_name = "test";
+    //public string file_name = "test";
+    public Boolean IsPractice = false;
     public string _ID;
     public string _InputType;
     public float _Distance = (float)0.15;
     public float _Mode;
-    public int TestTimes = 10;
+    //public int TestTimes;
 
 
     public string ModelType = "class";
@@ -46,10 +48,10 @@ public class NormalManager : MonoBehaviour
     void Start()
     {
 
-        file_name = file_name;
+        //file_name = file_name;
 
         csvop.setFolderPath(folder_path);
-        csvop.setFileName(file_name);
+        //csvop.setFileName(file_name);
         csvop.setID(_ID);
         csvop.setInputType(_InputType);
         csvop.setDistance(_Distance.ToString());
@@ -74,8 +76,11 @@ public class NormalManager : MonoBehaviour
         coords.setORT(out_range_times);
         coords.setMagnification(magnification);
 
+        textset.setIsPractice(IsPractice);
+
 
         fkb.GetComponent<keyManager6>().SStart();
+        csvop.setIsPractice(IsPractice);
         csvop.SStart();
 
     }
